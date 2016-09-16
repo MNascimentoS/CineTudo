@@ -1,50 +1,35 @@
-package cinema;
+package model;
 
-public class Sala {
-	private int numSala, numAssentos;
-	private Sessoes sessoes;
-	private String tipo;
-	private float valor;
-	/*************************************************/
-	public Sala(){
-		
+public abstract class Sala {
+	
+	protected int numero, capacidade;
+	protected float precoIngresso;
+	
+	public Sala(int numero, int capacidade, float precoIngresso) {
+		this.numero = numero;
+		this.capacidade = capacidade;
+		this.precoIngresso = precoIngresso;
+	}
+	/*gets ^ sets*/
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public int getCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(int capacidade) {
+		this.capacidade = capacidade;
 	}
 	
-	
-	
-	
-	
-	/*************************************************/
-	/*              Getters and Setters              */
-	/*************************************************/
-	public int getNumSala() {
-		return numSala;
+	public void setPrecoIngresso(float precoIngresso) {
+		this.precoIngresso = precoIngresso;
 	}
-	public void setNumSala(int numSala) {
-		this.numSala = numSala;
-	}
-	public int getNumAssentos() {
-		return numAssentos;
-	}
-	public void setNumAssentos(int numAssentos) {
-		this.numAssentos = numAssentos;
-	}
-	public Sessoes getSessoes() {
-		return sessoes;
-	}
-	public void setSessoes(Sessoes sessoes) {
-		this.sessoes = sessoes;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	public float getValor() {
-		return valor;
-	}
-	public void setValor(float valor) {
-		this.valor = valor;
-	}
+	/*retorna o valor do ingresso*/
+	abstract float getPrecoIngresso();
 }

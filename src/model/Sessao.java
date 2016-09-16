@@ -1,64 +1,71 @@
 package model;
 
-import java.util.ArrayList;
-
 /**
  * Created by diogo on 20/08/16.
  */
 public class Sessao {
 
-    private ArrayList<Assento> assentos;
+	private Filme filme;
+	private Sala sala;
+	private Horario horario;
     private Data data;
-    private Horario horario;
-    private Filme filme;
-    private int duracao;
+    private int ingressosDisponiveis;
+    private float valorSessao;
+	
+    public Sessao(Filme filme, Sala sala, Horario horario, Data data, float valorSessao) {
+		this.filme = filme;
+		this.sala = sala;
+		this.horario = horario;
+		this.data = data;
+		this.ingressosDisponiveis = this.sala.getCapacidade();
+		this.valorSessao = (float) this.sala.getPrecoIngresso();
+	}
 
-    public Sessao(ArrayList<Assento> assentos, Data data, Horario horario, Filme filme, int duracao) {
-        this.assentos = assentos;
-        this.data = data;
-        this.horario = horario;
-        this.filme = filme;
-        this.duracao = duracao;
-    }
+	public Filme getFilme() {
+		return filme;
+	}
 
-    public ArrayList<Assento> getAssentos() {
-        return assentos;
-    }
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
 
-    public void setAssentos(char fila, int num) {
-        Assento assento = new Assento(fila, num);
-        this.assentos.add(assento);
-    }
+	public Sala getSala() {
+		return sala;
+	}
 
-    public Data getData() {
-        return data;
-    }
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
 
-    public void setData(Data data) {
-        this.data = data;
-    }
+	public Horario getHorario() {
+		return horario;
+	}
 
-    public Horario getHorario() {
-        return horario;
-    }
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
 
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
+	public Data getData() {
+		return data;
+	}
 
-    public Filme getFilme() {
-        return filme;
-    }
+	public void setData(Data data) {
+		this.data = data;
+	}
 
-    public void setFilme(Filme filme) {
-        this.filme = filme;
-    }
+	public int getIngressosDisponiveis() {
+		return ingressosDisponiveis;
+	}
 
-    public int getDuracao() {
-        return duracao;
-    }
+	public void setIngressosDisponiveis(int ingressosDisponiveis) {
+		this.ingressosDisponiveis = ingressosDisponiveis;
+	}
 
-    public void setDuracao(int duracao) {
-        if(duracao > 0) this.duracao = duracao;
-    }
+	public float getValorSessao() {
+		return valorSessao;
+	}
+
+	public void setValorSessao(float valorSessao) {
+		this.valorSessao = valorSessao;
+	}    
 }
