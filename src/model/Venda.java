@@ -5,22 +5,43 @@ import java.util.Calendar;
 
 public class Venda {
 	
-	private ArrayList<Ingresso> ingressos;
+	private ArrayList<Ingresso> ingressos = new ArrayList<>();
 	private float valorTotal;
 	private Data data;
 	private Horario horario;
 	
 	public Venda(){
-		this.ingressos = new ArrayList<>();
 		this.valorTotal = 0;
-		Calendar c = Calendar.getInstance();
+		setTodayCalendar();
+		/*Calendar c = Calendar.getInstance();
 		data.setDia(c.get(Calendar.DAY_OF_MONTH));
 		data.setMes(c.get(Calendar.MONTH));
 		data.setAno(c.get(Calendar.YEAR));
 		horario.setHora(c.get(Calendar.HOUR));
-		horario.setMinuto(c.get(Calendar.MINUTE));
+		horario.setMinuto(c.get(Calendar.MINUTE));*/
 	}
 
+	public void setTodayCalendar(){
+		Calendar c = Calendar.getInstance();
+		this.data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH)+1, c.get(Calendar.YEAR));
+		this.horario = new Horario(c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
+	}
+	
+	public int getDia()
+	{
+		return data.getDia();
+	}
+	
+	public int getMes()
+	{
+		return data.getMes();
+	}
+	
+	public int getAno()
+	{
+		return data.getAno();
+	}
+	
 	public ArrayList<Ingresso> getIngressos() {
 		return ingressos;
 	}
@@ -30,10 +51,12 @@ public class Venda {
 	}
 
 	public float getValorTotal(){
+		float valorFinal = 0;
 		for(Ingresso ing : ingressos)
 		{
-			this.valorTotal = this.valorTotal + ing.getPreco();
+			valorFinal = valorFinal + ing.getPreco();
 		}
+		this.valorTotal = valorFinal;
 		return this.valorTotal;
 	}
 

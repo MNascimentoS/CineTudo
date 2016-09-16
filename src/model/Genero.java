@@ -4,7 +4,6 @@ public class Genero {
 	private String nome;
 
 	public Genero(String nome) {
-		super();
 		this.nome = nome;
 	}
 

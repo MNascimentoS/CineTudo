@@ -2,15 +2,16 @@ package model;
 
 public class Promocao {
 	private String nome, descricao;
-	private Data data;
-	private int valorIngresso;
+	private int diaDaSemana;
+	private float desconto;
 	
-	public Promocao(String nome, String descricao, Data data, int valorIngresso) {
+	public Promocao(String nome, String descricao,  int diaDaSemana, float desconto) {
 		this.nome = nome;
 		this.descricao = descricao;
-		this.data = data;
-		this.valorIngresso = valorIngresso;
+		this.diaDaSemana = diaDaSemana;
+		this.desconto = desconto;
 	}
+	
 	
 	public String getNome() {
 		return nome;
@@ -24,16 +25,17 @@ public class Promocao {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Data getData() {
-		return data;
+	public int getDiaDaSemana() {
+		return this.diaDaSemana;
 	}
-	public void setData(Data data) {
-		this.data = data;
+	public void setDiaDaSemana(int diaDaSemana) {
+		this.diaDaSemana = diaDaSemana;
 	}
-	public int getValorIngresso() {
-		return valorIngresso;
+	
+	public float getDesconto() {
+		return desconto;
 	}
-	public void setValorIngresso(int valorIngresso) {
-		this.valorIngresso = valorIngresso;
+	public void setDesconto(float desconto) {
+		this.desconto = desconto;
 	}
 }

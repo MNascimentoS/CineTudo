@@ -31,5 +31,5 @@ public abstract class Sala {
 		this.precoIngresso = precoIngresso;
 	}
 	/*retorna o valor do ingresso*/
-	abstract float getPrecoIngresso();
+	public abstract float getPrecoIngresso();
 }

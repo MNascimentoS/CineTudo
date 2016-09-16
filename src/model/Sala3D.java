@@ -7,8 +7,8 @@ public class Sala3D extends Sala{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	float getPrecoIngresso() {
+	public float getPrecoIngresso() {
 		// adicional de 20% no valor do ingresso
-		return (float) (precoIngresso * 0.20);
+		return (float) (precoIngresso * 0.20) + precoIngresso;
 	}
 }

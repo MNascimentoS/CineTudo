@@ -1,5 +1,6 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -15,10 +16,11 @@ public class Cinema {
 	
 	private String nome, endereco, cpnj;
 	private ArrayList<Filme> filmes = new ArrayList<>();
+	private ArrayList<Promocao> promocoes = new ArrayList<>();
 	private ArrayList<Sessao> sessoes = new ArrayList<>();
 	private ArrayList<Sala> salas = new ArrayList<>();
 	private ArrayList<Venda> vendas = new ArrayList<>();
-	private float valorSemana, valorFDS, valorIngresso;
+	private float valorSemana, valorFDS,  montante;
 	
 	public Cinema(String nome, String endereco, String cnpj, float valorSemana, float valorFDS){
 		this.nome = nome;
@@ -29,15 +31,26 @@ public class Cinema {
 	}
 
 	public float getValorIngresso() {
-		return valorIngresso;
-	}
-
-	public void setValorIngresso(float valorIngresso) {
 		Calendar cal = Calendar.getInstance();
 		int day = cal.get(Calendar.DAY_OF_WEEK);
+		float valorDoIngresso = 0;
 		/*caso finais de semana - adote o preco do final de semana*/
-		if(day == 1 || day == 7) this.valorIngresso = valorFDS;
-		else this.valorIngresso = valorSemana;
+		if(day == 1 || day == 7) valorDoIngresso = valorFDS;
+		else valorDoIngresso =  valorSemana;
+		
+		//the magic is happen
+		if(this.promocoes.size() > 0)
+		{
+			for(Promocao promo : this.promocoes)
+			{
+				if(promo.getDiaDaSemana() == day)
+				{
+					valorDoIngresso -= valorDoIngresso * (promo.getDesconto() / 100);
+					break;
+				}
+			}
+		}
+		return valorDoIngresso;
 	}
 
 	public float getValorSemana() {
@@ -87,6 +100,11 @@ public class Cinema {
 	public void addFilme(Filme filme) {
 		this.filmes.add(filme);
 	}
+	
+	public void addVenda(Venda venda)
+	{
+		this.vendas.add(venda);
+	}
 
 	public ArrayList<Sessao> getSessoes() {
 		return sessoes;
@@ -102,5 +120,31 @@ public class Cinema {
 
 	public void addSala(Sala sala) {
 		this.salas.add(sala);
+	}
+	
+	public float getMontante()
+	{
+		float montante = 0;
+		
+		for(Venda v : this.vendas)
+		{
+			montante+= v.getValorTotal();
+		}
+		this.montante = montante;
+		return this.montante;
+	}
+	
+	public int getTotalVendas()
+	{
+		int cont = 0;
+		for(Venda v : this.vendas)
+		{
+			cont++;
+		}
+		return cont;
+	}
+	
+	public void addPromocao(Promocao promo){
+		this.promocoes.add(promo);
 	}
 }

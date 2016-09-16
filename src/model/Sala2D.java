@@ -7,7 +7,7 @@ public class Sala2D extends Sala{
 	}
 
 	@Override
-	float getPrecoIngresso() {
+	public float getPrecoIngresso() {
 		// TODO Auto-generated method stub
 		return precoIngresso;
 	} 	
