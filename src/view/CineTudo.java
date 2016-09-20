@@ -19,7 +19,7 @@ public class CineTudo {
 
     public static void main(String[] args) {
        Cinema cine = new Cinema("CineTudo", "Salvador Shopping","012313345", 10, 17);
-       Sala sala1 = new Sala3D(1, 10, cine.getValorIngresso());
+       Sala sala1 = new Sala3D(1, 50, cine.getValorIngresso());
        Genero ge = new Genero("suspense");
        Filme filme1 = new Filme("a bruxa de bler","fareuz","Paul",10, 12,  ge);
        cine.addFilme(filme1);
@@ -48,8 +48,7 @@ public class CineTudo {
        cine.addVenda(v);
        cine.addVenda(v2);
     
-       System.out.println("Valor do ingresso hoje: "+cine.getValorIngresso());
-       //System.out.println("Total de vendas: "+cine.getTotalVendas()+" com renda de R$ "+String.format("%.2f", cine.getMontante()));
+       se.printarAssento(50);
     }
 }
 

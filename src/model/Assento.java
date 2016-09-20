@@ -9,7 +9,7 @@ public class Assento {
     private int numero;
     private boolean ocupado;
 
-    public Assento(char fila, int numero) {
+	public Assento(char fila, int numero) {
         this.fila = fila;
         this.numero = numero;
         this.ocupado = false;
@@ -30,5 +30,12 @@ public class Assento {
     public void setNumero(int numero) {
         if(numero > 0) this.numero = numero;
     }
+    
+    public boolean isOcupado() {
+		return ocupado;
+	}
 
+	public void setOcupado(boolean ocupado) {
+		this.ocupado = ocupado;
+	}
 }
