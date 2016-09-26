@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -73,14 +74,21 @@ public class LoginFXMLController implements Initializable {
     {
         if(tv_name.getText().equals("user") && tv_password.getText().equals("pass"))
         {
-              Stage stage = new Stage();
+              Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
               Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
               Scene scene = new Scene(root);
+              stage.hide();
               stage.setScene(scene);
               stage.show();
+           
         }else{
-             JOptionPane.showMessageDialog(null,"falha ao autenticar!");
+              JOptionPane.showMessageDialog(null,"Usuario ou senha incorreto!");
         }
+        
     }
+    /*private void CloseAction(ActionEvent event) {
+        Stage stage = (Stage) Close.getScene().getWindow();
+        stage.close();
+    }*/
     
 }
