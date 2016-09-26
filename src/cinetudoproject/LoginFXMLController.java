@@ -75,7 +75,7 @@ public class LoginFXMLController implements Initializable {
         if(tv_name.getText().equals("user") && tv_password.getText().equals("pass"))
         {
               Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-              Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
+              Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
               Scene scene = new Scene(root);
               stage.hide();
               stage.setScene(scene);

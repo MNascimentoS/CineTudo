@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="CineTudoProject.jar" size="730482" download="eager" />
+    <jar href="CineTudoProject.jar" size="799708" download="eager" />
     <jar href="lib/jfoenix.jar" size="2167257" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="CineTudoProject" >
