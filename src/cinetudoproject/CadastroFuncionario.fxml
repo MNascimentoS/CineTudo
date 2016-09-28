@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="708.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.CadastroFuncionarioController">
+    <children>
+      <StackPane layoutX="-1.0" layoutY="-4.0" prefHeight="224.0" prefWidth="1104.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-4.0">
+         <children>
+              <ImageView fitHeight="227.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../img/logocinetudo.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="2.0" layoutY="285.0" prefHeight="46.0" prefWidth="557.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="559.0">
+         <children>
+           <JFXTextField fx:id="tf_name" focusColor="#ff4537" maxWidth="489.0" minWidth="489.0" prefHeight="27.0" prefWidth="489.0" promptText="Nome">
+               <font>
+                   <Font size="20.0" />
+               </font>
+           </JFXTextField>
+         </children>
+      </StackPane>
+      <StackPane layoutX="8.0" layoutY="331.0" prefHeight="46.0" prefWidth="542.0">
+         <children>
+            <JFXTextField fx:id="tf_cpf" focusColor="#ff4537" maxWidth="489.0" minWidth="489.0" prefHeight="27.0" prefWidth="489.0" promptText="CPF">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </StackPane>
+      <StackPane layoutX="3.0" layoutY="375.0" prefHeight="46.0" prefWidth="557.0">
+         <children>
+            <JFXTextField fx:id="tf_email" focusColor="#ff4537" maxWidth="489.0" minWidth="489.0" prefHeight="27.0" prefWidth="489.0" promptText="Email">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </StackPane>
+      <StackPane layoutX="561.0" layoutY="285.0" prefHeight="46.0" prefWidth="557.0">
+         <children>
+            <JFXTextField fx:id="tf_user" focusColor="#ff4537" maxWidth="489.0" minWidth="489.0" prefHeight="27.0" prefWidth="489.0" promptText="Usuário">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </StackPane>
+      <StackPane layoutX="560.0" layoutY="331.0" prefHeight="46.0" prefWidth="557.0" AnchorPane.leftAnchor="560.0" AnchorPane.rightAnchor="1.0">
+         <children>
+            <JFXPasswordField fx:id="tf_pass" focusColor="#ff4537" maxWidth="489.0" minWidth="403.0" prefHeight="44.0" prefWidth="403.0" promptText="Senha">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </JFXPasswordField>
+         </children>
+      </StackPane>
+      <StackPane fx:id="paneCadastro" layoutX="2.0" layoutY="490.0" prefHeight="46.0" prefWidth="1112.0">
+         <children>
+             <JFXButton fx:id="btn_cadastron" buttonType="RAISED" layoutX="329.0" layoutY="487.0" onAction="#cadastro" prefHeight="45.0" prefWidth="460.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CADASTRAR" textFill="WHITE">
+               <font>
+                 <Font name="Droid Sans Georgian" size="20.0" />
+               </font>
+             </JFXButton>
+         </children>
+      </StackPane>     
+    </children>
+</AnchorPane>

@@ -42,14 +42,6 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private JFXButton btn_login;
-
-    
-    
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-      
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +67,7 @@ public class LoginFXMLController implements Initializable {
         if(tv_name.getText().equals("user") && tv_password.getText().equals("pass"))
         {
               Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-              Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
+              Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
               Scene scene = new Scene(root);
               stage.hide();
               stage.setScene(scene);
@@ -86,9 +78,4 @@ public class LoginFXMLController implements Initializable {
         }
         
     }
-    /*private void CloseAction(ActionEvent event) {
-        Stage stage = (Stage) Close.getScene().getWindow();
-        stage.close();
-    }*/
-    
 }

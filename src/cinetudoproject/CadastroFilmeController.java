@@ -7,6 +7,8 @@ package cinetudoproject;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
+import model.Filme;
+import model.Genero;
 
 /**
  * FXML Controller class
@@ -47,6 +51,24 @@ public class CadastroFilmeController implements Initializable {
     @FXML
     private JFXComboBox comboBox;
     
+    @FXML
+    private JFXComboBox boxGenero;
+    
+    @FXML
+    private JFXTextField tituloFilme;
+    
+    @FXML
+    private JFXTextField nomeDiretor;
+    
+    @FXML
+    private JFXTextField nomeAtor;
+    
+    @FXML
+    private JFXTextField duracaoFilme;
+    
+    int classificacao;
+    String generoMovie;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboBox.getItems().addAll(
@@ -58,7 +80,13 @@ public class CadastroFilmeController implements Initializable {
             "18 anos"
         );
         
-        
+        boxGenero.getItems().addAll(
+            "Ação",
+            "Suspense",
+            "Aventura",
+            "Terror",
+            "Comédia"
+        );
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -67,20 +95,34 @@ public class CadastroFilmeController implements Initializable {
                 switch(newValue)
                 {
                     case "Livre": imagePath = "/img/classificacao/livre.png";
+                        classificacao = 0;
                         break;
                     case "10 anos": imagePath = "/img/classificacao/10anos.png";
+                        classificacao = 10;
                         break;
                     case "12 anos": imagePath = "/img/classificacao/12anos.png";
+                        classificacao = 12;
                         break;
                     case "14 anos": imagePath = "/img/classificacao/14anos.png";
+                        classificacao = 14;
                         break;
                     case "16 anos": imagePath = "/img/classificacao/16anos.png";
+                        classificacao = 16;
                         break;   
                     case "18 anos": imagePath = "/img/classificacao/18anos.png";
+                        classificacao = 18;
                         break;
                 }
                 Image imageClass = new Image(imagePath);
                 classImage.setImage(imageClass);
+            }
+            
+        });
+        
+        boxGenero.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                generoMovie = newValue;
             }
             
         });
@@ -118,5 +160,27 @@ public class CadastroFilmeController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public void saveMovie(ActionEvent event) throws Exception 
+    {
+        validarCampo();
+        Genero genero = new Genero(generoMovie);
+        Filme filme = new Filme(tituloFilme.getText(), 
+                                nomeDiretor.getText(), 
+                                nomeAtor.getText(), 
+                                10, 
+                                classificacao, 
+                                genero);
+    }
+    
+    public void validarCampo()
+    {
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        
+        tituloFilme.getValidators().add(validator);
+        nomeDiretor.getValidators().add(validator);
+        nomeAtor.getValidators().add(validator);
+        validator.setMessage("Campo vazio");
     }
 }
