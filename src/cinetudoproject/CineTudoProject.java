@@ -26,6 +26,7 @@ public class CineTudoProject extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Login");
         stage.show();
         try {
             this.finalize();

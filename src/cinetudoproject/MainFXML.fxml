@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.MainFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.MainFXMLController">
    <children>
-      <JFXToolbar layoutY="-4.0" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="601.0" style="-fx-background-color: #000;" />
-      <Text layoutX="252.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tela Principal" />
-      <JFXButton fx:id="cadastrarFun" layoutX="20.0" layoutY="87.0" onAction="#cadastrarFuncionario" text="Cadastrar Funcionario" />
+      <BorderPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <JFXButton fx:id="cadastrarFun" onAction="#cadastrarFuncionario" text="Cadastrar Funcionario" translateX="15.0" translateY="-300.0" BorderPane.alignment="CENTER" />
+         </left>
+         <top>
+            <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER">
+               <center>
+                  <ImageView fitHeight="57.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../img/logocinetudo.png" />
+                     </image>
+                  </ImageView>
+               </center>
+               <right>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="sair" translateX="-50.0" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </right>
+            </JFXToolbar>
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>

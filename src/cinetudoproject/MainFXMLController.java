@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -29,8 +30,9 @@ public class MainFXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+       
+        
+     }
     
     @FXML
     void cadastrarFuncionario(ActionEvent event) throws Exception

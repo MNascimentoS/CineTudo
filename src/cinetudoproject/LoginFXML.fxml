@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="863.0" prefWidth="1104.0" style="-fx-background-color: #FAFAFA;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.LoginFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.LoginFXMLController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <ImageView fitHeight="167.0" fitWidth="333.0" layoutX="361.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="125.0" fitWidth="292.0" layoutX="361.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logocinetudo.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="tv_name" focusColor="#ff4537" layoutX="315.0" layoutY="316.0" maxWidth="489.0" minWidth="489.0" prefHeight="55.0" prefWidth="489.0" promptText="Usuário">
+      <JFXTextField fx:id="tv_name" focusColor="#ff4537" layoutX="257.0" layoutY="316.0" maxWidth="489.0" minWidth="489.0" prefHeight="55.0" prefWidth="489.0" promptText="Usuário" unFocusColor="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" layoutX="319.0" layoutY="396.0" maxWidth="481.0" minWidth="306.0" prefHeight="55.0" prefWidth="481.0" promptText="Senha">
+      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" layoutX="261.0" layoutY="395.0" maxWidth="489.0" minWidth="306.0" prefHeight="55.0" prefWidth="489.0" promptText="Senha" unFocusColor="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="329.0" layoutY="487.0" onAction="#login" prefHeight="45.0" prefWidth="460.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ENTRAR" textFill="WHITE">
+      <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="273.0" layoutY="491.0" onAction="#login" prefHeight="45.0" prefWidth="460.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ENTRAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="20.0" />
          </font></JFXButton>
-      <Text fill="#c6c1c1" layoutX="458.0" layoutY="764.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvido por Space Rocket" />
-      <Text fill="#c6c1c1" layoutX="440.0" layoutY="787.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" © Todos os direitos reservados 2016" />
+      <Text fill="#c6c1c1" layoutX="399.0" layoutY="732.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvido por Space Rocket" />
+      <Text fill="#c6c1c1" layoutX="377.0" layoutY="756.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" © Todos os direitos reservados 2016" />
+      <Text fx:id="text_erro" fill="WHITE" layoutX="418.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preencha todos os campos" visible="false" />
     </children>
 </AnchorPane>
