@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package cinetudoproject;
-
+import view.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -31,15 +31,13 @@ public class CineTudoProject extends Application {
         try {
             this.finalize();
         } catch (Throwable ex) {
-            Logger.getLogger(CineTudoProject.class.getName()).log(Level.SEVERE, null, ex);
+            
+            Logger.getLogger("Não achei o layout"+CineTudoProject.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
+        System.out.println("running!");
         launch(args);
     }
-    
 }

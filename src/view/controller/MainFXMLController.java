@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cinetudoproject;
+package view.controller;
 
+import view.*;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
