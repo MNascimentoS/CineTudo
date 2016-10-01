@@ -1,4 +1,4 @@
-package model;
+package cinetudoproject.model.domain;
 
 import java.util.ArrayList;
 import java.util.Calendar;

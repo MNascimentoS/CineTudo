@@ -1,4 +1,4 @@
-package model;
+package cinetudoproject.model.domain;
 
 public class Genero {
 	private String nome;

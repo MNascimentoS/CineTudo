@@ -1,4 +1,4 @@
-package model;
+package cinetudoproject.model.domain;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.controller;
+package cinetudoproject.controller;
 
-import view.*;
+import cinetudoproject.CineTudoProject;
 import cinetudoproject.CineTudoProject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;

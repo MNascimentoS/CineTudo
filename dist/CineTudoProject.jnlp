@@ -8,8 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="CineTudoProject.jar" size="804793" download="eager" />
-    <jar href="lib/jfoenix.jar" size="2166686" download="eager" />
+    <jar href="CineTudoProject.jar" size="1254702" download="eager" />
+    <jar href="lib/jfoenix.jar" size="2167464" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="CineTudoProject" >
     <param name="requiredFXVersion" value="8.0+"/>

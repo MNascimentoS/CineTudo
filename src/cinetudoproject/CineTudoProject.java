@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package cinetudoproject;
-import view.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -21,19 +20,14 @@ public class CineTudoProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("LoginFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/LoginFXML.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.setTitle("Login");
+         stage.setResizable(false);
         stage.show();
-        try {
-            this.finalize();
-        } catch (Throwable ex) {
-            
-            Logger.getLogger("Não achei o layout"+CineTudoProject.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public static void main(String[] args) {

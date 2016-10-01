@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.controller;
+package cinetudoproject.controller;
 
-import view.*;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -14,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javax.swing.JOptionPane;
-import model.Funcionario;
+import cinetudoproject.model.domain.Funcionario;
 /**
  * FXML Controller class
  *

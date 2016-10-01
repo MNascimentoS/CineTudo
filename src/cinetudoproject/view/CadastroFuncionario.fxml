@@ -14,9 +14,9 @@
     <children>
       <StackPane layoutX="-1.0" layoutY="-4.0" prefHeight="224.0" prefWidth="1104.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-4.0">
          <children>
-              <ImageView fitHeight="227.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true">
+              <ImageView fitHeight="107.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                      <Image url="@../img/logocinetudo.png" />
+                      <Image url="@../../img/logonov.png" />
                   </image>
               </ImageView>
          </children>

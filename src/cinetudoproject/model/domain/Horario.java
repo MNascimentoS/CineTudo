@@ -1,4 +1,4 @@
-package model;
+package cinetudoproject.model.domain;
 
 /**
  * Created by diogo on 20/08/16.

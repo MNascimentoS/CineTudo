@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.controller;
-import view.*;
+package cinetudoproject.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -25,8 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
-import model.Filme;
-import model.Genero;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Genero;
 
 /**
  * FXML Controller class
