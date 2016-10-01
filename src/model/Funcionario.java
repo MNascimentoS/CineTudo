@@ -11,6 +11,9 @@ package model;
  */
 public class Funcionario {
     private String nome, cpf, email, user, senha;
+
+    public Funcionario() {
+    }
     
     public Funcionario(String nome, String cpf, String email, String user, String senha){
         this.nome = nome;
