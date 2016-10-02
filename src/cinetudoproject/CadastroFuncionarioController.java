@@ -41,21 +41,21 @@ public class CadastroFuncionarioController implements Initializable {
 
     public void cadastro(ActionEvent event) throws Exception {
         if (tf_name.getText() == null
-            || tf_cpf.getText() == null
-            || tf_email.getText() == null
-            || tf_user.getText() == null
-            || tf_pass.getText() == null) {
+                || tf_cpf.getText() == null
+                || tf_email.getText() == null
+                || tf_user.getText() == null
+                || tf_pass.getText() == null) {
             JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
             return;
         }
 
         Funcionario funcionario = new Funcionario(tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                                                  tf_user.getText(), tf_pass.getText());
+                tf_user.getText(), tf_pass.getText());
         salvarDB(funcionario);
     }
 
     public void salvarDB(Funcionario funcionario) throws ClassNotFoundException {
-        try {       
+        try {
             // comandos
             final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
 
@@ -71,27 +71,28 @@ public class CadastroFuncionarioController implements Initializable {
             salvar.close();
             conn.close();
 
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
         }
-    }    
-    private Connection conexao() {
-            String url = "jdbc:mysql://localhost:3306/cinetudo";
-            String user = "root";
-            String password = "";
+    }
 
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                return DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-                if(e instanceof ClassNotFoundException) {
-                       JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
-                } else {
-                       JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
-                }
-                System.exit(0);
-                return null;
+    private Connection conexao() {
+        String url = "jdbc:mysql://localhost:3306/cinetudo";
+        String user = "root";
+        String password = "";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            if (e instanceof ClassNotFoundException) {
+                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+            } else {
+                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
             }
-	}
-    
+            System.exit(0);
+            return null;
+        }
+    }
+
 }

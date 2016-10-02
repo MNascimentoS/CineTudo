@@ -36,8 +36,7 @@ import model.Funcionario;
  * @author bill-01
  */
 public class LoginFXMLController implements Initializable {
-    
-    
+
     @FXML
     private JFXPasswordField tv_password;
 
@@ -49,44 +48,41 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private JFXButton btn_login;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        
+
         tv_name.getValidators().add(validator);
         validator.setMessage("Campo vazio");
-        
+
         tv_name.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!newValue)
-                {
+                if (!newValue) {
                     tv_name.validate();
                 }
             }
         });
-    }    
-    
-    public void login(ActionEvent event) throws Exception
-    {
+    }
+
+    public void login(ActionEvent event) throws Exception {
         Funcionario funcionario = buscaPorUser(tv_name.getText());
-        
-        if(tv_name.getText().equals(funcionario.getUser()) && tv_password.getText().equals(funcionario.getSenha()))
-        {
-              Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-              Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
-              Scene scene = new Scene(root);
-              stage.hide();
-              stage.setScene(scene);
-              stage.show();
-           
-        }else{
-              JOptionPane.showMessageDialog(null,"Usuario ou senha incorreto!");
+
+        if (tv_name.getText().equals(funcionario.getUser()) && tv_password.getText().equals(funcionario.getSenha())) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
+            Scene scene = new Scene(root);
+            stage.hide();
+            stage.setScene(scene);
+            stage.show();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario ou senha incorreto!");
         }
     }
-    
+
     private Connection conexao() {
         String url = "jdbc:mysql://localhost:3306/cinetudo";
         String user = "root";
@@ -97,43 +93,44 @@ public class LoginFXMLController implements Initializable {
             return DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            if(e instanceof ClassNotFoundException) {
-                    JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+            if (e instanceof ClassNotFoundException) {
+                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
             } else {
-                    JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
+                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
             }
             //System.exit(0);
             // o sistema deverá sair antes de chegar aqui...
             return null;
         }
     }
-     
-     public Funcionario buscaPorUser(String user) {
-		Funcionario func = null;
-                final String busca = "SELECT usuario, senha FROM funcionario WHERE usuario = ?";
-		try {
-			Connection conn = conexao();
-			PreparedStatement buscar = conn.prepareStatement(busca);
-			buscar.setString(1, user);
-			ResultSet resultadoBusca = buscar.executeQuery();
-			resultadoBusca.next();
-			func = buscaFuncionario(resultadoBusca);
-			buscar.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR CONTA COM USUARIO" + user);
-			//System.exit(0);
-		} 
-		return func;
-	}
-     private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
-		Funcionario funcionario = new Funcionario();
-		funcionario.setUser(resultadoBusca.getString(1));
-		funcionario.setSenha(resultadoBusca.getString(2));
-                
-                //System.err.println(funcionario.getNome());
-                //System.err.println(funcionario.getSenha());
-		return funcionario;
-	}
+
+    public Funcionario buscaPorUser(String user) {
+        Funcionario func = null;
+        final String busca = "SELECT usuario, senha FROM funcionario WHERE usuario = ?";
+        try {
+            Connection conn = conexao();
+            PreparedStatement buscar = conn.prepareStatement(busca);
+            buscar.setString(1, user);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            func = buscaFuncionario(resultadoBusca);
+            buscar.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR CONTA COM USUARIO" + user);
+            //System.exit(0);
+        }
+        return func;
+    }
+
+    private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setUser(resultadoBusca.getString(1));
+        funcionario.setSenha(resultadoBusca.getString(2));
+
+        //System.err.println(funcionario.getNome());
+        //System.err.println(funcionario.getSenha());
+        return funcionario;
+    }
 }

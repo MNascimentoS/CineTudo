@@ -10,19 +10,20 @@ package model;
  * @author mateus
  */
 public class Funcionario {
+
     private String nome, cpf, email, user, senha;
 
     public Funcionario() {
     }
-    
-    public Funcionario(String nome, String cpf, String email, String user, String senha){
+
+    public Funcionario(String nome, String cpf, String email, String user, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.user = user;
         this.senha = senha;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -61,5 +62,5 @@ public class Funcionario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    } 
+    }
 }
