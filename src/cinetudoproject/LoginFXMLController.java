@@ -85,29 +85,28 @@ public class LoginFXMLController implements Initializable {
         }else{
               JOptionPane.showMessageDialog(null,"Usuario ou senha incorreto!");
         }
-        
     }
     
-     private Connection conexao() {
-            String url = "jdbc:mysql://localhost:3306/cinetudo";
-            String user = "root";
-            String password = "";
+    private Connection conexao() {
+        String url = "jdbc:mysql://localhost:3306/cinetudo";
+        String user = "root";
+        String password = "rosimeiremota28";
 
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                return DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-                if(e instanceof ClassNotFoundException) {
-                        System.err.println("VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
-                } else {
-                        System.err.println("VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
-                }
-                System.exit(0);
-                // o sistema deverá sair antes de chegar aqui...
-                return null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            if(e instanceof ClassNotFoundException) {
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+            } else {
+                    JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
             }
-	}
+            //System.exit(0);
+            // o sistema deverá sair antes de chegar aqui...
+            return null;
+        }
+    }
      
      public Funcionario buscaPorUser(String user) {
 		Funcionario func = null;
@@ -123,8 +122,8 @@ public class LoginFXMLController implements Initializable {
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRO BUSCANDO CONTA COM USUARIO " + user);
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR CONTA COM USUARIO" + user);
+			//System.exit(0);
 		} 
 		return func;
 	}
@@ -133,8 +132,8 @@ public class LoginFXMLController implements Initializable {
 		funcionario.setUser(resultadoBusca.getString(1));
 		funcionario.setSenha(resultadoBusca.getString(2));
                 
-                System.err.println(funcionario.getNome());
-                System.err.println(funcionario.getSenha());
+                //System.err.println(funcionario.getNome());
+                //System.err.println(funcionario.getSenha());
 		return funcionario;
 	}
 }

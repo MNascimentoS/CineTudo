@@ -49,18 +49,13 @@ public class CadastroFuncionarioController implements Initializable {
             return;
         }
 
-        Funcionario funcionario = new Funcionario(tf_name.getText(),
-                tf_cpf.getText(),
-                tf_email.getText(),
-                tf_user.getText(),
-                tf_pass.getText());
-
+        Funcionario funcionario = new Funcionario(tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
+                                                  tf_user.getText(), tf_pass.getText());
         salvarDB(funcionario);
     }
 
     public void salvarDB(Funcionario funcionario) throws ClassNotFoundException {
-        try {    
-            
+        try {       
             // comandos
             final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
 
@@ -75,14 +70,10 @@ public class CadastroFuncionarioController implements Initializable {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            
 
             } catch (SQLException ex) {
-         
         }
- 
-    }
-    
+    }    
     private Connection conexao() {
             String url = "jdbc:mysql://localhost:3306/cinetudo";
             String user = "root";
@@ -94,9 +85,9 @@ public class CadastroFuncionarioController implements Initializable {
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
                 if(e instanceof ClassNotFoundException) {
-                        System.err.println("VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+                       JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
                 } else {
-                        System.err.println("VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
+                       JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
                 }
                 System.exit(0);
                 return null;
