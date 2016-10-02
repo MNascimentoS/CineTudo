@@ -1,4 +1,4 @@
-package view;
+package test;
 
 import model.Cinema;
 import model.Data;
