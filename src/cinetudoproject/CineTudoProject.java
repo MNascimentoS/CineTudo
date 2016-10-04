@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author bill-01
+ * @author Júnior
  */
 public class CineTudoProject extends Application {
     
