@@ -83,32 +83,12 @@ public class LoginFXMLController implements Initializable {
         }
     }
 
-    private Connection conexao() {
-        String url = "jdbc:mysql://localhost:3306/cinetudo";
-        String user = "root";
-        String password = "rosimeiremota28";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            if (e instanceof ClassNotFoundException) {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
-            } else {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
-            }
-            //System.exit(0);
-            // o sistema deverá sair antes de chegar aqui...
-            return null;
-        }
-    }
-
     public Funcionario buscaPorUser(String user) {
         Funcionario func = null;
         final String busca = "SELECT usuario, senha FROM funcionario WHERE usuario = ?";
         try {
-            Connection conn = conexao();
+            DBConect db = new DBConect();
+            Connection conn = db.conexao();
             PreparedStatement buscar = conn.prepareStatement(busca);
             buscar.setString(1, user);
             ResultSet resultadoBusca = buscar.executeQuery();

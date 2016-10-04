@@ -58,8 +58,8 @@ public class CadastroFuncionarioController implements Initializable {
         try {
             // comandos
             final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
-
-            Connection conn = conexao();
+            DBConect db = new DBConect();
+            Connection conn = db.conexao();
             PreparedStatement salvar = conn.prepareStatement(inserir);
             salvar.setString(1, funcionario.getNome());
             salvar.setString(2, funcionario.getCpf());
@@ -74,25 +74,4 @@ public class CadastroFuncionarioController implements Initializable {
         } catch (SQLException ex) {
         }
     }
-
-    private Connection conexao() {
-        String url = "jdbc:mysql://localhost:3306/cinetudo";
-        String user = "root";
-        String password = "";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            if (e instanceof ClassNotFoundException) {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
-            } else {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
-            }
-            System.exit(0);
-            return null;
-        }
-    }
-
 }
