@@ -5,10 +5,14 @@
  */
 package cinetudoproject.model.database;
 
+import java.sql.Connection;
+
 /**
  *
- * @author bill-01
+ * @author José Júnior
  */
 public interface Database {
     
+    public Connection connect();
+    public void desconnect(Connection conn);
 }
