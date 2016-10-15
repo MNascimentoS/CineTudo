@@ -34,18 +34,18 @@ public class FuncionarioDAO {
         final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
         try {
             //get the connection
+
             Connection conn = database.connect();
-            PreparedStatement save = connection.prepareStatement(inserir);
-            save.setString(1, funcionario.getNome());
-            save.setString(2, funcionario.getCpf());
-            save.setString(3, funcionario.getEmail());
-            save.setString(4, "0");
-            save.setString(5, funcionario.getUser());
-            save.setString(6, funcionario.getSenha());
-            save.executeUpdate();
-            save.execute();
-            save.close();
-            database.desconnect(conn);//disconnect 
+            PreparedStatement salvar = conn.prepareStatement(inserir);
+            salvar.setString(1, funcionario.getNome());
+            salvar.setString(2, funcionario.getCpf());
+            salvar.setString(3, funcionario.getEmail());
+            salvar.setString(4, "0");
+            salvar.setString(5, funcionario.getUser());
+            salvar.setString(6, funcionario.getSenha());
+            salvar.executeUpdate();
+            salvar.close();
+            conn.close();
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

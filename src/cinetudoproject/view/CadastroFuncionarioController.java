@@ -22,6 +22,7 @@ import cinetudoproject.model.domain.Funcionario;
  * @author mateus
  */
 public class CadastroFuncionarioController implements Initializable {
+
     FuncionarioDAO insereFun = new FuncionarioDAO();
 
     @FXML
@@ -46,8 +47,8 @@ public class CadastroFuncionarioController implements Initializable {
         }
 
         Funcionario funcionario = new Funcionario(tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                                                  tf_user.getText(), tf_pass.getText());
-
+                tf_user.getText(), tf_pass.getText());
+        
         insereFun.insert(funcionario);
     }
 
