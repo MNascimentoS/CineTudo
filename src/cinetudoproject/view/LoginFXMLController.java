@@ -110,8 +110,8 @@ public class LoginFXMLController implements Initializable {
         FuncionarioDAO funDB = new FuncionarioDAO();
         Funcionario funcionario = funDB.buscaPorUser(tv_name.getText());
         
-        System.err.println(funcionario.getUser());
-        System.err.println(funcionario.getSenha());
+        //System.err.println(funcionario.getUser());
+        //System.err.println(funcionario.getSenha());
         
         if (tv_name.getText().equals(funcionario.getUser()) && tv_password.getText().equals(funcionario.getSenha())) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

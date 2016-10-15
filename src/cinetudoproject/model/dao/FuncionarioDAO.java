@@ -30,12 +30,12 @@ public class FuncionarioDAO {
     }
 
     //insert method
-    public boolean insert(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
+    public void insert(Funcionario funcionario) {
+        final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
         try {
-            PreparedStatement save = connection.prepareStatement(sql);
             //get the connection
             Connection conn = database.connect();
+            PreparedStatement save = connection.prepareStatement(inserir);
             save.setString(1, funcionario.getNome());
             save.setString(2, funcionario.getCpf());
             save.setString(3, funcionario.getEmail());
@@ -46,10 +46,10 @@ public class FuncionarioDAO {
             save.execute();
             save.close();
             database.desconnect(conn);//disconnect 
-            return true;
+            //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            //return false;
         }
     }
 
@@ -79,7 +79,6 @@ public class FuncionarioDAO {
         funcionario.setUser(resultadoBusca.getString(1));
         funcionario.setSenha(resultadoBusca.getString(2));
 
-        
         return funcionario;
     }
 }

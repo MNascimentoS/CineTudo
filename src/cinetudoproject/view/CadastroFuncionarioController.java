@@ -5,6 +5,7 @@
  */
 package cinetudoproject.view;
 
+import cinetudoproject.model.dao.FuncionarioDAO;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -21,6 +22,7 @@ import cinetudoproject.model.domain.Funcionario;
  * @author mateus
  */
 public class CadastroFuncionarioController implements Initializable {
+    FuncionarioDAO insereFun = new FuncionarioDAO();
 
     @FXML
     private JFXTextField tf_name, tf_cpf, tf_email, tf_user;
@@ -43,13 +45,10 @@ public class CadastroFuncionarioController implements Initializable {
             return;
         }
 
-        Funcionario funcionario = new Funcionario(tf_name.getText(),
-                tf_cpf.getText(),
-                tf_email.getText(),
-                tf_user.getText(),
-                tf_pass.getText());
+        Funcionario funcionario = new Funcionario(tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
+                                                  tf_user.getText(), tf_pass.getText());
 
-        //salvarDB(funcionario);
+        insereFun.insert(funcionario);
     }
 
     /*public void salvarDB(Funcionario funcionario){
