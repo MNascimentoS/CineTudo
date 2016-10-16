@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,9 +12,9 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.MainFuncionarioController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #fafafa;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER">
+            <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" BorderPane.alignment="CENTER">
                <center>
                   <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                      <image>
@@ -22,14 +23,20 @@
                   </ImageView>
                </center>
                <right>
-                  <Text fx:id="usernameLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
+                  <Text fx:id="usernameLabel" fill="#171717" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="14.0" />
                      </font>
                   </Text>
                </right>
+               <left>
+                  <JFXHamburger fx:id="hamburguer" style="-fx-border-style: #FF;" translateX="20.0" BorderPane.alignment="CENTER" />
+               </left>
             </JFXToolbar>
          </top>
+         <left>
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="-6.0" prefHeight="723.0" prefWidth="183.0" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
