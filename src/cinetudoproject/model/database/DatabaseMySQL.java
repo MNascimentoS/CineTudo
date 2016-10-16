@@ -24,7 +24,7 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-        this.password = "rosimeiremota28";
+        this.password = "elefanterosa";
     }
    
     @Override
@@ -34,11 +34,10 @@ public class DatabaseMySQL implements Database{
             this.connection = DriverManager.getConnection(getUrl(),getUser(),getPassword());
             return this.connection;
         }  catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
             if (e instanceof ClassNotFoundException) {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro no drive");
             } else {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
+                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro na conexao com o bd");
             }
             System.exit(0);
             return null;

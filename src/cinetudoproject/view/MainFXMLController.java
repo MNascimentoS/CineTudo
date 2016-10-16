@@ -5,6 +5,7 @@
  */
 package cinetudoproject.view;
 
+import cinetudoproject.model.domain.Funcionario;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -27,12 +30,19 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private JFXButton cadastrarFun;
+    @FXML
+    private Text usernameLabel;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-        
+         
      }
+    //to get user data
+    public void getUserInfo(Funcionario func)
+    {
+        //usernameLabel.setText("Ola, "+func);
+       usernameLabel.setText("Ola, "+func.getUser());
+    }
     
     @FXML
     void cadastrarFuncionario(ActionEvent event) throws Exception

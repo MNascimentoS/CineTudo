@@ -18,14 +18,14 @@
          <top>
             <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER">
                <center>
-                  <ImageView fitHeight="57.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+                  <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                      <image>
-                        <Image url="@../img/logocinetudo.png" />
+                        <Image url="@../../img/logonov.png" />
                      </image>
                   </ImageView>
                </center>
                <right>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="sair" translateX="-50.0" BorderPane.alignment="CENTER">
+                  <Text fx:id="usernameLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="16.0" />
                      </font>

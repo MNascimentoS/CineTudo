@@ -57,7 +57,6 @@ public class FuncionarioDAO {
         Funcionario func = null;
         final String busca = "SELECT usuario, senha FROM funcionario WHERE usuario = ?";
         try {
-            //DBConect db = new DBConect();
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
             buscar.setString(1, user);
@@ -68,7 +67,8 @@ public class FuncionarioDAO {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR CONTA COM USUARIO" + user);
+            //JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR CONTA COM USUARIO" + user);
+            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ user);
             //System.exit(0);
         }
         return func;
