@@ -33,7 +33,7 @@
          <font>
             <Font size="11.0" />
          </font></Text>
-      <Text fx:id="text_erro" fill="WHITE" layoutX="217.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preencha todos os campos" visible="false" />
+      <Text fx:id="text_erro" fill="WHITE" layoutX="295.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preencha todos os campos" visible="false" />
       <ImageView fitHeight="83.0" fitWidth="188.0" layoutX="293.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/logonov.png" />

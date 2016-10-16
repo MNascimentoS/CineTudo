@@ -5,11 +5,8 @@
  */
 package cinetudoproject.model.domain;
 
-/**
- *
- * @author mateus
- */
 public class Funcionario {
+    int cargo;
     private String nome, cpf, email, user, senha;
 
     public Funcionario() {
@@ -45,6 +42,14 @@ public class Funcionario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public int getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(int cargo) {
+        this.cargo = cargo;
     }
 
     public String getUser() {

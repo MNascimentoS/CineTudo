@@ -36,9 +36,9 @@ public class DatabaseMySQL implements Database{
         }  catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             if (e instanceof ClassNotFoundException) {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O DRIVER DO BANCO DE DADOS ESTÁ NO CLASSPATH");
+                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro no drive");
             } else {
-                JOptionPane.showMessageDialog(null, "VERIFIQUE SE O BANCO ESTÁ RODANDO E SE OS DADOS DE CONEXÃO ESTÃO CORRETOS");
+                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro na conexao com o bd");
             }
             System.exit(0);
             return null;
