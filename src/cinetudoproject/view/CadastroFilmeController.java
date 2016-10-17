@@ -5,6 +5,7 @@
  */
 package cinetudoproject.view;
 import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.dao.GeneroDAO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -30,6 +31,11 @@ import cinetudoproject.model.domain.Genero;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,64 +50,38 @@ public class CadastroFilmeController implements Initializable {
      */
     
     @FXML
-    private ImageView bigImage;
+    private ImageView bigImage, classImage;
     
     @FXML
-    private ImageView classImage;
+    private JFXComboBox comboBox, boxGenero;
     
     @FXML
-    private JFXButton chooseImage;
+    private JFXTextField tituloFilme, nomeDiretor, nomeAtor, duracaoFilme;
     
-    @FXML
-    private JFXComboBox comboBox;
-    
-    @FXML
-    private JFXComboBox boxGenero;
-    
-    @FXML
-    private JFXTextField tituloFilme;
-    
-    @FXML
-    private JFXTextField nomeDiretor;
-    
-    @FXML
-    private JFXTextField nomeAtor;
-    
-    @FXML
-    private JFXTextField duracaoFilme;
-    
-    int classificacao;
-    File imageFile;
-    String generoMovie;
+    private int classificacao;
+    private File imageFile;
+    private String generoMovie;
+    private final int quantGeneros = 8;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        configValidators();
         comboBox.getItems().addAll(
-            "Livre",
-            "10 anos",
-            "12 anos",
-            "14 anos",
-            "16 anos",
-            "18 anos"
-        );
-        
-        boxGenero.getItems().addAll(
-            "Ação",
-            "Terror",
-            "Aventura",
-            "Suspense",
-            "Romance",
-            "Comédia",
-            "Ficção Científica",
-            "Animação"
-        );
+            "Livre",   "10 anos",
+            "12 anos", "14 anos",
+            "16 anos", "18 anos"  );
+        Genero genero;
+        GeneroDAO generoDAO = new GeneroDAO();
+        for (int i = 1; i < quantGeneros; i++){
+            genero = generoDAO.buscaGenero(i);
+            boxGenero.getItems().addAll(genero.getNome());
+        }
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 String imagePath = null;
-                switch(newValue)
-                {
+                switch(newValue) {
                     case "Livre": imagePath = "/img/classificacao/livre.png";
                         classificacao = 0;
                         break;
@@ -160,11 +140,9 @@ public class CadastroFilmeController implements Initializable {
     }
     
     public void saveMovie(ActionEvent event) throws Exception 
-    {
-        //FileInputStream fileInput = new FileInputStream(imageFile);
-        //OutputBlob blobOutput = new OutputBlob(fileInput, file.length());
-        
-        Genero genero = new Genero(1, generoMovie);
+    {   
+        GeneroDAO generoDAO = new GeneroDAO();
+        Genero genero = generoDAO.buscaGenero(generoMovie);
         Filme filme = new Filme();
         filme.setTitulo(tituloFilme.getText());
         filme.setDiretor(nomeDiretor.getText());
@@ -174,17 +152,58 @@ public class CadastroFilmeController implements Initializable {
         filme.setGenero(genero);
         filme.setImageFile(imageFile);
         FilmeDAO filmeDAO = new FilmeDAO();
-        filmeDAO.insert(filme);
+        filmeDAO.insert(filme);       
+        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("MainGerente.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     
-    public boolean validarCampo()
-    {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
+    public void configValidators() {
+        // Valida os campos de entrada (login e senha)
+        RequiredFieldValidator vTitulo, vDiretor, vAtor, vDuracao;
+        vTitulo = new RequiredFieldValidator();
+        vDiretor = new RequiredFieldValidator();
+        vAtor = new RequiredFieldValidator();
+        vDuracao = new RequiredFieldValidator();
+        tituloFilme.getValidators().add(vTitulo);
+        nomeDiretor.getValidators().add(vDiretor);
+        nomeAtor.getValidators().add(vAtor);
+        duracaoFilme.getValidators().add(vDuracao);
         
-        tituloFilme.getValidators().add(validator);
-        nomeDiretor.getValidators().add(validator);
-        nomeAtor.getValidators().add(validator);
-        validator.setMessage("Campo vazio");
-        return false;
+        vTitulo.setMessage("Preencha este campo!");
+        vDiretor.setMessage("Preencha este campo!");
+        vAtor.setMessage("Preencha este campo!");
+        vDuracao.setMessage("Preencha este campo!");
+        /*listener titulo do filme*/
+        tituloFilme.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) tituloFilme.validate();
+            }
+        });
+        /*listener nome diretor*/
+        nomeDiretor.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) nomeDiretor.validate();
+            }
+        });
+        /*listener nome ator*/
+        nomeAtor.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) nomeAtor.validate();
+            }
+        });
+        /*listener duração*/
+        duracaoFilme.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) duracaoFilme.validate();
+            }
+        });
     }
 }

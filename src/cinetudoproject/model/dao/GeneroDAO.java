@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,6 +41,7 @@ public class GeneroDAO {
             buscar.close();
             conn.close();
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"ERRO AO BUSCAR GENERO: "+ genero.getId() + "\n" + e.getMessage());
             e.printStackTrace();
         }
         return genero;

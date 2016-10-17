@@ -39,7 +39,6 @@ public class FilmeDAO {
     public void insert(Filme filme) throws FileNotFoundException {
         final String inserir = "INSERT INTO filme(titulo, diretor, ator, duracao, genero_id, classificacao, image) values(?,?,?,?,?,?,?)";	
         try {
-            
             //get the connection
             Genero genero = null;
             GeneroDAO generoDAO = new GeneroDAO();
@@ -66,7 +65,7 @@ public class FilmeDAO {
     public Filme buscaFilme(String nomeFilme) {
         Filme filme = null;
         
-        final String busca = "SELECT titulo, diretor, ator, duracao, genero_id, classificacao, image FROM filme WHERE nome = ?";
+        final String busca = "SELECT titulo, diretor, ator, duracao, genero_id, classificacao, image FROM filme WHERE titulo = ?";
         try {
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
