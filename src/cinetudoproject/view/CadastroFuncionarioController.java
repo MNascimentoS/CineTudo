@@ -37,17 +37,17 @@ public class CadastroFuncionarioController implements Initializable {
     }
 
     public void cadastro(ActionEvent event) throws Exception {
-        if (tf_name.getText() == null
-                || tf_cpf.getText() == null
-                || tf_email.getText() == null
-                || tf_user.getText() == null
-                || tf_pass.getText() == null) {
+        if (    tf_name.getText().equals("")
+             || tf_cpf.getText().equals("")
+             || tf_user.getText().equals("")
+             || tf_pass.getText().equals("")
+             || tf_email.getText().equals("")) 
+        {
             JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
             return;
         }
-
         Funcionario funcionario = new Funcionario(tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                tf_user.getText(), tf_pass.getText());
+                                                  tf_user.getText(), tf_pass.getText());
         
         insereFun.insert(funcionario);
     }

@@ -8,8 +8,6 @@ package cinetudoproject.model.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -24,7 +22,7 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-        this.password = "elefanterosa";
+        this.password = "";
     }
    
     @Override

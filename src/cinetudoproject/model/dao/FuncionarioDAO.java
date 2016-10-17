@@ -46,9 +46,11 @@ public class FuncionarioDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
+            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro no cadastro");
             //return false;
         }
     }

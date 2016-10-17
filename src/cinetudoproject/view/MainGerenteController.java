@@ -46,4 +46,14 @@ public class MainGerenteController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    void cadastrarFilme(ActionEvent event) throws Exception
+    {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

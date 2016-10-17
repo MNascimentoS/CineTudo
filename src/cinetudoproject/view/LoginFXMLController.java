@@ -59,6 +59,8 @@ public class LoginFXMLController implements Initializable {
     @FXML
     private BorderPane pane;
 
+    boolean logar = false;
+    
     @FXML
     private JFXPasswordField tv_password;
 
@@ -107,6 +109,13 @@ public class LoginFXMLController implements Initializable {
 
     /*Quando logar, valide os campos*/
     public void login(ActionEvent event) throws Exception {
+        if (tv_name.getText().equals("") || tv_password.getText().equals("")) {//caso haja campos vazios
+            System.out.println("campo vazio!");
+            text_erro.setText("Preencha todos os campos!");
+            text_erro.setVisible(true);
+            return;
+        }
+        
         FuncionarioDAO funDB = new FuncionarioDAO();
         Funcionario funcionario = funDB.buscaPorUser(tv_name.getText());
         
@@ -121,7 +130,6 @@ public class LoginFXMLController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader fxmlLoader;
             Parent root;
-            
             switch (funcionario.getCargo()) {
                 case 0: stage.setTitle("Menu Funcionário");
                     fxmlLoader = new FXMLLoader(getClass().getResource("MainFuncionario.fxml"));
@@ -142,10 +150,6 @@ public class LoginFXMLController implements Initializable {
             stage.setScene(scene);
             stage.show();
 
-        } else if (tv_name.getText().equals("") || tv_password.getText().equals("")) {//caso haja campos vazios
-            System.out.println("campo vazio!");
-            text_erro.setText("Preencha todos os campos!");
-            text_erro.setVisible(true);
         } else {//usuario ou senha incorretos!
             System.out.println("Usuário ou senha incorretos!");
             text_erro.setText("Usuário ou senha incorretos!");

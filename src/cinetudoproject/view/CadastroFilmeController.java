@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
+import cinetudoproject.model.dao.FilmeDAO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -26,6 +27,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -66,6 +71,7 @@ public class CadastroFilmeController implements Initializable {
     private JFXTextField duracaoFilme;
     
     int classificacao;
+    File imageFile;
     String generoMovie;
     
     @Override
@@ -81,10 +87,13 @@ public class CadastroFilmeController implements Initializable {
         
         boxGenero.getItems().addAll(
             "Ação",
-            "Suspense",
-            "Aventura",
             "Terror",
-            "Comédia"
+            "Aventura",
+            "Suspense",
+            "Romance",
+            "Comédia",
+            "Ficção Científica",
+            "Animação"
         );
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -141,39 +150,34 @@ public class CadastroFilmeController implements Initializable {
         
         if (selectedFile != null)
         {
+            imageFile = selectedFile;
             BufferedImage bufferedImage = ImageIO.read(selectedFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            //saveToFile(image, selectedFile.getName());
             bigImage.setImage(image);
         } else {
             System.out.println("Image not found");
         }
     }
     
-    public void saveToFile(Image image, String nome) 
-    {
-        File outputFile = new File("/img/filmes/");
-        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
-        try {
-            ImageIO.write(bImage, "png", outputFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
     public void saveMovie(ActionEvent event) throws Exception 
     {
-        validarCampo();
-        Genero genero = new Genero(generoMovie);
-        Filme filme = new Filme(tituloFilme.getText(), 
-                                nomeDiretor.getText(), 
-                                nomeAtor.getText(), 
-                                10, 
-                                classificacao, 
-                                genero);
+        //FileInputStream fileInput = new FileInputStream(imageFile);
+        //OutputBlob blobOutput = new OutputBlob(fileInput, file.length());
+        
+        Genero genero = new Genero(1, generoMovie);
+        Filme filme = new Filme();
+        filme.setTitulo(tituloFilme.getText());
+        filme.setDiretor(nomeDiretor.getText());
+        filme.setAtorPrincipal(nomeAtor.getText());
+        filme.setDuracao(Integer.parseInt(duracaoFilme.getText()));
+        filme.setClassEtaria(classificacao);
+        filme.setGenero(genero);
+        filme.setImageFile(imageFile);
+        FilmeDAO filmeDAO = new FilmeDAO();
+        filmeDAO.insert(filme);
     }
     
-    public void validarCampo()
+    public boolean validarCampo()
     {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         
@@ -181,5 +185,6 @@ public class CadastroFilmeController implements Initializable {
         nomeDiretor.getValidators().add(validator);
         nomeAtor.getValidators().add(validator);
         validator.setMessage("Campo vazio");
+        return false;
     }
 }
