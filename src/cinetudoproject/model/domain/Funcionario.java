@@ -6,19 +6,48 @@
 package cinetudoproject.model.domain;
 
 public class Funcionario {
-    int cargo;
+    private int id, cinema_id, cargo;
     private String nome, cpf, email, user, senha;
 
     public Funcionario() {
     }
     
-    public Funcionario(String nome, String cpf, String email, String user, String senha){
+    public Funcionario(int cinema_id, String nome, String cpf, String email, String user, String senha){
+        this.cinema_id = cinema_id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.user = user;
         this.senha = senha;
     }
+    
+    public Funcionario(int id, int cinema_id, String nome, String cpf, String email, String user, String senha){
+        this.id = id;
+        this.cinema_id = cinema_id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.user = user;
+        this.senha = senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCinema_id() {
+        return cinema_id;
+    }
+
+    public void setCinema_id(int cinema_id) {
+        this.cinema_id = cinema_id;
+    }
+    
+    
     
     public String getNome() {
         return nome;

@@ -11,140 +11,147 @@ import java.util.Calendar;
  * 		- Mateus Nascimento
  * 		- Wellington Correia
  * 								*/
-
 public class Cinema {
-	
-	private String nome, endereco, cpnj;
-	private ArrayList<Filme> filmes = new ArrayList<>();
-	private ArrayList<Promocao> promocoes = new ArrayList<>();
-	private ArrayList<Sessao> sessoes = new ArrayList<>();
-	private ArrayList<Sala> salas = new ArrayList<>();
-	private ArrayList<Venda> vendas = new ArrayList<>();
-	private float valorSemana, valorFDS,  montante;
-	
-	public Cinema(String nome, String endereco, String cnpj, float valorSemana, float valorFDS){
-		this.nome = nome;
-		this.endereco = endereco;
-		this.cpnj = cnpj;
-		this.valorSemana = valorSemana;
-		this.valorFDS = valorFDS;
-	}
 
-	public float getValorIngresso() {
-		Calendar cal = Calendar.getInstance();
-		int day = cal.get(Calendar.DAY_OF_WEEK);
-		float valorDoIngresso = 0;
-		/*caso finais de semana - adote o preco do final de semana*/
-		if(day == 1 || day == 7) valorDoIngresso = valorFDS;
-		else valorDoIngresso =  valorSemana;
-		
-		//the magic is happen
-		if(this.promocoes.size() > 0)
-		{
-			for(Promocao promo : this.promocoes)
-			{
-				if(promo.getDiaDaSemana() == day)
-				{
-					valorDoIngresso -= valorDoIngresso * (promo.getDesconto() / 100);
-					break;
-				}
-			}
-		}
-		return valorDoIngresso;
-	}
+    private int id;
+    private String nome, endereco, cpnj;
+    private ArrayList<Filme> filmes = new ArrayList<>();
+    private ArrayList<Promocao> promocoes = new ArrayList<>();
+    private ArrayList<Sessao> sessoes = new ArrayList<>();
+    private ArrayList<Sala> salas = new ArrayList<>();
+    private ArrayList<Venda> vendas = new ArrayList<>();
+    private float valorSemana, valorFDS, montante;
 
-	public float getValorSemana() {
-		return valorSemana;
-	}
+    public Cinema() {
+    }
 
-	public void setValorSemana(float valorSemana) {
-		this.valorSemana = valorSemana;
-	}
+    public Cinema(int id, String nome, String endereco, String cnpj, float valorSemana, float valorFDS) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cpnj = cnpj;
+        this.valorSemana = valorSemana;
+        this.valorFDS = valorFDS;
+    }
 
-	public float getValorFDS() {
-		return valorFDS;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setValorFDS(float valorFDS) {
-		this.valorFDS = valorFDS;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public float getValorIngresso() {
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        float valorDoIngresso = 0;
+        /*caso finais de semana - adote o preco do final de semana*/
+        if (day == 1 || day == 7) {
+            valorDoIngresso = valorFDS;
+        } else {
+            valorDoIngresso = valorSemana;
+        }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+        //the magic is happen
+        if (this.promocoes.size() > 0) {
+            for (Promocao promo : this.promocoes) {
+                if (promo.getDiaDaSemana() == day) {
+                    valorDoIngresso -= valorDoIngresso * (promo.getDesconto() / 100);
+                    break;
+                }
+            }
+        }
+        return valorDoIngresso;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public float getValorSemana() {
+        return valorSemana;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public void setValorSemana(float valorSemana) {
+        this.valorSemana = valorSemana;
+    }
 
-	public String getCpnj() {
-		return cpnj;
-	}
+    public float getValorFDS() {
+        return valorFDS;
+    }
 
-	public void setCpnj(String cpnj) {
-		this.cpnj = cpnj;
-	}
+    public void setValorFDS(float valorFDS) {
+        this.valorFDS = valorFDS;
+    }
 
-	public ArrayList<Filme> getFilmes() {
-		return filmes;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void addFilme(Filme filme) {
-		this.filmes.add(filme);
-	}
-	
-	public void addVenda(Venda venda)
-	{
-		this.vendas.add(venda);
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public ArrayList<Sessao> getSessoes() {
-		return sessoes;
-	}
+    public String getEndereco() {
+        return endereco;
+    }
 
-	public void addSessao(Sessao sessao) {
-		this.sessoes.add(sessao);
-	}
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-	public ArrayList<Sala> getSalas(){
-		return salas;
-	}
+    public String getCpnj() {
+        return cpnj;
+    }
 
-	public void addSala(Sala sala) {
-		this.salas.add(sala);
-	}
-	
-	public float getMontante()
-	{
-		float montante = 0;
-		
-		for(Venda v : this.vendas)
-		{
-			montante+= v.getValorTotal();
-		}
-		this.montante = montante;
-		return this.montante;
-	}
-	
-	public int getTotalVendas()
-	{
-		int cont = 0;
-		for(Venda v : this.vendas)
-		{
-			cont++;
-		}
-		return cont;
-	}
-	
-	public void addPromocao(Promocao promo){
-		this.promocoes.add(promo);
-	}
+    public void setCpnj(String cpnj) {
+        this.cpnj = cpnj;
+    }
+
+    public ArrayList<Filme> getFilmes() {
+        return filmes;
+    }
+
+    public void addFilme(Filme filme) {
+        this.filmes.add(filme);
+    }
+
+    public void addVenda(Venda venda) {
+        this.vendas.add(venda);
+    }
+
+    public ArrayList<Sessao> getSessoes() {
+        return sessoes;
+    }
+
+    public void addSessao(Sessao sessao) {
+        this.sessoes.add(sessao);
+    }
+
+    public ArrayList<Sala> getSalas() {
+        return salas;
+    }
+
+    public void addSala(Sala sala) {
+        this.salas.add(sala);
+    }
+
+    public float getMontante() {
+        float montante = 0;
+
+        for (Venda v : this.vendas) {
+            montante += v.getValorTotal();
+        }
+        this.montante = montante;
+        return this.montante;
+    }
+
+    public int getTotalVendas() {
+        int cont = 0;
+        for (Venda v : this.vendas) {
+            cont++;
+        }
+        return cont;
+    }
+
+    public void addPromocao(Promocao promo) {
+        this.promocoes.add(promo);
+    }
 }

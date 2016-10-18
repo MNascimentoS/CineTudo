@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
@@ -21,27 +22,27 @@
             </ImageView>
          </center>
       </JFXToolbar>
-      <JFXTextField id="tf_name" fx:id="tf_name" focusColor="#ff4537" layoutX="14.0" layoutY="179.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Nome">
+      <JFXTextField id="tf_name" fx:id="tf_name" focusColor="#ff4537" layoutX="14.0" layoutY="179.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Nome" unFocusColor="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField id="tf_cpf" fx:id="tf_cpf" focusColor="#ff4537" layoutX="14.0" layoutY="232.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="CPF">
+      <JFXTextField id="tf_cpf" fx:id="tf_cpf" focusColor="#ff4537" layoutX="14.0" layoutY="232.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="CPF" unFocusColor="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField id="tf_email" fx:id="tf_email" focusColor="#ff4537" layoutX="14.0" layoutY="285.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Email">
+      <JFXTextField id="tf_email" fx:id="tf_email" focusColor="#ff4537" layoutX="14.0" layoutY="285.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Email" unFocusColor="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField id="tf_user" fx:id="tf_user" focusColor="#ff4537" layoutX="515.0" layoutY="179.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Usuário">
+      <JFXTextField id="tf_user" fx:id="tf_user" focusColor="#ff4537" layoutX="515.0" layoutY="179.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Usuário" unFocusColor="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField id="tf_pass" fx:id="tf_pass" focusColor="#ff4537" layoutX="515.0" layoutY="232.0" maxWidth="471.0" minWidth="171.0" prefHeight="38.0" prefWidth="471.0" promptText="Senha">
+      <JFXPasswordField id="tf_pass" fx:id="tf_pass" focusColor="#ff4537" layoutX="515.0" layoutY="232.0" maxWidth="471.0" minWidth="171.0" prefHeight="38.0" prefWidth="471.0" promptText="Senha" unFocusColor="WHITE">
          <font>
             <Font size="17.0" />
          </font>
@@ -50,6 +51,7 @@
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
-      </JFXButton> 
+      </JFXButton>
+      <JFXComboBox fx:id="cinemaBox" layoutX="525.0" layoutY="285.0" prefHeight="32.0" prefWidth="451.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" /> 
     </children>
 </AnchorPane>

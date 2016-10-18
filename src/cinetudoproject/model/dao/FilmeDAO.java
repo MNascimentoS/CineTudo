@@ -7,21 +7,14 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Genero;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Blob;
 import java.sql.Connection;
-import static java.sql.JDBCType.BLOB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.sql.Types.BLOB;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**

@@ -31,7 +31,7 @@ public class FuncionarioDAO {
 
     //insert method
     public void insert(Funcionario funcionario) {
-        final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha) values(?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha, cinema_id) values(?,?,?,?,?,?,?)";
         try {
             //get the connection
 
@@ -43,6 +43,7 @@ public class FuncionarioDAO {
             salvar.setString(4, "0");
             salvar.setString(5, funcionario.getUser());
             salvar.setString(6, funcionario.getSenha());
+            salvar.setInt(7, funcionario.getCinema_id());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
@@ -50,14 +51,14 @@ public class FuncionarioDAO {
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro");
+            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
             //return false;
         }
     }
 
     public Funcionario buscaPorUser(String user) {
         Funcionario func = null;
-        final String busca = "SELECT nome, cpf, email, cargo, usuario, senha FROM funcionario WHERE usuario = ?";
+        final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM funcionario WHERE usuario = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -78,12 +79,14 @@ public class FuncionarioDAO {
 
     private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
         Funcionario funcionario = new Funcionario();
-        funcionario.setNome(resultadoBusca.getString(1));
-        funcionario.setCpf(resultadoBusca.getString(2));
-        funcionario.setEmail(resultadoBusca.getString(3));
-        funcionario.setCargo(resultadoBusca.getInt(4));
-        funcionario.setUser(resultadoBusca.getString(5));
-        funcionario.setSenha(resultadoBusca.getString(6));
+        funcionario.setId(resultadoBusca.getInt(1));
+        funcionario.setNome(resultadoBusca.getString(2));
+        funcionario.setCpf(resultadoBusca.getString(3));
+        funcionario.setEmail(resultadoBusca.getString(4));
+        funcionario.setCargo(resultadoBusca.getInt(5));
+        funcionario.setUser(resultadoBusca.getString(6));
+        funcionario.setSenha(resultadoBusca.getString(7));
+        funcionario.setCinema_id(resultadoBusca.getInt(8));
 
         return funcionario;
     }

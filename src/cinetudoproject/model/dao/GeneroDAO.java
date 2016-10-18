@@ -28,7 +28,6 @@ public class GeneroDAO {
 
     public GeneroDAO() {
         database = new DatabaseMySQL();
-        connection = database.connect();
     }
     
     public Genero buscaGenero(int idGenero) {
@@ -36,6 +35,7 @@ public class GeneroDAO {
         
         final String busca = "SELECT id, nome FROM genero WHERE id = ?";
         try {
+            connection = database.connect();
             PreparedStatement buscar = connection.prepareStatement(busca);
             buscar.setInt(1, idGenero);
             ResultSet resultadoBusca = buscar.executeQuery();
@@ -54,6 +54,7 @@ public class GeneroDAO {
         final String sql = "SELECT * FROM genero";
         List<Genero> retorno = new ArrayList<>();
         try {
+            connection = database.connect();
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
@@ -69,9 +70,9 @@ public class GeneroDAO {
     
     public Genero buscaGenero(String nomeGenero) {
         Genero genero = null;
-        
         final String busca = "SELECT id, nome FROM genero WHERE nome = ?";
         try {
+            connection = database.connect();
             PreparedStatement buscar = connection.prepareStatement(busca);
             buscar.setString(1, nomeGenero);
             ResultSet resultadoBusca = buscar.executeQuery();
