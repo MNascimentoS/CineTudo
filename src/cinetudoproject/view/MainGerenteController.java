@@ -76,13 +76,14 @@ public class MainGerenteController implements Initializable {
     
     public void getUserInfo(Funcionario func)
     {
-       usernameLabel.setText("Ola, "+func.getUser());
+       usernameLabel.setText("Ola, "+func.getNome());
     }
     
     @FXML
     void cadastrarFuncionario(ActionEvent event) throws Exception
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Cadastro de Funcionários");
         Parent root = FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -93,6 +94,7 @@ public class MainGerenteController implements Initializable {
     void cadastrarFilme(ActionEvent event) throws Exception
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Cadastro de Filmes");
         Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);

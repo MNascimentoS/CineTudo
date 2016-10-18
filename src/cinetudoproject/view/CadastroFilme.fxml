@@ -17,78 +17,69 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="708.0" prefWidth="1104.0" style="-fx-background-color: #FAFAFA;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFilmeController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFilmeController">
       <children>
-      <!--Imagem Sombra Lateral-->
-      <ImageView fitHeight="691.0" fitWidth="38.0" layoutX="437.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/sombra.png" />
-         </image>
-      </ImageView>
       <!--Imagem do Filme-->
-      <StackPane fx:id="stackPane2" layoutX="-1.0" layoutY="58.0" prefHeight="662.0" prefWidth="444.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="58.0">
+      <StackPane fx:id="stackPane2" layoutX="-1.0" layoutY="-3.0" prefHeight="674.0" prefWidth="393.0" AnchorPane.bottomAnchor="-16.0" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="-3.0">
          <children>
-         <ImageView id="bigImage" fx:id="bigImage" fitHeight="661.0" fitWidth="444.0" layoutX="-2.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView id="bigImage" fx:id="bigImage" fitHeight="643.0" fitWidth="434.0" layoutX="-2.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../img/choose_image.png" />
             </image>
          </ImageView>
          </children>
       </StackPane>
-      <!--Toolbar-->
-      <StackPane fx:id="stackPane" prefHeight="59.0" prefWidth="1104.0" AnchorPane.bottomAnchor="653.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-         <JFXToolbar layoutY="-4.0" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="151.0" style="-fx-background-color: #000;">
-            <center>
-               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastrar Filme" BorderPane.alignment="CENTER">
-                   <font>
-                       <Font size="19.0" />
-                   </font>
-               </Text>
-            </center>
-         </JFXToolbar>
-         </children>
-      </StackPane>
-      <!--Imagem Logo do Cinema-->
-      <ImageView fitHeight="112.0" fitWidth="254.0" layoutX="826.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../img/logonov.png" />
-        </image>
+      <!--Imagem Sombra Lateral-->
+      <ImageView fitHeight="683.0" fitWidth="34.0" layoutX="401.0" layoutY="61.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/sombra.png" />
+         </image>
       </ImageView>
+      <!--Toolbar-->
+      <StackPane fx:id="stackPane" prefHeight="59.0" prefWidth="1104.0" AnchorPane.bottomAnchor="653.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       
-      <JFXButton id="chooseImage" fx:id="chooseImage" buttonType="RAISED" layoutX="245.0" layoutY="656.0" onAction="#chooseImage" prefHeight="38.0" prefWidth="177.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ESCOLHER IMAGEM" textFill="WHITE">
+            <JFXButton id="chooseImage" fx:id="chooseImage" buttonType="RAISED" layoutX="238.0" layoutY="598.0" onAction="#chooseImage" prefHeight="38.0" prefWidth="177.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ESCOLHER IMAGEM" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="tituloFilme" focusColor="#ff4537" layoutX="512.0" layoutY="214.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="550.0" promptText="Titulo do Filme">
+      <JFXTextField fx:id="tituloFilme" focusColor="#ff4537" layoutX="470.0" layoutY="162.0" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="488.0" promptText="Titulo do Filme">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="nomeDiretor" focusColor="#ff4537" layoutX="510.0" layoutY="275.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="550.0" promptText="Nome do Diretor">
+      <JFXTextField fx:id="nomeDiretor" focusColor="#ff4537" layoutX="470.0" layoutY="218.0" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="488.0" promptText="Nome do Diretor">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="nomeAtor" focusColor="#ff4537" layoutX="510.0" layoutY="336.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="550.0" promptText="Ator Principal">
+      <JFXTextField fx:id="nomeAtor" focusColor="#ff4537" layoutX="470.0" layoutY="276.0" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="488.0" promptText="Ator Principal">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
       
-      <JFXTextField fx:id="duracaoFilme" focusColor="#ff4537" layoutX="508.0" layoutY="397.0" maxWidth="550.0" minWidth="168.0" prefHeight="38.0" prefWidth="550.0" promptText="Duraçao: 00:00:00">
+      <JFXTextField fx:id="duracaoFilme" focusColor="#ff4537" layoutX="470.0" layoutY="333.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="488.0" promptText="Duraçao: 00:00:00">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="513.0" layoutY="534.0" onAction="#saveMovie" prefHeight="38.0" prefWidth="536.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="479.0" layoutY="480.0" onAction="#saveMovie" prefHeight="38.0" prefWidth="488.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <ImageView id="classImage" fx:id="classImage" fitHeight="100.0" fitWidth="99.0" layoutX="23.0" layoutY="593.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="517.0" layoutY="474.0" prefHeight="38.0" prefWidth="228.0" promptText="Classificação" />
-      <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="821.0" layoutY="474.0" prefHeight="38.0" prefWidth="228.0" promptText="Gênero" />
+      <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="479.0" layoutY="395.0" prefHeight="38.0" prefWidth="209.0" promptText="Classificação" />
+      <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="730.0" layoutY="395.0" prefHeight="38.0" prefWidth="215.0" promptText="Gênero" />
+      <ImageView id="classImage" fx:id="classImage" fitHeight="72.0" fitWidth="72.0" layoutX="20.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXToolbar layoutX="-4.0" prefHeight="70.0" prefWidth="1009.0" style="-fx-background-color: #FFF;">
+         <center>
+            <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../img/logonov.png" />
+               </image>
+            </ImageView>
+         </center>
+      </JFXToolbar>
     </children>
 </AnchorPane>

@@ -37,21 +37,19 @@ public class FilmeDAO {
     }
     
     public void insert(Filme filme) throws FileNotFoundException {
-        final String inserir = "INSERT INTO filme(titulo, diretor, ator, duracao, genero_id, classificacao, image) values(?,?,?,?,?,?,?)";	
+        final String inserir = "INSERT INTO filme(titulo, diretor, ator, duracao, genero_id, classificacao, image, cinema_id) values(?,?,?,?,?,?,?,?)";	
         try {
             //get the connection
-            Genero genero = null;
-            GeneroDAO generoDAO = new GeneroDAO();
-            genero = generoDAO.buscaGenero(filme.getGenero().getNome());
             Connection conn = database.connect();
             PreparedStatement salvar = conn.prepareStatement(inserir);
             salvar.setString(1, filme.getTitulo());
             salvar.setString(2, filme.getDiretor());
             salvar.setString(3, filme.getAtorPrincipal());
             salvar.setInt(4, filme.getDuracao());
-            salvar.setInt(5, genero.getId());
+            salvar.setInt(5, filme.getGenero().getId());
             salvar.setInt(6, filme.getClassEtaria());
             salvar.setString(7, filme.getImageFile().getAbsolutePath());
+            salvar.setInt(8, filme.getCinema_id());
             
             salvar.executeUpdate();
             salvar.close();

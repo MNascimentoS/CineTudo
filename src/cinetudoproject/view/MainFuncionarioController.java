@@ -72,7 +72,7 @@ public class MainFuncionarioController implements Initializable {
     public void getUserInfo(Funcionario func)
     {
         //usernameLabel.setText("Ola, "+func);
-       usernameLabel.setText("Ola, "+func.getUser());
+       usernameLabel.setText("Ola, "+func.getNome());
     }
     
 }

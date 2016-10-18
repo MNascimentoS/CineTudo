@@ -146,6 +146,7 @@ public class CadastroFilmeController implements Initializable {
         filme.setClassEtaria(classificacao);
         filme.setGenero(genero);
         filme.setImageFile(imageFile);
+        filme.setCinema_id(1);
         FilmeDAO filmeDAO = new FilmeDAO();
         filmeDAO.insert(filme);       
         

@@ -8,14 +8,14 @@ import java.io.File;
 public class Filme {
 
     private String titulo, diretor, atorPrincipal;
-    private int duracao, classEtaria;
+    private int duracao, classEtaria, cinema_id;
     private Genero genero;
     private File imageFile;
 
     public Filme() {
     }
 
-    public Filme(String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile) {
+    public Filme(String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
         super();
         this.titulo = titulo;
         this.diretor = diretor;
@@ -24,6 +24,7 @@ public class Filme {
         this.classEtaria = classEtaria;
         this.genero = genero;
         this.imageFile = imageFile;
+        this.cinema_id = cinema_id;
     }
 
     public String getTitulo() {
@@ -81,6 +82,12 @@ public class Filme {
     public void setImageFile(File imageFile) {
         this.imageFile = imageFile;
     }
-    
-    
+
+    public int getCinema_id() {
+        return cinema_id;
+    }
+
+    public void setCinema_id(int cinema_id) {
+        this.cinema_id = cinema_id;
+    }
 }
