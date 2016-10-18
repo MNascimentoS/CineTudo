@@ -6,13 +6,11 @@
 package cinetudoproject.view;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.GeneroDAO;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -28,15 +26,12 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
+import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -70,12 +65,12 @@ public class CadastroFilmeController implements Initializable {
             "Livre",   "10 anos",
             "12 anos", "14 anos",
             "16 anos", "18 anos"  );
-        Genero genero;
+        List<Genero> genero;
         GeneroDAO generoDAO = new GeneroDAO();
-        for (int i = 1; i < quantGeneros; i++){
-            genero = generoDAO.buscaGenero(i);
-            boxGenero.getItems().addAll(genero.getNome());
-        }
+        genero = generoDAO.listar();
+        genero.forEach((i) -> {
+            boxGenero.getItems().addAll(i.getNome());
+        });
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
