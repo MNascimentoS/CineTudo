@@ -7,6 +7,7 @@ package cinetudoproject.view;
 
 import cinetudoproject.model.dao.FuncionarioDAO;
 import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.util.mask.MaskField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -32,7 +33,7 @@ import javafx.stage.Stage;
  * @author bill-01
  */
 public class LoginFXMLController implements Initializable {
-
+    
     //main panel
     @FXML
     private BorderPane pane;
@@ -53,7 +54,11 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private Text text_erro;
-
+    
+    MaskField mask = new MaskField();
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Valida os campos de entrada (login e senha)
@@ -61,7 +66,7 @@ public class LoginFXMLController implements Initializable {
         RequiredFieldValidator validatorPass = new RequiredFieldValidator();
         tv_name.getValidators().add(validator);
         tv_password.getValidators().add(validatorPass);
-
+        //mask.timeField(tv_name);
         validator.setMessage("Preencha este campo!");
         validatorPass.setMessage("Preencha este campo!");
         /*listener login*/
@@ -84,7 +89,7 @@ public class LoginFXMLController implements Initializable {
             }
         });
     }
-
+    
     /*Quando logar, valide os campos*/
     public void login(ActionEvent event) throws Exception {
         if (tv_name.getText().equals("") || tv_password.getText().equals("")) {//caso haja campos vazios

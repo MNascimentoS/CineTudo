@@ -80,7 +80,7 @@ public class CadastroFuncionarioController implements Initializable {
         Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
                                                   tf_user.getText(), tf_pass.getText());
         
-        insereFun.insert(funcionario);
+        insereFun.insertFuncionario(funcionario);
     }
 
     /*public void salvarDB(Funcionario funcionario){

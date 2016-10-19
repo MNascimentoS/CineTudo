@@ -6,44 +6,36 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Horario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author José EXAMPLE
+ * @author Wellington
  */
-public class FuncionarioDAO {
-
+public class HorarioDAO {
     Connection connection;
     DatabaseMySQL database;
 
-    public FuncionarioDAO() {
+    public HorarioDAO() {
         database = new DatabaseMySQL();
     }
-
-    //insert method
-    public void insertFuncionario(Funcionario funcionario) {
-        final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha, cinema_id) values(?,?,?,?,?,?,?)";
+    
+    /*public void insertHorario(Horario horario) {
+        final String inserir = "INSERT INTO horario (hora) values(?)";
         try {
             //get the connection
 
             Connection conn = database.connect();
             PreparedStatement salvar = conn.prepareStatement(inserir);
-            salvar.setString(1, funcionario.getNome());
-            salvar.setString(2, funcionario.getCpf());
-            salvar.setString(3, funcionario.getEmail());
-            salvar.setString(4, "0");
-            salvar.setString(5, funcionario.getUser());
-            salvar.setString(6, funcionario.getSenha());
-            salvar.setInt(7, funcionario.getCinema_id());
+            //salvar.setString(1, funcionario.getNome());
+            //salvar.setString(2, funcionario.getCpf());
+            //salvar.setString(3, funcionario.getEmail());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
@@ -54,9 +46,9 @@ public class FuncionarioDAO {
             JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
             //return false;
         }
-    }
+    }*/
 
-    public Funcionario buscaPorUser(String user) {
+    /*public Funcionario buscaPorUser(String user) {
         Funcionario func = null;
         final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM funcionario WHERE usuario = ?";
         try {
@@ -75,19 +67,6 @@ public class FuncionarioDAO {
             //System.exit(0);
         }
         return func;
-    }
+    }*/
 
-    private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
-        Funcionario funcionario = new Funcionario();
-        funcionario.setId(resultadoBusca.getInt(1));
-        funcionario.setNome(resultadoBusca.getString(2));
-        funcionario.setCpf(resultadoBusca.getString(3));
-        funcionario.setEmail(resultadoBusca.getString(4));
-        funcionario.setCargo(resultadoBusca.getInt(5));
-        funcionario.setUser(resultadoBusca.getString(6));
-        funcionario.setSenha(resultadoBusca.getString(7));
-        funcionario.setCinema_id(resultadoBusca.getInt(8));
-
-        return funcionario;
-    }
 }
