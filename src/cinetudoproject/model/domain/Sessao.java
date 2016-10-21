@@ -7,96 +7,115 @@ import java.util.ArrayList;
  */
 public class Sessao {
 
-	private Filme filme;
-	private Sala sala;
-	private Horario horario;
-	private ArrayList<Assento> assentos = new ArrayList<>();
+    private int id, ingresso_disponivel;
+    private Filme filme;
+    private Sala sala;
+    private Horario horario;
+    private ArrayList<Assento> assentos = new ArrayList<>();
     private Data data;
     private float valorSessao;
-	
-    public Sessao(Filme filme, Sala sala, Horario horario, Data data, float valorSessao) {
-		this.filme = filme;
-		this.sala = sala;
-		this.horario = horario;
-		this.data = data;
-		this.valorSessao = (float) this.sala.getPrecoIngresso();
-		initAssentos();//cria os assentos disponiveis para a sessao
-	}
 
-	public Filme getFilme() {
-		return filme;
-	}
+    public Sessao() {
+    }
 
-	public void setFilme(Filme filme) {
-		this.filme = filme;
-	}
+    public Sessao(Filme filme, Sala sala, Horario horario, Data data, float valorSessao, int ingresso_disponivel) {
+        this.filme = filme;
+        this.sala = sala;
+        this.horario = horario;
+        this.data = data;
+        this.valorSessao = (float) this.sala.getPrecoIngresso();
+        this.ingresso_disponivel = ingresso_disponivel;
+        initAssentos();//cria os assentos disponiveis para a sessao
+    }
 
-	public Sala getSala() {
-		return sala;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setSala(Sala sala) {
-		this.sala = sala;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Horario getHorario() {
-		return horario;
-	}
+    public void setIngresso_disponivel(int ingresso_disponivel) {
+        this.ingresso_disponivel = ingresso_disponivel;
+    }
 
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
+    public int getIngresso_disponivel() {
+        return ingresso_disponivel;
+    }
 
-	public Data getData() {
-		return data;
-	}
+    public Filme getFilme() {
+        return filme;
+    }
 
-	public void setData(Data data) {
-		this.data = data;
-	}
+    public void setFilme(Filme filme) {
+        this.filme = filme;
+    }
 
-	//inicializa os assentos
-	void initAssentos()
-	{
-		char fila = 'A';
-		int capacidade = this.getSala().getCapacidade();
-		for(int i = 0; i < capacidade; i++)
-		{
-			if(i % 10 == 0 && i != 0) fila += 1;
-			Assento novo_assento = new Assento(fila, i+1);
-			this.assentos.add(novo_assento);
-			
-		}
-	}
-	
-	public int getAssentosDisponiveis()
-	{
-		int disponiveis = 0;
-		for(Assento i : this.assentos) {
-			if(!i.isOcupado()) disponiveis++;
-		}
-		
-		return disponiveis;
-	}
-	
-	public void printarAssento(int numero)
-	{
-		for(Assento ass : this.assentos)
-		{
-			if(ass.getNumero() == numero)
-			{
-				System.out.println("Fila: "+ass.getFila()+" número: "+ass.getNumero());
-				return;
-			}
-		}
-		System.out.println("Este assento não existe!");
-	}
+    public Sala getSala() {
+        return sala;
+    }
 
-	public float getValorSessao() {
-		return valorSessao;
-	}
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
 
-	public void setValorSessao(float valorSessao) {
-		this.valorSessao = valorSessao;
-	}    
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horario horario) {
+        this.horario = horario;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    //inicializa os assentos
+    void initAssentos() {
+        char fila = 'A';
+        int capacidade = this.getSala().getCapacidade();
+        for (int i = 0; i < capacidade; i++) {
+            if (i % 10 == 0 && i != 0) {
+                fila += 1;
+            }
+            Assento novo_assento = new Assento(fila, i + 1);
+            this.assentos.add(novo_assento);
+
+        }
+    }
+
+    public int getAssentosDisponiveis() {
+        int disponiveis = 0;
+        for (Assento i : this.assentos) {
+            if (!i.isOcupado()) {
+                disponiveis++;
+            }
+        }
+
+        return disponiveis;
+    }
+
+    public void printarAssento(int numero) {
+        for (Assento ass : this.assentos) {
+            if (ass.getNumero() == numero) {
+                System.out.println("Fila: " + ass.getFila() + " número: " + ass.getNumero());
+                return;
+            }
+        }
+        System.out.println("Este assento não existe!");
+    }
+
+    public float getValorSessao() {
+        return valorSessao;
+    }
+
+    public void setValorSessao(float valorSessao) {
+        this.valorSessao = valorSessao;
+    }
 }

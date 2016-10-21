@@ -6,7 +6,6 @@ import java.util.Calendar;
  * Created by diogo on 20/08/16.
  */
 public class Data {
-
     private int dia, mes, ano;
     Calendar cal;
 

@@ -24,7 +24,7 @@ public class Venda {
 	public void setTodayCalendar(){
 		Calendar c = Calendar.getInstance();
 		this.data = new Data(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH)+1, c.get(Calendar.YEAR));
-		this.horario = new Horario(c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
+		//this.horario = new Horario(c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
 	}
 	
 	public int getDia()

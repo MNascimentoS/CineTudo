@@ -7,6 +7,7 @@ import java.io.File;
  */
 public class Filme {
 
+    private int id;
     private String titulo, diretor, atorPrincipal;
     private int duracao, classEtaria, cinema_id;
     private Genero genero;
@@ -25,6 +26,14 @@ public class Filme {
         this.genero = genero;
         this.imageFile = imageFile;
         this.cinema_id = cinema_id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitulo() {
