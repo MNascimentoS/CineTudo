@@ -36,12 +36,12 @@ public class SessaoDAO {
 
             Connection conn = database.connect();
             PreparedStatement salvar = conn.prepareStatement(inserir);
-            salvar.setInt(1, sessao.getSala().getId());
-            salvar.setInt(2, sessao.getFilme().getId());
-            salvar.setInt(3, sessao.getHorario().getId());
+            salvar.setInt(1, sessao.getSala_id());
+            salvar.setInt(2, sessao.getFilme_id());
+            salvar.setInt(3, sessao.getHorario_id());
             salvar.setInt(4, sessao.getIngresso_disponivel());
-            salvar.setString(5, sessao.getData().getDia()+"/"+sessao.getData().getMes()+"/"+sessao.getData().getAno());
-            salvar.setInt(6, 0);
+            salvar.setString(5, sessao.getData());
+            salvar.setInt(6, sessao.getAssento());
             salvar.setFloat(7, sessao.getValorSessao());
             salvar.executeUpdate();
             salvar.close();
@@ -100,12 +100,12 @@ public class SessaoDAO {
     private Sessao buscaSessao(ResultSet resultadoBusca) throws SQLException, ParseException {
         Sessao sessao = new Sessao();
         sessao.setId(resultadoBusca.getInt(1));
-        //sessao.setSala(resultadoBusca.getInt(2));
-        //sessao.setFilme(resultadoBusca.getInt(3));
-        //sessao.setHorario(resultadoBusca.getInt(4));
+        sessao.setSala_id(resultadoBusca.getInt(2));
+        sessao.setFilme_id(resultadoBusca.getInt(3));
+        sessao.setHorario_id(resultadoBusca.getInt(4));
         sessao.setIngresso_disponivel(resultadoBusca.getInt(5));
-        //sessao.setData(resultadoBusca.getString(5));
-        //sessao.setAssentos(resultadoBusca.getInt(6));
+        sessao.setData(resultadoBusca.getString(5));
+        sessao.setAssento(resultadoBusca.getInt(6));
         sessao.setValorSessao(resultadoBusca.getFloat(7));
         return sessao;
     }

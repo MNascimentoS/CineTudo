@@ -1,36 +1,64 @@
 package cinetudoproject.model.domain;
 
 public class Ingresso {
-	
-	final int MEIA = 0;
-	
-	private float preco;
-	private int tipo;
-	private Sessao sessao;
-	
-	public Ingresso(int tipo, Sessao sessao){
-		this.tipo = tipo;
-		this.sessao = sessao;
-		setPreco(this.sessao.getValorSessao());
-	}
-	
-	public float getPreco(){
-		return preco;
-	}
-	public void setPreco(float preco) {
-		if(tipo == MEIA) this.preco = preco / 2;
-		else this.preco = preco;
-	}
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-	public Sessao getSessao() {
-		return sessao;
-	}
-	public void setSessao(Sessao sessao) {
-		this.sessao = sessao;
-	}	
+
+    final int MEIA = 0;
+
+    private float preco;
+    private int id, tipo, sessao_id, venda_id;;
+
+    public Ingresso() {
+    }
+
+    public Ingresso(float preco, int tipo, int sessao_id, int venda_id) {
+        this.preco = preco;
+        this.tipo = tipo;
+        this.sessao_id = sessao_id;
+        this.venda_id = venda_id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSessao_id() {
+        return sessao_id;
+    }
+
+    public void setSessao_id(int sessao_id) {
+        this.sessao_id = sessao_id;
+    }
+
+    public int getVenda_id() {
+        return venda_id;
+    }
+
+    public void setVenda_id(int venda_id) {
+        this.venda_id = venda_id;
+    }
+
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float preco) {
+        if (tipo == MEIA) {
+            this.preco = preco / 2;
+        } else {
+            this.preco = preco;
+        }
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
 }

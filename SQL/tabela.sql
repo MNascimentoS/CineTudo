@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `cinetudo`.`cinema` (
   `cnpj` VARCHAR(45) NOT NULL,
   `valor_semana` FLOAT NOT NULL,
   `valor_fimsemana` FLOAT NOT NULL,
-  `id_venda` INT NULL,
+  `venda_id` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `nome_UNIQUE` (`nome` ASC))
 ENGINE = InnoDB;
@@ -153,7 +153,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cinetudo`.`venda` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_ingresso` INT NOT NULL,
+  `ingresso_id` INT NOT NULL,
   `valor_total` FLOAT NOT NULL,
   `data` VARCHAR(15) NOT NULL,
   `horario_id` INT NOT NULL,

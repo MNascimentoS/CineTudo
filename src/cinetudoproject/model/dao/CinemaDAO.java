@@ -25,13 +25,14 @@ import java.util.logging.Logger;
  * @author mateus
  */
 public class CinemaDAO {
+
     Connection connection;
     DatabaseMySQL database;
 
     public CinemaDAO() {
         database = new DatabaseMySQL();
     }
-    
+
     public List<Cinema> listar() {
         final String sql = "SELECT * FROM cinema";
         List<Cinema> retorno = new ArrayList<>();
@@ -54,9 +55,9 @@ public class CinemaDAO {
         }
         return retorno;
     }
-    
+
     public Cinema buscarCinema(String nomeCinema) {
-        Cinema cinema = null;   
+        Cinema cinema = null;
         final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE nome = ?";
         try {
             connection = database.connect();
@@ -72,7 +73,7 @@ public class CinemaDAO {
         }
         return cinema;
     }
-    
+
     private Cinema buscaCinema(ResultSet resultadoBusca) throws SQLException, ParseException {
         Cinema cinema = new Cinema();
         cinema.setId(resultadoBusca.getInt(1));

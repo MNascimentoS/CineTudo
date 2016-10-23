@@ -137,7 +137,7 @@ public class Cinema {
         float montante = 0;
 
         for (Venda v : this.vendas) {
-            montante += v.getValorTotal();
+            montante += v.getValor_total();
         }
         this.montante = montante;
         return this.montante;

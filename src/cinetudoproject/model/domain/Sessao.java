@@ -8,23 +8,26 @@ import java.util.ArrayList;
 public class Sessao {
 
     private int id, ingresso_disponivel;
-    private Filme filme;
+    private int filme_id;
+    private int sala_id;
     private Sala sala;
-    private Horario horario;
+    private int horario_id;
     private ArrayList<Assento> assentos = new ArrayList<>();
-    private Data data;
+    private int assento;
+    private String data;
     private float valorSessao;
 
     public Sessao() {
     }
 
-    public Sessao(Filme filme, Sala sala, Horario horario, Data data, float valorSessao, int ingresso_disponivel) {
-        this.filme = filme;
+    public Sessao(int filme_id, Sala sala, int horario_id, String data, float valorSessao, int ingresso_disponivel, int assento) {
+        this.filme_id = filme_id;
         this.sala = sala;
-        this.horario = horario;
+        this.horario_id = horario_id;
         this.data = data;
         this.valorSessao = (float) this.sala.getPrecoIngresso();
         this.ingresso_disponivel = ingresso_disponivel;
+        this.assento = assento;
         initAssentos();//cria os assentos disponiveis para a sessao
     }
 
@@ -44,14 +47,6 @@ public class Sessao {
         return ingresso_disponivel;
     }
 
-    public Filme getFilme() {
-        return filme;
-    }
-
-    public void setFilme(Filme filme) {
-        this.filme = filme;
-    }
-
     public Sala getSala() {
         return sala;
     }
@@ -60,22 +55,46 @@ public class Sessao {
         this.sala = sala;
     }
 
-    public Horario getHorario() {
-        return horario;
+    public int getFilme_id() {
+        return filme_id;
     }
 
-    public void setHorario(Horario horario) {
-        this.horario = horario;
+    public void setFilme_id(int filme_id) {
+        this.filme_id = filme_id;
     }
 
-    public Data getData() {
+    public int getSala_id() {
+        return sala_id;
+    }
+
+    public void setSala_id(int sala_id) {
+        this.sala_id = sala_id;
+    }
+
+    public int getHorario_id() {
+        return horario_id;
+    }
+
+    public void setHorario_id(int horario_id) {
+        this.horario_id = horario_id;
+    }
+
+    public String getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(String data) {
         this.data = data;
     }
 
+    public int getAssento() {
+        return assento;
+    }
+
+    public void setAssento(int assento) {
+        this.assento = assento;
+    }
+    
     //inicializa os assentos
     void initAssentos() {
         char fila = 'A';
