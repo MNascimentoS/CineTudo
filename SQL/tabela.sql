@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `cinetudo`.`filme` (
   `titulo` VARCHAR(45) NOT NULL,
   `diretor` VARCHAR(45) NOT NULL,
   `ator` VARCHAR(255) NOT NULL,
-  `duracao` TIME(6) NOT NULL,
+  `duracao` VARCHAR(15) NOT NULL,
   `classificacao` INT NOT NULL,
   `genero_id` INT NOT NULL,
   `image` BLOB NOT NULL,
