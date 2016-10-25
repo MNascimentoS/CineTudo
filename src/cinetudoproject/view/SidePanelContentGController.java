@@ -5,6 +5,7 @@
  */
 package cinetudoproject.view;
 
+import cinetudoproject.model.domain.Funcionario;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -25,12 +27,14 @@ import javafx.stage.Stage;
  */
 public class SidePanelContentGController implements Initializable {
 
+    private Funcionario func;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //getUserInfo();
     }    
     
     @FXML
@@ -50,8 +54,14 @@ public class SidePanelContentGController implements Initializable {
     
     @FXML
     private void cadastrarFilme(ActionEvent event) throws IOException {
+      
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
+        stage.setTitle("Cadastro Filme");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CadastroFilme.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        CadastroFilmeController CFilmcontroller = fxmlLoader.<CadastroFilmeController>getController(); 
+        CFilmcontroller.getUserInfo(this.func);
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -59,8 +69,14 @@ public class SidePanelContentGController implements Initializable {
     
     @FXML
     private void cadastrarFuncionario(ActionEvent event) throws IOException {
+        
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"));
+        stage.setTitle("Cadastro Funcionario");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CadastroFuncionario.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        CadastroFuncionarioController CFcontroller = fxmlLoader.<CadastroFuncionarioController>getController(); 
+        CFcontroller.getUserInfo(this.func);
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -70,6 +86,9 @@ public class SidePanelContentGController implements Initializable {
     private void exit(ActionEvent event) {
         System.exit(0);
     }
-    
-    
+
+    void getUserInfo(Funcionario func) {
+        this.func = func;
+        System.out.println("Novo funcionario logado: "+func.getNome());
+    }
 }

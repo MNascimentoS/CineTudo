@@ -25,7 +25,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
 import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Genero;
+import java.io.IOException;
 import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -56,15 +58,16 @@ public class CadastroFilmeController implements Initializable {
     private int classificacao;
     private File imageFile;
     private String generoMovie;
-    private final int quantGeneros = 8;
     
+    private Funcionario func;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configValidators();
         comboBox.getItems().addAll(
             "Livre",   "10 anos",
             "12 anos", "14 anos",
-            "16 anos", "18 anos"  );
+            "16 anos", "18 anos");
         List<Genero> genero;
         GeneroDAO generoDAO = new GeneroDAO();
         genero = generoDAO.listar();
@@ -157,8 +160,9 @@ public class CadastroFilmeController implements Initializable {
         stage.show();
     }
     
+    
     public void configValidators() {
-        // Valida os campos de entrada (login e senha)
+        // Valida os campos de entrada
         RequiredFieldValidator vTitulo, vDiretor, vAtor, vDuracao;
         vTitulo = new RequiredFieldValidator();
         vDiretor = new RequiredFieldValidator();
@@ -201,5 +205,26 @@ public class CadastroFilmeController implements Initializable {
                 if (!newValue) duracaoFilme.validate();
             }
         });
+    }
+    
+    //recebe as informacoes de usuario
+    public void getUserInfo(Funcionario func)
+    {
+       this.func = func;
+    }
+    
+    @FXML
+    void back2main(ActionEvent event) throws IOException {
+       System.out.println("Back Event!");
+       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+       stage.setTitle("Menu Gerente");
+       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
+       Parent root = (Parent) fxmlLoader.load();
+       MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController(); 
+       Gcontroller.getUserInfo(this.func);
+        
+       Scene scene = new Scene(root);
+       stage.setScene(scene);
+       stage.show();
     }
 }

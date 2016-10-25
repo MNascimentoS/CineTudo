@@ -11,25 +11,25 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="767.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.LoginFXMLController">
     <children>
-      <JFXTextField fx:id="tv_name" focusColor="#ff4537" layoutX="233.0" layoutY="227.0" maxWidth="489.0" minWidth="309.0" prefHeight="55.0" prefWidth="309.0" promptText="Usuário" unFocusColor="WHITE">
+      <JFXTextField fx:id="tv_name" focusColor="#ff4537" labelFloat="true" layoutX="233.0" layoutY="227.0" maxWidth="489.0" minWidth="309.0" prefHeight="55.0" prefWidth="309.0" promptText="Usuário" unFocusColor="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" layoutX="237.0" layoutY="298.0" maxWidth="489.0" minWidth="290.0" prefHeight="55.0" prefWidth="309.0" promptText="Senha" unFocusColor="WHITE">
+      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" labelFloat="true" layoutX="237.0" layoutY="319.0" maxWidth="489.0" minWidth="290.0" prefHeight="55.0" prefWidth="309.0" promptText="Senha" unFocusColor="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="248.0" layoutY="371.0" onAction="#login" prefHeight="45.0" prefWidth="286.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="Entrar" textFill="WHITE">
+      <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="253.0" layoutY="407.0" onAction="#login" prefHeight="45.0" prefWidth="286.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="Entrar" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="16.0" />
          </font></JFXButton>
-      <Text fill="#a89797" layoutX="305.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvido por Space Rocket">
+      <Text fill="#a89797" layoutX="309.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvido por Space Rocket">
          <font>
             <Font size="11.0" />
          </font></Text>
-      <Text fill="#a89797" layoutX="284.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" © Todos os direitos reservados 2016">
+      <Text fill="#a89797" layoutX="288.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" © Todos os direitos reservados 2016">
          <font>
             <Font size="11.0" />
          </font></Text>

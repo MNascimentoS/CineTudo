@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -34,6 +35,7 @@ import javafx.stage.Stage;
  * @author mateus
  */
 public class MainGerenteController implements Initializable {
+   
     @FXML
     private Text usernameLabel;
         
@@ -47,15 +49,30 @@ public class MainGerenteController implements Initializable {
     private AnchorPane root;
 
     public static AnchorPane rootP;
+   
+    private Funcionario func = new Funcionario();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
                
         rootP = root;
-        
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("SidePanelContentG.fxml"));
-            drawer.setSidePane(box);
+       
+    }    
+    //recebe as informacoes de usuario
+    public void getUserInfo(Funcionario func)
+    {
+         this.func = func;
+         usernameLabel.setText("Ola, "+this.func.getNome());
+         //carrega o drawer
+         try {
+             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SidePanelContentG.fxml"));
+             VBox box = fxmlLoader.load();
+             SidePanelContentGController drawercontroller = fxmlLoader.<SidePanelContentGController>getController(); 
+             drawercontroller.getUserInfo(this.func);
+             if(this.func == null) System.err.println("funcionario nulo!");
+             drawer.setSidePane(box);
         } catch (IOException ex) {
+            System.err.println("Erro ao carregar drawer!");
             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -72,32 +89,5 @@ public class MainGerenteController implements Initializable {
             }else
                 drawer.open();
         });
-    }    
-    
-    public void getUserInfo(Funcionario func)
-    {
-       usernameLabel.setText("Ola, "+func.getNome());
-    }
-    
-    @FXML
-    void cadastrarFuncionario(ActionEvent event) throws Exception
-    {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Cadastro de Funcionários");
-        Parent root = FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    @FXML
-    void cadastrarFilme(ActionEvent event) throws Exception
-    {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Cadastro de Filmes");
-        Parent root = FXMLLoader.load(getClass().getResource("CadastroFilme.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }

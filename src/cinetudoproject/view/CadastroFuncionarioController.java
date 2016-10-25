@@ -18,9 +18,16 @@ import javafx.fxml.Initializable;
 import javax.swing.JOptionPane;
 import cinetudoproject.model.domain.Funcionario;
 import com.jfoenix.controls.JFXComboBox;
+import java.io.IOException;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -30,7 +37,11 @@ import javafx.beans.value.ObservableValue;
 public class CadastroFuncionarioController implements Initializable {
 
     FuncionarioDAO insereFun = new FuncionarioDAO();
+    private Funcionario func;
 
+    @FXML
+    private Text nameLabel;
+    
     @FXML
     private JFXComboBox cinemaBox;
     
@@ -40,11 +51,12 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private JFXPasswordField tf_pass;
 
-    private List<Cinema> cinema;;
+    private List<Cinema> cinema;
     private String cinemaNome;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //preenche com todos os cinemas
         CinemaDAO cinemaDAO = new CinemaDAO();
         cinema = cinemaDAO.listar();
         cinema.forEach((i) -> {
@@ -59,31 +71,52 @@ public class CadastroFuncionarioController implements Initializable {
             
         });
     }
-
+    
+    //recebe as informacoes de usuario
+    public void getUserInfo(Funcionario func)
+    {
+       this.func = func;
+       nameLabel.setText("Ola, "+this.func.getNome());
+    }
+    
+    //tente cadastrar
     public void cadastro(ActionEvent event) throws Exception {
-        if (    tf_name.getText().equals("")
-             || tf_cpf.getText().equals("")
-             || tf_user.getText().equals("")
-             || tf_pass.getText().equals("")
-             || tf_email.getText().equals("")
-             || cinemaNome == null) 
+       //caso algum campo esteja vazio
+        if (tf_name.getText().equals("")  || tf_cpf.getText().equals("")  || 
+            tf_user.getText().equals("")  || tf_pass.getText().equals("") || 
+            tf_email.getText().equals("") || cinemaNome == null) 
         {
             JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
             return;
         }
+        
         int cinemaId = 0;
+        //para cada cinema, verifique se existe um cinema igual a opcao escolhida
         for(Cinema i : cinema){
-            if (i.getNome().equals(cinemaNome)){
+            if (i.getNome().equals(cinemaNome)){//se sim, pegue o seu id
                 cinemaId = i.getId();
             }
         }
+        //cria um novo funcionario
         Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
                                                   tf_user.getText(), tf_pass.getText());
-        
+        //tente, cadastrar o novo funcionario caso este nao exista
         insereFun.insertFuncionario(funcionario);
     }
-
-    /*public void salvarDB(Funcionario funcionario){
+    
+    //cancelar event - Voltar para o menu principal
+     @FXML
+    void back2menu(ActionEvent event) throws IOException {
+        System.out.println("Back Event!");
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Menu Gerente");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController(); 
+        Gcontroller.getUserInfo(this.func);
         
-    }*/
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
