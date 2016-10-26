@@ -1,14 +1,19 @@
 package cinetudoproject.model.domain;
 
-public class Sala2D extends Sala{
+import javafx.collections.ObservableList;
 
-	public Sala2D(int numero, int capacidade, float precoIngresso) {
-		super(numero, capacidade, precoIngresso);
-	}
+public class Sala2D extends Sala {
 
-	@Override
-	public float getPrecoIngresso() {
-		// TODO Auto-generated method stub
-		return precoIngresso;
-	} 	
+    public Sala2D() {
+    }
+
+    public Sala2D(int numero, int capacidade, String tipo, float preco_ingresso) {
+        super(numero, capacidade, tipo, preco_ingresso);
+    }
+
+    @Override
+    public float getPreco_ingresso() {
+        // TODO Auto-generated method stub
+        return preco_ingresso;
+    }
 }

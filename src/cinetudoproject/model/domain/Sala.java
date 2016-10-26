@@ -1,14 +1,19 @@
 package cinetudoproject.model.domain;
 
-public abstract class Sala {
+public class Sala {
 
     protected int id, numero, capacidade;
-    protected float precoIngresso;
+    protected float preco_ingresso;
+    protected String tipo;
 
-    public Sala(int numero, int capacidade, float precoIngresso) {
+    public Sala(){
+    }
+
+    public Sala(int numero, int capacidade, String tipo, float preco_ingresso) {
         this.numero = numero;
         this.capacidade = capacidade;
-        this.precoIngresso = precoIngresso;
+        this.tipo = tipo;
+        this.preco_ingresso = preco_ingresso;
     }
 
     /*gets ^ sets*/
@@ -37,10 +42,20 @@ public abstract class Sala {
         this.capacidade = capacidade;
     }
 
-    public void setPrecoIngresso(float precoIngresso) {
-        this.precoIngresso = precoIngresso;
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setPreco_ingresso(float preco_ingresso) {
+        this.preco_ingresso = preco_ingresso;
     }
 
     /*retorna o valor do ingresso*/
-    public abstract float getPrecoIngresso();
+    public float getPreco_ingresso(){
+        return preco_ingresso;
+    }
 }

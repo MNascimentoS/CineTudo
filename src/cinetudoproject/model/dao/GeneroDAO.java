@@ -50,7 +50,7 @@ public class GeneroDAO {
     public Genero buscaGenero(int idGenero) {
         Genero genero = null;
         
-        final String busca = "SELECT id, nome FROM genero WHERE id = ?";
+        final String busca = "SELECT id, nome FROM genero WHERE id = ? order by nome";
         try {
             connection = database.connect();
             PreparedStatement buscar = connection.prepareStatement(busca);

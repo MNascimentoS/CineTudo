@@ -115,7 +115,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Mateus Nascimento','111111111','mateus.nnascimento.s@gmail.com',1,'mateus','minhasenha',1),(2,'Teste','111111111','teste@gmail.com',1,'user','pass',1),(3,'Fernandinho da Bahia','696969696','nandinho69@gmail.com',0,'nandinho','gay69',1),(4,'Joao Da Silva Pinto','02354867800','jdapinto@email.com',0,'jdapinto','kkkkkk',1);
+INSERT INTO `funcionario` VALUES (1,'Mateus Nascimento','111111111','mateus.nnascimento.s@gmail.com',1,'mateus','minhasenha',1),(2,'Teste','111111111','teste@gmail.com',1,'user','pass',1),(3,'Fernandinho da Bahia','696969696','nandinho69@gmail.com',0,'nandinho','gay69',1),(4,'Joao Da Silva Pinto','02354867800','jdapinto@email.com',0,'jdapinto','kkkkkk',1), ),(5,'Wellington','123456987170','well@email.com',1,'well','123',1);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +236,7 @@ CREATE TABLE `sala` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `numero` int(11) NOT NULL,
   `capacidade` int(11) NOT NULL,
-  `preco_ingreco` float NOT NULL,
+  `preco_ingresso` float NOT NULL,
   `tipo` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

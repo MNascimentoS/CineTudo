@@ -25,7 +25,7 @@ public class Sessao {
         this.sala = sala;
         this.horario_id = horario_id;
         this.data = data;
-        this.valorSessao = (float) this.sala.getPrecoIngresso();
+        this.valorSessao = (float) this.sala.getPreco_ingresso();
         this.ingresso_disponivel = ingresso_disponivel;
         this.assento = assento;
         initAssentos();//cria os assentos disponiveis para a sessao
