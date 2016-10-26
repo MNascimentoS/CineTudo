@@ -22,7 +22,7 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-        this.password = "elefanterosa";
+        this.password = "";
     }
    
     @Override

@@ -30,6 +30,23 @@ public class GeneroDAO {
         database = new DatabaseMySQL();
     }
     
+    //insert method
+    public void insertGenero(Genero genero) {
+        final String inserir = "INSERT INTO genero(nome) values(?)";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement salvar = conn.prepareStatement(inserir);
+            salvar.setString(1, genero.getNome());
+            salvar.executeUpdate();
+            salvar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger("Error on: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+        }
+    }
+    
     public Genero buscaGenero(int idGenero) {
         Genero genero = null;
         
@@ -43,9 +60,9 @@ public class GeneroDAO {
             genero = buscaGenero(resultadoBusca);
             buscar.close();
             connection.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"ERRO AO BUSCAR GENERO: "+ genero.getId() + "\n" + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger("Error na busca: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return genero;
     }
@@ -81,7 +98,8 @@ public class GeneroDAO {
             buscar.close();
             connection.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            //Logger.getLogger("Error na busca: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, e);
+            //e.printStackTrace();
         }
         return genero;
     }

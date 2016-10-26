@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="467.0" style="-fx-background-color: #000000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="cinetudoproject.view.CadastroGeneroController">
+   <children>
+      <BorderPane layoutY="1.0" prefHeight="99.0" prefWidth="444.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <JFXTextField fx:id="tv_genero" focusColor="#ff4537" labelFloat="true" maxWidth="489.0" minWidth="309.0" prefHeight="55.0" prefWidth="434.0" promptText="Gênero" unFocusColor="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+         </center>
+      </BorderPane>
+      <BorderPane layoutY="200.0" prefHeight="72.0" prefWidth="467.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <center>
+            <JFXButton fx:id="btn_salvar" buttonType="RAISED" onAction="#salvarGenero" prefHeight="34.0" prefWidth="168.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="Salvar" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Droid Sans Georgian" size="16.0" />
+               </font>
+            </JFXButton>
+         </center>
+      </BorderPane>
+      <JFXPasswordField focusColor="BLACK" layoutX="-11.0" layoutY="-15.0" maxWidth="22.0" minWidth="22.0" prefHeight="1.0" prefWidth="22.0" unFocusColor="BLACK" />
+   </children>
+</AnchorPane>
