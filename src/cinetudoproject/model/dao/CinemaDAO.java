@@ -57,22 +57,52 @@ public class CinemaDAO {
     }
 
     public Cinema buscarCinema(String nomeCinema) {
-        Cinema cinema = null;
-        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE nome = ?";
+        Cinema cinema = new Cinema();
+        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE nome = "+nomeCinema+"";
         try {
             connection = database.connect();
             PreparedStatement buscar = connection.prepareStatement(busca);
-            buscar.setString(1, nomeCinema);
             ResultSet resultadoBusca = buscar.executeQuery();
-            resultadoBusca.next();
-            cinema = buscaCinema(resultadoBusca);
-            buscar.close();
+            
+            if(resultadoBusca.next())
+            {
+               //TODO  
+            }
+            
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return cinema;
     }
+    
+     public Cinema buscarCinema(int idCinema) {
+        Cinema cinema = new Cinema();
+        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE id = "+idCinema+"";
+        try {
+            connection = database.connect();
+            PreparedStatement buscar = connection.prepareStatement(busca);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            
+            if(resultadoBusca.next())
+            {
+                 cinema.setId(resultadoBusca.getInt(1));
+                 cinema.setNome(resultadoBusca.getString(2));
+                 cinema.setEndereco(resultadoBusca.getString(3));
+                 cinema.setCpnj(resultadoBusca.getString(4));
+                 cinema.setValorSemana(resultadoBusca.getFloat(5));
+                 cinema.setValorFDS(resultadoBusca.getFloat(6));
+            }else{
+            
+            }
+            
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cinema;
+    }
+
 
     private Cinema buscaCinema(ResultSet resultadoBusca) throws SQLException, ParseException {
         Cinema cinema = new Cinema();

@@ -1,0 +1,167 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cinetudoproject.view;
+import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.dao.GeneroDAO;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javax.imageio.ImageIO;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Genero;
+import com.jfoenix.validation.NumberValidator;
+import java.io.IOException;
+import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+
+/**
+ * FXML Controller class
+ *
+ * @author Jose
+ */
+public class CadastroSalaController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
+    private Funcionario func;
+    
+    @FXML
+    private JFXComboBox tipoComboBox;
+
+    @FXML
+    private JFXTextField tfNumSala;
+
+    @FXML
+    private JFXTextField tfCapaMax;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        configValidators();
+        initTipo();
+    }    
+     
+    public void initTipo()
+    {
+        tipoComboBox.getItems().addAll("2D", "3D");
+    }
+    public void configValidators() {
+        //validators para cada campo
+        NumberValidator tfNumSalaValidator = new NumberValidator();
+        NumberValidator tfCapaMaxValidator = new NumberValidator();
+        //adiciona o validator e a mensagem de erro
+        tfCapaMax.getValidators().add(tfCapaMaxValidator);
+        tfCapaMaxValidator.setMessage("Apenas numeros sao aceitos!");
+        //adiciona o validator e a mensagem de erro
+        tfNumSala.getValidators().add(tfNumSalaValidator);
+        tfNumSalaValidator.setMessage("Apenas numeros sao aceitos!");
+        //listener no focus do field
+        tfNumSala.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                
+                if(!newValue){
+                    tfNumSala.validate();
+                }
+            }
+        });
+        //listener no focus do field
+        tfCapaMax.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                
+                if(!newValue){
+                    tfCapaMax.validate();
+                }
+            }
+        });
+    }
+    
+    //recebe as informacoes de usuario
+    public void getUserInfo(Funcionario func)
+    {
+       this.func = func;
+    }
+    
+    @FXML
+    void salvarSala(ActionEvent event) {
+        //valida os campos
+        if(validateFields())
+        {
+           
+        }
+    }
+    
+    boolean validateFields()
+    {
+       Alert alert = new Alert(AlertType.WARNING);
+       alert.setHeaderText(null);
+       
+       if(tfCapaMax.getText().equals("") || tfNumSala.getText().equals("") || tipoComboBox.getValue() == null)
+       {
+           alert.setTitle("Campos vazios"); 
+           alert.setContentText("Preencha todos os campos antes de continuar!");
+           alert.showAndWait();
+           return false;
+       }else if(!onlyNumber(tfCapaMax.getText()) || !onlyNumber(tfNumSala.getText())){//se nao for apenas numeros n permita o cadastro
+           alert.setTitle("Apenas numeros"); 
+           alert.setContentText("Apenas numeros sao permitidos!");
+           alert.showAndWait();
+           return false;
+       }
+       
+       return true;
+    }
+    
+    //valida se possui apenas numeros nos campos
+    boolean onlyNumber(String campo)
+    {
+        for (int i = 0; i < campo.length(); i++) {
+          if(!Character.isDigit(campo.charAt(i)))
+          {
+              return false;
+          }
+        }
+        return true;
+    }
+    
+    @FXML
+    void back2main(ActionEvent event) throws IOException {
+       
+        System.out.println("Back Event!");
+       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+       stage.setTitle("Menu Gerente");
+       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
+       Parent root = (Parent) fxmlLoader.load();
+       MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController(); 
+       Gcontroller.getUserInfo(this.func);
+        
+       Scene scene = new Scene(root);
+       stage.setScene(scene);
+       stage.show();
+    }
+}

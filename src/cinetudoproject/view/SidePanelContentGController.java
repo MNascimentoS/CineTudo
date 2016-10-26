@@ -38,21 +38,6 @@ public class SidePanelContentGController implements Initializable {
     }    
     
     @FXML
-    private void changeColor(ActionEvent event) {
-        JFXButton btn = (JFXButton) event.getSource();
-        System.out.println(btn.getText());
-        switch(btn.getText())
-        {
-            case "Color 1":MainGerenteController.rootP.setStyle("-fx-background-color:#00FF00");
-                break;
-            case "Color 2":MainGerenteController.rootP.setStyle("-fx-background-color:#0000FF");
-                break;
-            case "Color 3":MainGerenteController.rootP.setStyle("-fx-background-color:#FF0000");
-                break;
-        }
-    }
-    
-    @FXML
     private void cadastrarFilme(ActionEvent event) throws IOException {
       
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -81,6 +66,22 @@ public class SidePanelContentGController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    void cadastrarSala(ActionEvent event) throws IOException {
+       
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Cadastro Sala");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CadastroSala.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        CadastroSalaController CScontroller = fxmlLoader.<CadastroSalaController>getController(); 
+        CScontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     
     @FXML
     private void exit(ActionEvent event) {
