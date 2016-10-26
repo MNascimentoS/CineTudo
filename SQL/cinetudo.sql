@@ -19,6 +19,10 @@
 -- Table structure for table `cinema`
 --
 
+CREATE SCHEMA IF NOT EXISTS `cinetudo` DEFAULT CHARACTER SET utf8 ;
+USE `cinetudo` ;
+
+
 DROP TABLE IF EXISTS `cinema`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

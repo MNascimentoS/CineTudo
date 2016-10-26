@@ -29,11 +29,16 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Genero;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -58,6 +63,7 @@ public class CadastroFilmeController implements Initializable {
     private int classificacao;
     private File imageFile;
     private String generoMovie;
+    private String novoGenero = "Cadastrar Novo Gênero";
     
     private Funcionario func;
 
@@ -68,6 +74,8 @@ public class CadastroFilmeController implements Initializable {
             "Livre",   "10 anos",
             "12 anos", "14 anos",
             "16 anos", "18 anos");
+        
+        boxGenero.getItems().addAll(novoGenero);
         List<Genero> genero;
         GeneroDAO generoDAO = new GeneroDAO();
         genero = generoDAO.listar();
@@ -108,7 +116,31 @@ public class CadastroFilmeController implements Initializable {
         boxGenero.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                generoMovie = newValue;
+                if (newValue.equals(novoGenero)){
+                    generoMovie = "";
+                    Stage stage = new Stage();
+                    stage.setTitle("Cadastrar Gênero");
+                    Pane myPane = null;
+                    try {
+                        myPane = FXMLLoader.load(getClass().getResource("CadastroGenero.fxml"));
+                        Scene scene = new Scene(myPane);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(CadastroFilmeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    /*boxGenero.getSelectionModel().clearSelection();
+                    boxGenero.getItems().clear();
+                    boxGenero.getItems().addAll(novoGenero);
+                    List<Genero> newGeneros;
+                    GeneroDAO newgeneroDAO = new GeneroDAO();
+                    newGeneros = newgeneroDAO.listar();
+                    newGeneros.forEach((i) -> {
+                        boxGenero.getItems().addAll(i.getNome());
+                    });*/
+                }else{
+                    generoMovie = newValue;
+                }
             }
             
         });
@@ -139,6 +171,10 @@ public class CadastroFilmeController implements Initializable {
     
     public void saveMovie(ActionEvent event) throws Exception 
     {   
+        if (generoMovie.equals("")){
+            JOptionPane.showMessageDialog(null, "Selecione um gênero válido");
+            return;
+        }
         GeneroDAO generoDAO = new GeneroDAO();
         Genero genero = generoDAO.buscaGenero(generoMovie);
         Filme filme = new Filme();
