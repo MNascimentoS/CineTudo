@@ -15,6 +15,7 @@ package cinetudoproject.util.mask;
  * and open the template in the editor.
  */
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -244,7 +245,7 @@ public class MaskField {
      * @param textField TextField.
      * @param length    Tamanho do campo.
      */
-    private static void maxField(final JFXTextField textField, final Integer length) {
+    public static void maxField(final JFXTextField textField, final Integer length) {
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
@@ -254,4 +255,13 @@ public class MaskField {
         });
     }
 
+    public static void maxField(final JFXPasswordField textField, final Integer length) {
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (newValue.length() > length)
+                    textField.setText(oldValue);
+            }
+        });
+    }
 }

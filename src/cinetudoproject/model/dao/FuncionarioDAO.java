@@ -70,7 +70,7 @@ public class FuncionarioDAO {
             buscar.close();
             conn.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ user);
             //System.exit(0);
         }

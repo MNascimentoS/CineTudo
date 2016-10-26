@@ -9,12 +9,14 @@ import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,7 +33,10 @@ public class FilmeDAO {
     
     public void insert(Filme filme) throws FileNotFoundException {
         final String inserir = "INSERT INTO filme(titulo, diretor, ator, duracao, genero_id, classificacao, image, cinema_id) values(?,?,?,?,?,?,?,?)";	
+      
         try {
+            //to keep image on database
+            FileInputStream fis = new FileInputStream(filme.getImageFile());
             //get the connection
             Connection conn = database.connect();
             PreparedStatement salvar = conn.prepareStatement(inserir);
@@ -41,15 +46,25 @@ public class FilmeDAO {
             salvar.setInt(4, filme.getDuracao());
             salvar.setInt(5, filme.getGenero().getId());
             salvar.setInt(6, filme.getClassEtaria());
-            salvar.setString(7, filme.getImageFile().getAbsolutePath());
+            salvar.setBinaryStream(7, fis, (int) filme.getImageFile().length());
             salvar.setInt(8, filme.getCinema_id());
             
             salvar.executeUpdate();
-            salvar.close();
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            
+            database.desconnect(conn);
+              
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
+        
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro no cadastro: \n"+ ex.getMessage());
+            alert.showAndWait();
         }
     }
     

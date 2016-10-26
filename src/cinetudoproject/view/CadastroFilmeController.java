@@ -36,6 +36,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -171,31 +172,37 @@ public class CadastroFilmeController implements Initializable {
     
     public void saveMovie(ActionEvent event) throws Exception 
     {   
-        if (generoMovie.equals("")){
-            JOptionPane.showMessageDialog(null, "Selecione um gênero válido");
-            return;
+        if(validateFields())
+        {
+            GeneroDAO generoDAO = new GeneroDAO();
+            Genero genero = generoDAO.buscaGenero(generoMovie);
+            Filme filme = new Filme(tituloFilme.getText(),nomeDiretor.getText(),nomeAtor.getText(),
+                                    Integer.parseInt(duracaoFilme.getText()),classificacao,
+                                    genero,imageFile, func.getCinema_id());
+            //try save the movie
+            FilmeDAO filmeDAO = new FilmeDAO();
+            filmeDAO.insert(filme);  
+            //back2main(event);
         }
-        GeneroDAO generoDAO = new GeneroDAO();
-        Genero genero = generoDAO.buscaGenero(generoMovie);
-        Filme filme = new Filme();
-        filme.setTitulo(tituloFilme.getText());
-        filme.setDiretor(nomeDiretor.getText());
-        filme.setAtorPrincipal(nomeAtor.getText());
-        filme.setDuracao(Integer.parseInt(duracaoFilme.getText()));
-        filme.setClassEtaria(classificacao);
-        filme.setGenero(genero);
-        filme.setImageFile(imageFile);
-        filme.setCinema_id(1);
-        FilmeDAO filmeDAO = new FilmeDAO();
-        filmeDAO.insert(filme);       
-        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("MainGerente.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
     
+     boolean validateFields() {
+         
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+
+        if (tituloFilme.getText().equals("") || nomeDiretor.getText().equals("") 
+            || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
+            || boxGenero.getValue() == null || comboBox.getValue() == null) {
+            
+            alert.setTitle("Campos vazios");
+            alert.setContentText("Preencha todos os campos antes de continuar!");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
     
     public void configValidators() {
         // Valida os campos de entrada

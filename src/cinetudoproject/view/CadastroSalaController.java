@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sala2D;
 import cinetudoproject.model.domain.Sala3D;
 import com.jfoenix.validation.NumberValidator;
@@ -99,15 +100,17 @@ public class CadastroSalaController implements Initializable {
 
     @FXML
     void salvarSala(ActionEvent event) {
-        
-        if (tipoComboBox.getValue().equals("2D")) {
-            Sala2D sala2d = new Sala2D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-            saladao.insertSala(sala2d);
-        } else {
-            Sala3D sala3d = new Sala3D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-            saladao.insertSala(sala3d);
+        //se estiver tudo ok!
+        if(validateFields())
+        {
+           if (tipoComboBox.getValue().equals("2D")) {
+                Sala sala2d = new Sala2D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
+                saladao.insertSala(sala2d);
+            } else {
+                Sala sala3d = new Sala3D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
+                saladao.insertSala(sala3d);
+            }
         }
-
     }
 
     boolean validateFields() {

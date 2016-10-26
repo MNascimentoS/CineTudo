@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javax.swing.JOptionPane;
 import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.util.mask.MaskField;
 import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +39,8 @@ public class CadastroFuncionarioController implements Initializable {
 
     FuncionarioDAO insereFun = new FuncionarioDAO();
     private Funcionario func;
+    
+    MaskField cpfMaskField,  passMask;
 
     @FXML
     private Text nameLabel;
@@ -56,6 +59,10 @@ public class CadastroFuncionarioController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cpfMaskField = new MaskField();
+        cpfMaskField.cpfCnpjField(tf_cpf);
+        passMask = new MaskField();
+        passMask.maxField(tf_pass, 6);
         //preenche com todos os cinemas
         CinemaDAO cinemaDAO = new CinemaDAO();
         cinema = cinemaDAO.listar();

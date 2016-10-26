@@ -10,6 +10,7 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.util.mask.MaskField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.net.URL;
@@ -58,9 +59,9 @@ public class LoginFXMLController implements Initializable {
     MaskField mask = new MaskField();
     
     
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    
         // Valida os campos de entrada (login e senha)
         RequiredFieldValidator validator = new RequiredFieldValidator();
         RequiredFieldValidator validatorPass = new RequiredFieldValidator();
@@ -90,8 +91,11 @@ public class LoginFXMLController implements Initializable {
         });
     }
     
+      
+    
     /*Quando logar, valide os campos*/
     public void login(ActionEvent event) throws Exception {
+        
         if (tv_name.getText().equals("") || tv_password.getText().equals("")) {//caso haja campos vazios
             System.out.println("campo vazio!");
             text_erro.setText("Preencha todos os campos!");
@@ -137,6 +141,8 @@ public class LoginFXMLController implements Initializable {
             System.out.println("Usuário ou senha incorretos!");
             text_erro.setText("Usuário ou senha incorretos!");
             text_erro.setVisible(true);
+             //mostre o spinner
         }
+      
     }
 }

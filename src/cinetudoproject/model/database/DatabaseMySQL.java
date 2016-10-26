@@ -8,6 +8,9 @@ package cinetudoproject.model.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 /**
  *
@@ -22,7 +25,7 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-        this.password = "";
+        this.password = "elefanterosa";
     }
    
     @Override
@@ -33,10 +36,17 @@ public class DatabaseMySQL implements Database{
             return this.connection;
         }  catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             if (e instanceof ClassNotFoundException) {
-                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro no drive");
+                 alert.setTitle("Erro");
+                 alert.setContentText("Contate o suporte tecnico - Driver nao encontrado!");
+                 alert.showAndWait();
+                //JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro no drive");
             } else {
-                JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro na conexao com o bd");
+                alert.setTitle("Erro");
+                alert.setContentText("Contate o suporte tecnico - Erro ao conectar com o DB!");
+                alert.showAndWait();
             }
             System.exit(0);
             return null;
@@ -45,7 +55,12 @@ public class DatabaseMySQL implements Database{
 
     @Override
     public void desconnect(Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            conn.close();
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
        public String getUser() {
