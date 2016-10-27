@@ -76,7 +76,7 @@ public class CadastroSessaoController implements Initializable {
         
         MaskField.dateField((JFXTextField) fieldDiaInicio);
         MaskField.dateField((JFXTextField) fieldDiaFim);
-        MaskField.timeField((JFXTextField) fieldHorario);
+        MaskField.timeField((JFXTextField) fieldHorario, 5);
         try {
             createFilmeBox();
             createSalaBox();
