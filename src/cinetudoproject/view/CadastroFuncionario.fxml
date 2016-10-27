@@ -55,7 +55,17 @@
             <Font size="17.0" />
          </font>
       </JFXPasswordField>
+      <JFXButton id="updateButton" fx:id="updateButton" buttonType="RAISED" layoutX="525.0" layoutY="429.0" onAction="#update" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ALTERAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
       <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="525.0" layoutY="429.0" onAction="#cadastro" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="400.0" layoutY="500.0" onAction="#delete" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETE" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>

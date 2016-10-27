@@ -56,8 +56,50 @@ public class FuncionarioDAO {
         }
     }
 
+    public void update(Funcionario funcionario) {
+        final String update = "update funcionario set nome = ?, cpf = ?, email = ?, usuario = ?, senha = ?, cinema_id = ? where usuario = ?";
+        try {
+            //get the connection
+            Connection conn = database.connect();
+            PreparedStatement salvar = conn.prepareStatement(update);
+            salvar.setString(1, funcionario.getNome());
+            salvar.setString(2, funcionario.getCpf());
+            salvar.setString(3, funcionario.getEmail());
+            salvar.setString(4, funcionario.getUser());
+            salvar.setString(5, funcionario.getSenha());
+            salvar.setInt(6, funcionario.getCinema_id());
+            salvar.setString(7, funcionario.getUser());
+            salvar.executeUpdate();
+            salvar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+            //return true;
+        } catch (SQLException ex) {
+            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na alteração" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+    
+    public void delete(String user) {
+        final String delete = "delete from funcionario where usuario = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement deletar = conn.prepareStatement(delete);
+            deletar.setString(1, user);
+            deletar.executeUpdate();
+            deletar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Deletado com Sucesso");
+       } catch (SQLException ex) {
+            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+
     public Funcionario buscaPorUser(String user) {
-        Funcionario func = null;
+        Funcionario funcionario = null;
         final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM funcionario WHERE usuario = ?";
         try {
             //DBConect db = new DBConect();
@@ -66,15 +108,15 @@ public class FuncionarioDAO {
             buscar.setString(1, user);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
-            func = buscaFuncionario(resultadoBusca);
+            funcionario = buscaFuncionario(resultadoBusca);
             buscar.close();
             conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ user);
+            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO " + user);
             //System.exit(0);
         }
-        return func;
+        return funcionario;
     }
 
     private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
@@ -90,4 +132,6 @@ public class FuncionarioDAO {
 
         return funcionario;
     }
+
+    
 }
