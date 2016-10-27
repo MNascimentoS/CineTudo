@@ -17,7 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javax.swing.JOptionPane;
 import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.util.mask.MaskField;
+import cinetudoproject.util.CryptMD5;
+import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.util.List;
@@ -104,9 +105,11 @@ public class CadastroFuncionarioController implements Initializable {
                 cinemaId = i.getId();
             }
         }
+        
+        CryptMD5 md5 = new CryptMD5();
         //cria um novo funcionario
         Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                                                  tf_user.getText(), tf_pass.getText());
+                                                  tf_user.getText(), md5.cryptWithMD5(tf_pass.getText()));
         //tente, cadastrar o novo funcionario caso este nao exista
         insereFun.insertFuncionario(funcionario);
     }

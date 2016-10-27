@@ -39,7 +39,7 @@
             <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="-6.0" maxHeight="-Infinity" prefHeight="523.0" prefWidth="163.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <JFXListView fx:id="moviesListView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" style="-fx-background-color: #F0F0;" translateX="-20.0" BorderPane.alignment="CENTER" />
+            <JFXListView fx:id="moviesListView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #F0F0;" translateX="-80.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>

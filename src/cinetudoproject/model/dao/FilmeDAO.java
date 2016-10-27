@@ -6,16 +6,24 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
@@ -85,6 +93,46 @@ public class FilmeDAO {
             e.printStackTrace();
         }
         return filme;
+    }
+    
+   public ArrayList<Filme> listar() throws FileNotFoundException, IOException {
+        final String sql = "SELECT * FROM filme";
+        ArrayList<Filme> retorno = new ArrayList<>();
+        
+        try {
+            connection = database.connect();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Filme filme = new Filme();
+                filme.setTitulo(resultado.getString("titulo"));
+                
+                File imageFile = new File("src/img/" + filme.getTitulo()+".png");
+                FileOutputStream fos = new FileOutputStream(imageFile);
+                Blob blob = resultado.getBlob("image");
+                byte b[] = blob.getBytes(1,(int)blob.length());
+                fos.write(b);
+                fos.close();
+                filme.setImageFile(imageFile);
+                
+                Genero genero = new Genero();
+                GeneroDAO generoDAO = new GeneroDAO();
+                genero.setId(resultado.getInt("genero_id"));
+                genero = generoDAO.buscaGenero(genero.getId());
+                
+                filme.setId(resultado.getInt("id"));
+                filme.setAtorPrincipal(resultado.getString("ator"));
+                filme.setDiretor(resultado.getString("diretor"));
+                filme.setDuracao(resultado.getInt("duracao"));
+                filme.setClassEtaria(resultado.getInt("classificacao"));
+                filme.setGenero(genero);
+                filme.setCinema_id(resultado.getInt("cinema_id"));
+                retorno.add(filme);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FilmeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
     
     private Filme buscaFilme(ResultSet resultadoBusca) throws SQLException, ParseException {
