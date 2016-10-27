@@ -69,6 +69,7 @@ public class SalaDAO {
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Sala sala = new Sala();
+                sala.setId(resultado.getInt("id"));
                 sala.setNumero(resultado.getInt("numero"));
                 sala.setCapacidade(resultado.getInt("capacidade"));
                 sala.setTipo(resultado.getString("tipo"));

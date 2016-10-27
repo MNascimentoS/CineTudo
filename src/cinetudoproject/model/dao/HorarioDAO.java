@@ -39,7 +39,7 @@ public class HorarioDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            //JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

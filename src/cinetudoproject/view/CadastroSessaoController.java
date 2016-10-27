@@ -9,6 +9,7 @@ import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.SalaDAO;
+import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
@@ -35,6 +36,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -116,6 +118,7 @@ public class CadastroSessaoController implements Initializable {
     }
     
     public void createSalaBox() throws IOException {
+        chooseSala = new Sala();
         SalaDAO salaDAO = new SalaDAO();
         sala = salaDAO.listar();
         sala.forEach((i) -> {
@@ -128,6 +131,7 @@ public class CadastroSessaoController implements Initializable {
                 sala.forEach((i) -> {
                     if (("Sala: " + i.getNumero() + ", do tipo: " + i.getTipo()).equals(newValue)){
                         chooseSala = i;
+                        System.out.println("ENTROU " + chooseSala.getId());
                     }
                 });
             }
@@ -139,6 +143,15 @@ public class CadastroSessaoController implements Initializable {
         horarioBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (chooseMovie == null){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Alerta");
+                    alert.setContentText("Adicione primeiramente um filme!");
+                    alert.showAndWait();
+                    horarioBox.getSelectionModel().clearSelection();
+                    return;
+                }
                 if(newValue.equals(adicionarHorario)){
                     horarioBox.getSelectionModel().clearSelection();
                     paneHorario.setVisible(true);
@@ -149,6 +162,10 @@ public class CadastroSessaoController implements Initializable {
     
     @FXML
     void salvarHorario(ActionEvent event) throws IOException {
+        //TODO checar se o horário não interfere em outra sessão
+        /*Horario novoHorario = new Horario();
+        novoHorario.setHorario(fieldHorario.getText());*/
+        
         horarioBox.getItems().addAll(fieldHorario.getText());
         fieldHorario.setText("");
         paneHorario.setVisible(false);
@@ -157,8 +174,9 @@ public class CadastroSessaoController implements Initializable {
     @FXML
     void salvarSessao(ActionEvent event) throws IOException {
         horario = new Horario();
-        Sessao sessao = new Sessao();
         HorarioDAO horarioDAO = new HorarioDAO();
+        Sessao sessao = new Sessao();
+        SessaoDAO sessaoDAO = new SessaoDAO();
         horarioBox.getItems().forEach((i)->{
             if(!i.toString().equals(adicionarHorario)){
                 horario.setHorario(i.toString());
@@ -167,9 +185,12 @@ public class CadastroSessaoController implements Initializable {
                 sessao.setHorario_id(horario.getId());
                 sessao.setFilme_id(chooseMovie.getId());
                 sessao.setSala_id(chooseSala.getId());
+                sessao.setDataInicio(fieldDiaInicio.getText());
+                sessao.setDataFinal(fieldDiaFim.getText());
                 sessao.setSala(chooseSala);
                 sessao.setAssento(chooseSala.getCapacidade());
-                sessao.initAssentos();
+                sessao.setIngresso_disponivel(chooseSala.getCapacidade());
+                sessaoDAO.insertSessao(sessao);
             }
         });
     }

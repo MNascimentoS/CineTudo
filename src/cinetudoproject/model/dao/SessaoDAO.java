@@ -30,7 +30,7 @@ public class SessaoDAO {
     }
 
     public void insertSessao(Sessao sessao) {
-        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,valor_sessao) values(?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos) values(?,?,?,?,?,?,?)";
         try {
             //get the connection
 
@@ -40,9 +40,9 @@ public class SessaoDAO {
             salvar.setInt(2, sessao.getFilme_id());
             salvar.setInt(3, sessao.getHorario_id());
             salvar.setInt(4, sessao.getIngresso_disponivel());
-            salvar.setString(5, sessao.getData());
-            salvar.setInt(6, sessao.getAssento());
-            salvar.setFloat(7, sessao.getValorSessao());
+            salvar.setString(5, sessao.getDataInicio());
+            salvar.setString(6, sessao.getDataFinal());
+            salvar.setInt(7, sessao.getAssento());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
@@ -57,7 +57,7 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorHora(String hora) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,valor_sessao FROM sessao WHERE hora = ?";
+        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao WHERE hora = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -78,7 +78,7 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorFilme(String filme) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,valor_sessao FROM sessao WHERE hora = ?";
+        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao WHERE hora = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -104,9 +104,9 @@ public class SessaoDAO {
         sessao.setFilme_id(resultadoBusca.getInt(3));
         sessao.setHorario_id(resultadoBusca.getInt(4));
         sessao.setIngresso_disponivel(resultadoBusca.getInt(5));
-        sessao.setData(resultadoBusca.getString(5));
-        sessao.setAssento(resultadoBusca.getInt(6));
-        sessao.setValorSessao(resultadoBusca.getFloat(7));
+        sessao.setDataInicio(resultadoBusca.getString(5));
+        sessao.setDataFinal(resultadoBusca.getString(6));
+        sessao.setAssento(resultadoBusca.getInt(7));
         return sessao;
     }
 

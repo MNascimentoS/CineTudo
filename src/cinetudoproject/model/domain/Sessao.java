@@ -5,27 +5,28 @@ import java.util.ArrayList;
 /**
  * Created by diogo on 20/08/16.
  */
-public class Sessao {
+public final class Sessao {
 
     private int id, ingresso_disponivel;
     private int filme_id;
     private int sala_id;
     private Sala sala;
     private int horario_id;
-    private ArrayList<Assento> assentos = new ArrayList<>();
+    private ArrayList<Assento> assentos;
     private int assento;
-    private String data;
-    private float valorSessao;
+    private String dataInicio, dataFim;
 
     public Sessao() {
+        this.assentos = new ArrayList<>();
     }
 
-    public Sessao(int filme_id, Sala sala, int horario_id, String data, float valorSessao, int ingresso_disponivel, int assento) {
+    public Sessao(int filme_id, Sala sala, int horario_id, String dataInicio, String dataFim, int ingresso_disponivel, int assento) {
+        this.assentos = new ArrayList<>();
         this.filme_id = filme_id;
         this.sala = sala;
         this.horario_id = horario_id;
-        this.data = data;
-        this.valorSessao = (float) this.sala.getPreco_ingresso();
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
         this.ingresso_disponivel = ingresso_disponivel;
         this.assento = assento;
         initAssentos();//cria os assentos disponiveis para a sessao
@@ -79,12 +80,20 @@ public class Sessao {
         this.horario_id = horario_id;
     }
 
-    public String getData() {
-        return data;
+    public String getDataInicio() {
+        return dataInicio;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+    
+    public String getDataFinal() {
+        return dataFim;
+    }
+
+    public void setDataFinal(String dataFim) {
+        this.dataFim = dataFim;
     }
 
     public int getAssento() {
@@ -131,11 +140,4 @@ public class Sessao {
         System.out.println("Este assento não existe!");
     }
 
-    public float getValorSessao() {
-        return valorSessao;
-    }
-
-    public void setValorSessao(float valorSessao) {
-        this.valorSessao = valorSessao;
-    }
 }

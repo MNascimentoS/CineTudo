@@ -40,8 +40,8 @@
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <JFXComboBox id="comboBox" fx:id="salaBox" layoutX="717.0" layoutY="214.0" prefHeight="38.0" prefWidth="239.0" promptText="Sala" style="-fx-background-color: #FFFFFF;" />
-      <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="455.0" layoutY="214.0" prefHeight="38.0" prefWidth="239.0" promptText="Filme" style="-fx-background-color: #FFFFFF;" />
+      <JFXComboBox id="comboBox" fx:id="salaBox" layoutX="717.0" layoutY="252.0" prefHeight="38.0" prefWidth="239.0" promptText="Sala" style="-fx-background-color: #FFFFFF;" />
+      <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="455.0" layoutY="252.0" prefHeight="38.0" prefWidth="239.0" promptText="Filme" style="-fx-background-color: #FFFFFF;" />
       <JFXTextField fx:id="fieldDiaInicio" focusColor="#ff4537" layoutX="446.0" layoutY="306.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Inicio">
          <font>
             <Font size="17.0" />
@@ -69,11 +69,6 @@
             </JFXButton>
          </right>
       </BorderPane>
-      <JFXComboBox id="comboBox" fx:id="cinemaBox" disable="true" layoutX="454.0" layoutY="156.0" prefHeight="38.0" prefWidth="503.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
-      <JFXTextField fx:id="fieldValorIngresso" focusColor="#ff4537" layoutX="445.0" layoutY="267.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="519.0" promptText="Valor do Ingresso">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
+      <JFXComboBox id="comboBox" fx:id="cinemaBox" disable="true" layoutX="454.0" layoutY="194.0" prefHeight="38.0" prefWidth="503.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
    </children>
 </AnchorPane>
