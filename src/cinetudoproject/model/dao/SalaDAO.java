@@ -6,12 +6,23 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Sala;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +59,28 @@ public class SalaDAO {
         }
     }
 
+    public List<Sala> listar() throws FileNotFoundException, IOException {
+        final String sql = "SELECT * FROM sala order by numero";
+        List<Sala> retorno = new ArrayList<>();
+        
+        try {
+            connection = database.connect();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Sala sala = new Sala();
+                sala.setNumero(resultado.getInt("numero"));
+                sala.setCapacidade(resultado.getInt("capacidade"));
+                sala.setTipo(resultado.getString("tipo"));
+                sala.setPreco_ingresso(resultado.getFloat("preco_ingresso"));
+                retorno.add(sala);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FilmeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+    
     public Sala buscaPorNumeroSala(int numero) {
         Sala sala = null;
         final String busca = "SELECT id, numero, capacidade, preco_ingresso FROM sala WHERE numero = ?";

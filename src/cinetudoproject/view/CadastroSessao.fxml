@@ -11,17 +11,17 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroSessaoController">
    <children>
-      <ImageView id="bigImage" fx:id="bigImage" fitHeight="643.0" fitWidth="434.0" layoutX="-1.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="bigImage" fx:id="bigImage" fitHeight="620.0" fitWidth="424.0" layoutX="-1.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/filme.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="683.0" fitWidth="34.0" layoutX="402.0" layoutY="65.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="683.0" fitWidth="34.0" layoutX="387.0" layoutY="65.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/sombra.png" />
          </image>
       </ImageView>
-      <JFXToolbar prefHeight="70.0" prefWidth="1009.0" style="-fx-background-color: #FFF;">
+      <JFXToolbar layoutY="-1.0" prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #FFF;">
          <center>
             <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                <image>
@@ -30,33 +30,45 @@
             </ImageView>
          </center>
       </JFXToolbar>
-      <JFXButton id="saveButton" fx:id="backButton" buttonType="RAISED" layoutX="489.0" layoutY="486.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
+      <JFXButton id="saveButton" fx:id="backButton" buttonType="RAISED" layoutX="474.0" layoutY="486.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="741.0" layoutY="486.0" onAction="#salvarSessao" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="726.0" layoutY="486.0" onAction="#salvarSessao" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="741.0" layoutY="172.0" prefHeight="38.0" prefWidth="215.0" promptText="Sala" />
-      <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="490.0" layoutY="172.0" prefHeight="38.0" prefWidth="209.0" promptText="Filme" />
-      <JFXTextField fx:id="duracaoFilme" focusColor="#ff4537" layoutX="488.0" layoutY="273.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="209.0" promptText="Data de Inicio">
+      <JFXComboBox id="comboBox" fx:id="salaBox" layoutX="717.0" layoutY="243.0" prefHeight="38.0" prefWidth="239.0" promptText="Sala" style="-fx-background-color: #FFFFFF;" />
+      <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="455.0" layoutY="243.0" prefHeight="38.0" prefWidth="239.0" promptText="Filme" style="-fx-background-color: #FFFFFF;" />
+      <JFXTextField fx:id="fieldDiaInicio" focusColor="#ff4537" layoutX="446.0" layoutY="300.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Inicio">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="duracaoFilme1" focusColor="#ff4537" layoutX="738.0" layoutY="273.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="232.0" promptText="Data de Finalização">
+      <JFXTextField fx:id="fieldDiaFim" focusColor="#ff4537" layoutX="719.0" layoutY="300.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Finalização">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox id="comboBox" fx:id="comboBox1" layoutX="490.0" layoutY="217.0" prefHeight="38.0" prefWidth="467.0" promptText="Adicionar Horários" />
-      <JFXTextField fx:id="duracaoFilme2" focusColor="#ff4537" layoutX="490.0" layoutY="328.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="467.0" promptText="Data de Inicio">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
+      <JFXComboBox id="comboBox" fx:id="horarioBox" layoutX="453.0" layoutY="357.0" prefHeight="38.0" prefWidth="503.0" promptText="Horários" style="-fx-background-color: #FFFFFF;" />
+      <BorderPane fx:id="paneHorario" layoutX="447.0" layoutY="402.0" prefHeight="61.0" prefWidth="509.0" visible="false">
+         <center>
+            <JFXTextField fx:id="fieldHorario" focusColor="#ff4537" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="503.0" promptText="Novo Horário" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXTextField>
+         </center>
+         <right>
+            <JFXButton id="saveButton" fx:id="saveHorario" buttonType="RAISED" onAction="#salvarHorario" prefHeight="25.0" prefWidth="91.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Droid Sans Georgian" size="15.0" />
+               </font>
+            </JFXButton>
+         </right>
+      </BorderPane>
+      <JFXComboBox id="comboBox" fx:id="cinemaBox" disable="true" layoutX="454.0" layoutY="185.0" prefHeight="38.0" prefWidth="503.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
    </children>
 </AnchorPane>

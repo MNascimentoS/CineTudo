@@ -93,10 +93,11 @@ public class Sessao {
 
     public void setAssento(int assento) {
         this.assento = assento;
+        initAssentos();
     }
     
     //inicializa os assentos
-    void initAssentos() {
+    public void initAssentos() {
         char fila = 'A';
         int capacidade = this.getSala().getCapacidade();
         for (int i = 0; i < capacidade; i++) {
