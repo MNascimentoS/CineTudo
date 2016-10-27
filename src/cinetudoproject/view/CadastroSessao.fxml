@@ -35,13 +35,13 @@
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="741.0" layoutY="486.0" onAction="#saveMovie" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="741.0" layoutY="486.0" onAction="#salvarSessao" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
       <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="741.0" layoutY="172.0" prefHeight="38.0" prefWidth="215.0" promptText="Sala" />
-      <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="490.0" layoutY="172.0" prefHeight="38.0" prefWidth="209.0" promptText="Filme" />
+      <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="490.0" layoutY="172.0" prefHeight="38.0" prefWidth="209.0" promptText="Filme" />
       <JFXTextField fx:id="duracaoFilme" focusColor="#ff4537" layoutX="488.0" layoutY="273.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="209.0" promptText="Data de Inicio">
          <font>
             <Font size="17.0" />
