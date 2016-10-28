@@ -16,7 +16,7 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sessao;
-import cinetudoproject.util.mask.MaskField;
+import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;

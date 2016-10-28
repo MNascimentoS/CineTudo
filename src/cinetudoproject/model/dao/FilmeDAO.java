@@ -6,6 +6,7 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
 import java.io.File;
@@ -74,10 +75,10 @@ public class FilmeDAO {
             alert.showAndWait();
         }
     }
-    
-    public List<Filme> listar() throws FileNotFoundException, IOException {
+ 
+   public ArrayList<Filme> listar() throws FileNotFoundException, IOException {
         final String sql = "SELECT * FROM filme";
-        List<Filme> retorno = new ArrayList<>();
+        ArrayList<Filme> retorno = new ArrayList<>();
         
         try {
             connection = database.connect();

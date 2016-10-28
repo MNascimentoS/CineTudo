@@ -25,6 +25,7 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
+	//Continuarei mudando a senha até vc desistir :D
         this.password = "";
     }
    

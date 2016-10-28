@@ -99,7 +99,7 @@ public class FuncionarioDAO {
     }
 
     public Funcionario buscaPorUser(String user) {
-        Funcionario funcionario = null;
+        Funcionario func = null;
         final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM funcionario WHERE usuario = ?";
         try {
             //DBConect db = new DBConect();
@@ -108,15 +108,15 @@ public class FuncionarioDAO {
             buscar.setString(1, user);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
-            funcionario = buscaFuncionario(resultadoBusca);
+            func = buscaFuncionario(resultadoBusca);
             buscar.close();
             conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO " + user);
+            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ user);
             //System.exit(0);
         }
-        return funcionario;
+        return func;
     }
 
     private Funcionario buscaFuncionario(ResultSet resultadoBusca) throws SQLException, ParseException {
@@ -132,6 +132,4 @@ public class FuncionarioDAO {
 
         return funcionario;
     }
-
-    
 }

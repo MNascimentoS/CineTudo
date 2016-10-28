@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cinetudoproject.util.mask;
+package cinetudoproject.util;
 
 /**
  *
@@ -87,16 +87,16 @@ public class MaskField {
             }
         });
     }
-    
-    public static void timeField(final JFXTextField textField) {
-        maxField(textField, 8);
+ 
+    public static void timeField(final JFXTextField textField, int fieldSize) {
+        maxField(textField, fieldSize);
 
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() < 11) {
                     String value = textField.getText();
-                    value = value.replaceAll("[^0-9]", "");
+                   value = value.replaceAll("[^0-9]", "");
                     value = value.replaceFirst("(\\d{2})(\\d)", "$1:$2");
                     value = value.replaceFirst("(\\d{2})\\:(\\d{2})(\\d)", "$1:$2:$3");
                     textField.setText(value);
@@ -104,10 +104,10 @@ public class MaskField {
                 }
             }
         });
-    }
+    }    
     
-    public static void timeField(final JFXTextField textField, int textSize) {
-        maxField(textField, textSize);
+    public static void timeField(final JFXTextField textField) {
+        maxField(textField, 8);
 
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
+import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -14,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -53,7 +57,7 @@ public class MainFuncionarioController implements Initializable {
     public static AnchorPane rootP;
     
     @FXML
-    private JFXListView<Label> moviesListView;
+    private JFXListView<Label> moviesListView = new JFXListView<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,6 +67,8 @@ public class MainFuncionarioController implements Initializable {
         try {
             loadMoviesList();
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -83,8 +89,14 @@ public class MainFuncionarioController implements Initializable {
             if(drawer.isShown())
             {
                 drawer.close();
-            }else
+                //moviesListView.setMaxWidth(637);
+                moviesListView.setTranslateX(-80);
+            }else{
                 drawer.open();
+                moviesListView.setMaxWidth(637);
+                moviesListView.setTranslateX(5);
+                //moviesListView.widthProperty().
+            }
         });
     } 
     
@@ -94,23 +106,29 @@ public class MainFuncionarioController implements Initializable {
        usernameLabel.setText("Ola, "+func.getNome());
     }
     
-   /**@TODO: Descubrir o erro stackoverflow quando percorrido os itens na tela*/ 
-    void loadMoviesList() throws FileNotFoundException
+   /**@TODO: Descobrir o erro stackoverflow quando percorrido os itens na tela*/ 
+    void loadMoviesList() throws FileNotFoundException, IOException
     {
-         for (int i = 0; i < 30; i++) {
-            Label lbl = new Label("Item: "+i);
-            lbl.setGraphic(new ImageView(new Image(new FileInputStream("/home/jose/Desktop/movi.png"))));
-            moviesListView.getItems().add(lbl);
-         }
-         
-         moviesListView.setExpanded(true);
-         moviesListView.depthProperty().set(1);
-         //moviesListView.setPadding(new Insets(10, 0, 0, 0));
-         //moviesListView.setPadding(new Insets(50,0,50,0));
-    }
-    
-      @FXML
-    void mude(ActionEvent event) {
-       
+        FilmeDAO filmeDao = new FilmeDAO();
+        ArrayList<Filme> filmeList = filmeDao.listar();
+        //caso haja filmes cadastrados coloque-os na lista
+        if(filmeList != null)
+        {
+            for(Filme i : filmeList)
+            {
+              Label lbl = new Label(i.getTitulo()+"\n"+i.getDiretor());
+              //lbl.setTextFill(Color.web("#000"));
+              ImageView iv = new ImageView(new Image(new FileInputStream(i.getImageFile().getAbsolutePath()), 72, 72, false, false));
+              lbl.setGraphic(iv);
+              lbl.setGraphicTextGap(15);
+              moviesListView.getItems().add(lbl);
+            }
+            
+            moviesListView.setExpanded(true);
+            moviesListView.depthProperty().set(1);
+        
+        }else{
+            System.err.println("Nao ha filmes cadastrados!");
+        }
     }
 }

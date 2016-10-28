@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Genero;
+import cinetudoproject.util.MaskField;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -71,6 +72,7 @@ public class CadastroFilmeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configValidators();
+        MaskField.timeField(duracaoFilme, 5);
         comboBox.getItems().addAll(
             "Livre",   "10 anos",
             "12 anos", "14 anos",
@@ -174,10 +176,16 @@ public class CadastroFilmeController implements Initializable {
     {   
         if(validateFields())
         {
+            String duracao = duracaoFilme.getText();
+            int hora   = Integer.parseInt(duracao.substring(0, 2));
+            int minuto = Integer.parseInt(duracao.substring(3, 5));
+            duracao = "" + hora + minuto + 0 + 0;
+            int tempo = Integer.parseInt(duracao);
+            
             GeneroDAO generoDAO = new GeneroDAO();
             Genero genero = generoDAO.buscaGenero(generoMovie);
             Filme filme = new Filme(tituloFilme.getText(),nomeDiretor.getText(),nomeAtor.getText(),
-                                    Integer.parseInt(duracaoFilme.getText()),classificacao,
+                                    tempo,classificacao,
                                     genero,imageFile, func.getCinema_id());
             //try save the movie
             FilmeDAO filmeDAO = new FilmeDAO();
@@ -193,7 +201,7 @@ public class CadastroFilmeController implements Initializable {
 
         if (tituloFilme.getText().equals("") || nomeDiretor.getText().equals("") 
             || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
-            || boxGenero.getValue() == null || comboBox.getValue() == null) {
+            || boxGenero.getValue() == null  || comboBox.getValue() == null) {
             
             alert.setTitle("Campos vazios");
             alert.setContentText("Preencha todos os campos antes de continuar!");

@@ -17,7 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javax.swing.JOptionPane;
 import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.util.mask.MaskField;
+import cinetudoproject.util.CryptMD5;
+import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
@@ -37,7 +38,7 @@ import javafx.stage.Stage;
  * @author mateus
  */
 public class CadastroFuncionarioController implements Initializable {
-    
+
     FuncionarioDAO insereFun = new FuncionarioDAO();
     private Funcionario func;
     
@@ -54,10 +55,10 @@ public class CadastroFuncionarioController implements Initializable {
     
     @FXML
     private JFXTextField tf_name, tf_cpf, tf_email, tf_user;
-    
+
     @FXML
     private JFXPasswordField tf_pass;
-    
+
     private List<Cinema> cinema;
     private String cinemaNome;
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -120,10 +121,11 @@ public class CadastroFuncionarioController implements Initializable {
 
     //tente cadastrar
     public void cadastro(ActionEvent event) throws Exception {
-        //caso algum campo esteja vazio
-        if (tf_name.getText().equals("") || tf_cpf.getText().equals("")
-                || tf_user.getText().equals("") || tf_pass.getText().equals("")
-                || tf_email.getText().equals("") || cinemaNome == null) {
+       //caso algum campo esteja vazio
+        if (tf_name.getText().equals("")  || tf_cpf.getText().equals("")  || 
+            tf_user.getText().equals("")  || tf_pass.getText().equals("") || 
+            tf_email.getText().equals("") || cinemaNome == null) 
+        {
             JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
             return;
         }
@@ -135,9 +137,11 @@ public class CadastroFuncionarioController implements Initializable {
                 cinemaId = i.getId();
             }
         }
+        
+        CryptMD5 md5 = new CryptMD5();
         //cria um novo funcionario
         Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                tf_user.getText(), tf_pass.getText());
+                                                  tf_user.getText(), md5.cryptWithMD5(tf_pass.getText()));
         //tente, cadastrar o novo funcionario caso este nao exista
         insereFun.insertFuncionario(funcionario);
     }

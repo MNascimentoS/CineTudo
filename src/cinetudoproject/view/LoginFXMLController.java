@@ -7,7 +7,8 @@ package cinetudoproject.view;
 
 import cinetudoproject.model.dao.FuncionarioDAO;
 import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.util.mask.MaskField;
+import cinetudoproject.util.CryptMD5;
+import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSpinner;
@@ -113,7 +114,17 @@ public class LoginFXMLController implements Initializable {
             text_erro.setVisible(true);
         }
         
-        if (tv_name.getText().equals(funcionario.getUser()) && tv_password.getText().equals(funcionario.getSenha())) {
+        CryptMD5 md5 = new CryptMD5();
+         
+        String pass;
+        if(funcionario.getCargo() == 0)
+        {
+            pass = md5.cryptWithMD5(tv_password.getText());
+        }else{
+            pass = tv_password.getText();
+        }
+            
+        if (tv_name.getText().equals(funcionario.getUser()) &&  pass.equals(funcionario.getSenha())) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader fxmlLoader;
             Parent root;

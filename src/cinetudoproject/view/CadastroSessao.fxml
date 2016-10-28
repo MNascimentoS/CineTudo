@@ -42,12 +42,12 @@
       </JFXButton>
       <JFXComboBox id="comboBox" fx:id="salaBox" layoutX="717.0" layoutY="252.0" prefHeight="38.0" prefWidth="239.0" promptText="Sala" style="-fx-background-color: #FFFFFF;" />
       <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="455.0" layoutY="252.0" prefHeight="38.0" prefWidth="239.0" promptText="Filme" style="-fx-background-color: #FFFFFF;" />
-      <JFXTextField fx:id="fieldDiaInicio" focusColor="#ff4537" layoutX="446.0" layoutY="306.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Inicio">
+      <JFXTextField fx:id="fieldDiaInicio" focusColor="#ff4537" labelFloat="true" layoutX="446.0" layoutY="306.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Inicio">
          <font>
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="fieldDiaFim" focusColor="#ff4537" layoutX="719.0" layoutY="306.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Finalização">
+      <JFXTextField fx:id="fieldDiaFim" focusColor="#ff4537" labelFloat="true" layoutX="719.0" layoutY="306.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data de Finalização">
          <font>
             <Font size="17.0" />
          </font>

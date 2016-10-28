@@ -8,14 +8,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="467.0" style="-fx-background-color: #000000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="cinetudoproject.view.CadastroGeneroController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="467.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroGeneroController">
    <children>
       <BorderPane layoutY="1.0" prefHeight="99.0" prefWidth="444.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
          <center>
-            <JFXTextField fx:id="tv_genero" focusColor="#ff4537" labelFloat="true" maxWidth="489.0" minWidth="309.0" prefHeight="55.0" prefWidth="434.0" promptText="Gênero" unFocusColor="WHITE" BorderPane.alignment="CENTER">
+            <JFXTextField fx:id="tv_genero" focusColor="#ff4537" labelFloat="true" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="488.0" promptText="Gênero" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="16.0" />
+                  <Font size="17.0" />
                </font>
             </JFXTextField>
          </center>
@@ -29,6 +28,5 @@
             </JFXButton>
          </center>
       </BorderPane>
-      <JFXPasswordField focusColor="BLACK" layoutX="-11.0" layoutY="-15.0" maxWidth="22.0" minWidth="22.0" prefHeight="1.0" prefWidth="22.0" unFocusColor="BLACK" />
    </children>
 </AnchorPane>
