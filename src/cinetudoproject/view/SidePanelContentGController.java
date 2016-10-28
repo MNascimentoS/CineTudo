@@ -36,10 +36,10 @@ public class SidePanelContentGController implements Initializable {
         // TODO
         //getUserInfo();
     }   
-    
+      
     @FXML
-    void cadastrarSessao(ActionEvent event) throws IOException {
-       
+    private void cadastrarSessao(ActionEvent event) throws IOException {
+      
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Cadastro Sessão");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CadastroSessao.fxml"));
@@ -83,7 +83,7 @@ public class SidePanelContentGController implements Initializable {
     }
     
     @FXML
-    void cadastrarSala(ActionEvent event) throws IOException {
+    private void cadastrarSala(ActionEvent event) throws IOException {
        
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Cadastro Sala");

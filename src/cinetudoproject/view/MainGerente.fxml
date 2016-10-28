@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="1000.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.MainGerenteController">
    <children>
-      <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFF;">
+      <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;">
          <center>
             <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                <image>
@@ -32,7 +32,7 @@
             </Text>
          </right>
          <left>
-            <JFXHamburger fx:id="hamburguer" style="-fx-border-style: #FF;" translateX="20.0" BorderPane.alignment="CENTER" />
+            <JFXHamburger fx:id="hamburguer" translateX="20.0" BorderPane.alignment="CENTER" />
          </left>
       </JFXToolbar>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="77.0" prefHeight="552.0" prefWidth="255.0" />

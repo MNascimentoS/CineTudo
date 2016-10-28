@@ -22,6 +22,10 @@ import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -72,10 +76,6 @@ public class CadastroSessaoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //CinemaDAO cinemaDAO = new CinemaDAO();
-        //Cinema cinema = cinemaDAO.buscarCinema(func.getCinema_id());
-        //cinemaBox.setPromptText(cinema.getNome());
-        
         MaskField.dateField((JFXTextField) fieldDiaInicio);
         MaskField.dateField((JFXTextField) fieldDiaFim);
         MaskField.timeField((JFXTextField) fieldHorario, 5);
@@ -171,12 +171,41 @@ public class CadastroSessaoController implements Initializable {
         paneHorario.setVisible(false);
     }
     
+    boolean isValidDate(String dataInicio, String dataFinal) throws ParseException{
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date dataI = formato.parse(dataInicio);
+        Date dataF = formato.parse(dataFinal);
+        
+        if(dataF.before(dataI)) return false;
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        Date today = c.getTime();
+        return dataI.after(today) && dataF.after(today);
+    }
+    
     @FXML
-    void salvarSessao(ActionEvent event) throws IOException {
+    void salvarSessao(ActionEvent event) throws IOException, ParseException {
         horario = new Horario();
         HorarioDAO horarioDAO = new HorarioDAO();
         Sessao sessao = new Sessao();
         SessaoDAO sessaoDAO = new SessaoDAO();
+        
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        
+        if (!isValidDate(fieldDiaInicio.getText(), fieldDiaFim.getText())){
+            alert.setTitle("Erro");
+            alert.setContentText("Data inválida");
+            alert.showAndWait();
+            return;
+        }
+        
         horarioBox.getItems().forEach((i)->{
             if(!i.toString().equals(adicionarHorario)){
                 horario.setHorario(i.toString());
@@ -199,6 +228,9 @@ public class CadastroSessaoController implements Initializable {
     public void getUserInfo(Funcionario func)
     {
        this.func = func;
+       CinemaDAO cinemaDAO = new CinemaDAO();
+       Cinema cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
+       cinemaBox.setPromptText(cinema.getNome());
     }
     
     @FXML
