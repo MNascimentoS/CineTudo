@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -75,6 +76,17 @@
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
-      </JFXButton> 
+      </JFXButton>
+        <CheckBox fx:id="cb_userBusca" layoutX="525.0" layoutY="130.0" mnemonicParsing="false" text="Update"> 
+            <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+       </CheckBox>
+        <JFXTextField id="tf_userBusca" fx:id="tf_userBusca" focusColor="#ff4537" labelFloat="true" layoutX="620.0" layoutY="120.0" maxWidth="550.0" minWidth="118.0" prefHeight="38.0" prefWidth="363.0" promptText="Usuário" unFocusColor="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextField>
+  
     </children>
 </AnchorPane>

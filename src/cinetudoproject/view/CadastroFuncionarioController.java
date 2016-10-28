@@ -29,6 +29,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -41,20 +42,23 @@ public class CadastroFuncionarioController implements Initializable {
 
     FuncionarioDAO insereFun = new FuncionarioDAO();
     private Funcionario func;
-    
+
     MaskField cpfMaskField, passMask;
-    
+
     @FXML
     private Text nameLabel;
-    
+
     @FXML
     private JFXButton saveButton, updateButton, deleteButton;
-    
+
     @FXML
     private JFXComboBox cinemaBox;
-    
+
     @FXML
-    private JFXTextField tf_name, tf_cpf, tf_email, tf_user;
+    private JFXTextField tf_name, tf_cpf, tf_email, tf_user, tf_userBusca;
+
+    @FXML
+    private CheckBox cb_userBusca;
 
     @FXML
     private JFXPasswordField tf_pass;
@@ -63,7 +67,7 @@ public class CadastroFuncionarioController implements Initializable {
     private String cinemaNome;
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     Funcionario funcionarioDados = new Funcionario();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cpfMaskField = new MaskField();
@@ -76,41 +80,60 @@ public class CadastroFuncionarioController implements Initializable {
         cinema.forEach((i) -> {
             cinemaBox.getItems().addAll(i.getNome());
         });
-        
+
         cinemaBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 cinemaNome = newValue;
             }
-            
+
         });
-        tf_user.requestFocus();
+
+        tf_name.requestFocus();
+        //Começam invisiveis.
         updateButton.setVisible(false);
         deleteButton.setVisible(false);
-        
-        tf_user.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        tf_userBusca.setVisible(false);
+
+        cb_userBusca.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    System.err.println("Sim");
+                    tf_userBusca.setVisible(true);
+                    updateButton.setVisible(true);
+                    deleteButton.setVisible(true);
+                    saveButton.setVisible(false);
                 } else {
-                    
-                    funcionarioDados = funcionarioDAO.buscaPorUser(tf_user.getText());
+                    tf_userBusca.setVisible(false);
+                    updateButton.setVisible(false);
+                    deleteButton.setVisible(false);
+                    saveButton.setVisible(true);
+                    tf_userBusca.setText("");
+                    tf_cpf.setText("");
+                    tf_email.setText("");
+                    tf_name.setText("");
+                    tf_pass.setText("");
+                    tf_user.setText("");
+                }
+            }
+        });
+
+        tf_userBusca.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue
+            ) {
+                if (!newValue) {
+                    funcionarioDados = funcionarioDAO.buscaPorUser(tf_userBusca.getText());
                     tf_cpf.setText(funcionarioDados.getCpf());
                     tf_email.setText(funcionarioDados.getEmail());
                     tf_name.setText(funcionarioDados.getNome());
                     tf_pass.setText(funcionarioDados.getSenha());
                     tf_user.setText(funcionarioDados.getUser());
-                    
-                    if (tf_name.getText() != null && tf_cpf.getText() != null && tf_email.getText() != null && tf_pass.getText() != null && tf_user.getText() != null) {
-                        saveButton.setVisible(false);
-                        updateButton.setVisible(true);
-                        deleteButton.setVisible(true);
-                    }
+
                 }
             }
-            
-        });
+        }
+        );
     }
 
     //recebe as informacoes de usuario
@@ -121,15 +144,14 @@ public class CadastroFuncionarioController implements Initializable {
 
     //tente cadastrar
     public void cadastro(ActionEvent event) throws Exception {
-       //caso algum campo esteja vazio
-        if (tf_name.getText().equals("")  || tf_cpf.getText().equals("")  || 
-            tf_user.getText().equals("")  || tf_pass.getText().equals("") || 
-            tf_email.getText().equals("") || cinemaNome == null) 
-        {
+        //caso algum campo esteja vazio
+        if (tf_name.getText().equals("") || tf_cpf.getText().equals("")
+                || tf_user.getText().equals("") || tf_pass.getText().equals("")
+                || tf_email.getText().equals("") || cinemaNome == null) {
             JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
             return;
         }
-        
+
         int cinemaId = 0;
         //para cada cinema, verifique se existe um cinema igual a opcao escolhida
         for (Cinema i : cinema) {
@@ -137,15 +159,15 @@ public class CadastroFuncionarioController implements Initializable {
                 cinemaId = i.getId();
             }
         }
-        
+
         CryptMD5 md5 = new CryptMD5();
         //cria um novo funcionario
         Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                                                  tf_user.getText(), md5.cryptWithMD5(tf_pass.getText()));
+                tf_user.getText(), md5.cryptWithMD5(tf_pass.getText()));
         //tente, cadastrar o novo funcionario caso este nao exista
         insereFun.insertFuncionario(funcionario);
     }
-    
+
     public void update(ActionEvent event) throws Exception {
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario;
@@ -155,10 +177,10 @@ public class CadastroFuncionarioController implements Initializable {
                 cinemaId = i.getId();
             }
         }
-       funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(), tf_user.getText(), tf_pass.getText());
-       funcionarioDAO.update(funcionario);
+        funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(), tf_user.getText(), tf_pass.getText());
+        funcionarioDAO.update(funcionario);
     }
-    
+
     public void delete(ActionEvent event) throws Exception {
         FuncionarioDAO funcionario = new FuncionarioDAO();
         funcionario.delete(tf_user.getText());
@@ -174,7 +196,7 @@ public class CadastroFuncionarioController implements Initializable {
         Parent root = (Parent) fxmlLoader.load();
         MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController();
         Gcontroller.getUserInfo(this.func);
-        
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
