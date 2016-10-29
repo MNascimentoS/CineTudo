@@ -13,6 +13,7 @@
       <JFXButton fx:id="b2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" onAction="#cadastrarFilme" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Filme" />
       <JFXButton fx:id="b21" buttonType="RAISED" onAction="#cadastrarFuncionario" prefHeight="57.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Funcionario" />
       <JFXButton fx:id="cadastrar" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#cadastrarSala" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Sala" />
+      <JFXButton fx:id="cadastrar1" buttonType="RAISED" onAction="#cadastrarPromocao" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Promoção" />
       <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Sair" />
    </children>
 </VBox>
