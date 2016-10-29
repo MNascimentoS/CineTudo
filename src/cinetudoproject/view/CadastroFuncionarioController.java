@@ -65,6 +65,7 @@ public class CadastroFuncionarioController implements Initializable {
 
     private List<Cinema> cinema;
     private String cinemaNome;
+    
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     Funcionario funcionarioDados = new Funcionario();
 
@@ -177,7 +178,7 @@ public class CadastroFuncionarioController implements Initializable {
                 cinemaId = i.getId();
             }
         }
-        funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(), tf_user.getText(), tf_pass.getText());
+        funcionario = new Funcionario(funcionarioDados.getId(), cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(), tf_user.getText(), tf_pass.getText());
         funcionarioDAO.update(funcionario);
     }
 

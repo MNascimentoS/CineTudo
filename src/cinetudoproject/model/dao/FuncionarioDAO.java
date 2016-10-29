@@ -57,7 +57,7 @@ public class FuncionarioDAO {
     }
 
     public void update(Funcionario funcionario) {
-        final String update = "update funcionario set nome = ?, cpf = ?, email = ?, usuario = ?, senha = ?, cinema_id = ? where usuario = ?";
+        final String update = "update funcionario set nome = ?, cpf = ?, email = ?, usuario = ?, senha = ?, cinema_id = ? where id = ?";
         try {
             //get the connection
             Connection conn = database.connect();
@@ -68,7 +68,7 @@ public class FuncionarioDAO {
             salvar.setString(4, funcionario.getUser());
             salvar.setString(5, funcionario.getSenha());
             salvar.setInt(6, funcionario.getCinema_id());
-            salvar.setString(7, funcionario.getUser());
+            salvar.setInt(7, funcionario.getId());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
