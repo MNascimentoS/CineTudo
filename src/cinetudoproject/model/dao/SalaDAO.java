@@ -6,14 +6,9 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Sala;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,7 +57,7 @@ public class SalaDAO {
     public List<Sala> listar() throws FileNotFoundException, IOException {
         final String sql = "SELECT * FROM sala order by numero";
         List<Sala> retorno = new ArrayList<>();
-        
+
         try {
             connection = database.connect();
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -81,10 +76,10 @@ public class SalaDAO {
         }
         return retorno;
     }
-    
+
     public Sala buscaPorNumeroSala(int numero) {
         Sala sala = null;
-        final String busca = "SELECT id, numero, capacidade, preco_ingresso FROM sala WHERE numero = ?";
+        final String busca = "SELECT id, numero, capacidade, tipo, preco_ingresso FROM sala WHERE numero = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -97,12 +92,12 @@ public class SalaDAO {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR A SALA: "+ numero);
+            System.err.println("ERRO AO BUSCAR A SALA: " + numero);
             //System.exit(0);
         }
         return sala;
     }
-    
+
     private Sala buscaHorario(ResultSet resultadoBusca) throws SQLException, ParseException {
         Sala sala = new Sala();
         sala.setId(resultadoBusca.getInt(1));
@@ -111,5 +106,43 @@ public class SalaDAO {
         sala.setTipo(resultadoBusca.getString(4));
         sala.setPreco_ingresso(resultadoBusca.getFloat(5));
         return sala;
+    }
+
+    public void delete(int numero) {
+        final String delete = "delete from sala where numero = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement deletar = conn.prepareStatement(delete);
+            deletar.setInt(1, numero);
+            deletar.executeUpdate();
+            deletar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Deletado Com Sucesso!");
+
+        } catch (SQLException ex) {
+            // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+
+    public void update(Sala sala) {
+        final String update = "update sala set numero = ?, capacidade = ?, tipo = ? where id = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement atualizar = conn.prepareStatement(update);
+            atualizar.setInt(1, sala.getNumero());
+            atualizar.setInt(2, sala.getCapacidade());
+            atualizar.setString(3, sala.getTipo());
+            atualizar.setInt(4, sala.getId());
+            atualizar.executeUpdate();
+            atualizar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+       } catch (SQLException ex) {
+            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
     }
 }

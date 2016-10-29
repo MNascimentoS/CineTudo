@@ -19,6 +19,7 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sala2D;
 import cinetudoproject.model.domain.Sala3D;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.validation.NumberValidator;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
 /**
@@ -46,15 +48,55 @@ public class CadastroSalaController implements Initializable {
     private JFXComboBox tipoComboBox;
 
     @FXML
+    private CheckBox cb_numeroBusca;
+
+    @FXML
     private JFXTextField tfNumSala;
 
     @FXML
+    private JFXTextField tfBuscaSala;
+
+    @FXML
     private JFXTextField tfCapaMax;
+
+    @FXML
+    private JFXButton updateButton, deleteButton, saveButton;
+
+    Sala sala;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configValidators();
         initTipo();
+
+        tfBuscaSala.setVisible(false);
+        updateButton.setVisible(false);
+        deleteButton.setVisible(false);
+
+        cb_numeroBusca.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue) {
+                tfBuscaSala.setVisible(true);
+                updateButton.setVisible(true);
+                deleteButton.setVisible(true);
+                saveButton.setVisible(false);
+            } else {
+                tfBuscaSala.setVisible(false);
+                updateButton.setVisible(false);
+                deleteButton.setVisible(false);
+                saveButton.setVisible(true);
+                tfBuscaSala.setText("");
+                tfCapaMax.setText("");
+                tfNumSala.setText("");
+            }
+        });
+        tfBuscaSala.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (!newValue) {
+                sala = new SalaDAO().buscaPorNumeroSala(Integer.parseInt(tfBuscaSala.getText()));
+                tfNumSala.setText(String.valueOf(sala.getNumero()));
+                tfCapaMax.setText(String.valueOf(sala.getCapacidade()));
+
+            }
+        });
     }
 
     public void initTipo() {
@@ -101,15 +143,30 @@ public class CadastroSalaController implements Initializable {
     @FXML
     void salvarSala(ActionEvent event) {
         //se estiver tudo ok!
-        if(validateFields())
-        {
-           if (tipoComboBox.getValue().equals("2D")) {
+        if (validateFields()) {
+            if (tipoComboBox.getValue().equals("2D")) {
                 Sala sala2d = new Sala2D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
                 saladao.insertSala(sala2d);
             } else {
                 Sala sala3d = new Sala3D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
                 saladao.insertSala(sala3d);
             }
+        }
+    }
+
+    @FXML
+    void delete(ActionEvent event) {
+        SalaDAO deletar = new SalaDAO();
+        deletar.delete(Integer.parseInt(tfNumSala.getText()));
+    }
+
+    @FXML
+    void update(ActionEvent event) {
+        SalaDAO saladao = new SalaDAO();
+        //se estiver tudo ok!
+        if (validateFields()) {
+            Sala salaAux = new Sala(sala.getId(), Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue());
+            saladao.update(salaAux);
         }
     }
 

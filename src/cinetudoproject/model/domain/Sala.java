@@ -15,6 +15,12 @@ public class Sala {
         this.tipo = tipo;
         this.preco_ingresso = preco_ingresso;
     }
+    public Sala(int id, int numero, int capacidade, String tipo) {
+        this.numero = numero;
+        this.capacidade = capacidade;
+        this.tipo = tipo;
+        this.id = id;
+    }
 
     /*gets ^ sets*/
 
@@ -57,5 +63,9 @@ public class Sala {
     /*retorna o valor do ingresso*/
     public float getPreco_ingresso(){
         return preco_ingresso;
+    }
+
+    public int setId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
