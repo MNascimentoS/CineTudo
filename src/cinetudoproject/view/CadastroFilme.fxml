@@ -9,6 +9,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -85,5 +86,27 @@
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
+      
+      <JFXButton id="updateButton" fx:id="updateButton" buttonType="RAISED" layoutX="725.0" layoutY="476.0" onAction="#update" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ATUALIZAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="595" layoutY="550.0" onAction="#delete" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+       <JFXCheckBox fx:id="cb_buscaFilme"  layoutX="474.0" layoutY="110.0" mnemonicParsing="false" text="Busca Filme" > 
+            <font>
+                <Font name="Droid Sans Georgian" size="15.0" />
+            </font>
+        </JFXCheckBox>
+        <JFXTextField fx:id="tf_buscaFilme" focusColor="#ff4537" labelFloat="true" layoutX="580.0" layoutY="102.0" maxWidth="550.0" minWidth="100.0" prefHeight="39.0" prefWidth="370.0" promptText="Busca (Titulo do Filme)">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextField>
+        
     </children>
 </AnchorPane>

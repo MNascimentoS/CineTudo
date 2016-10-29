@@ -27,6 +27,19 @@ public class Filme {
         this.imageFile = imageFile;
         this.cinema_id = cinema_id;
     }
+    
+    public Filme(int id, String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
+        super();
+        this.id = id;
+        this.titulo = titulo;
+        this.diretor = diretor;
+        this.atorPrincipal = atorPrincipal;
+        this.duracao = duracao;
+        this.classEtaria = classEtaria;
+        this.genero = genero;
+        this.imageFile = imageFile;
+        this.cinema_id = cinema_id;
+    }
 
     public void setId(int id) {
         this.id = id;

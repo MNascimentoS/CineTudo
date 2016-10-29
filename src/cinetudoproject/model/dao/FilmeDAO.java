@@ -119,7 +119,7 @@ public class FilmeDAO {
     public Filme buscaFilme(String nomeFilme) {
         Filme filme = null;
         
-        final String busca = "SELECT titulo, diretor, ator, duracao, genero_id, classificacao, image FROM filme WHERE titulo = ?";
+        final String busca = "SELECT id, titulo, diretor, ator, duracao, genero_id, classificacao, image FROM filme WHERE titulo = ?";
         try {
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
@@ -140,12 +140,12 @@ public class FilmeDAO {
         GeneroDAO generoDAO = new GeneroDAO();
         
         Filme filme = new Filme();
-        filme.setTitulo(resultadoBusca.getString(1));
-        filme.setDiretor(resultadoBusca.getString(2));
-        filme.setAtorPrincipal(resultadoBusca.getString(3));
-        filme.setDuracao(resultadoBusca.getInt(4));
-        
-        int generoId = resultadoBusca.getInt(5);
+        filme.setId(resultadoBusca.getInt(1));
+        filme.setTitulo(resultadoBusca.getString(2));
+        filme.setDiretor(resultadoBusca.getString(3));
+        filme.setAtorPrincipal(resultadoBusca.getString(4));
+        filme.setDuracao(resultadoBusca.getInt(5));      
+        int generoId = resultadoBusca.getInt(6);
         genero = generoDAO.buscaGenero(generoId);
         filme.setGenero(genero);
         
@@ -154,5 +154,12 @@ public class FilmeDAO {
         File imageFile = new File(resultadoBusca.getString(7));
         filme.setImageFile(imageFile);
         return filme;
+    }
+    
+    public void delete(String filme){
+        
+    }
+    public void update(Filme filme){
+        
     }
 }
