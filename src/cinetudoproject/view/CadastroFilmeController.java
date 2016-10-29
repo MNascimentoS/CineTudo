@@ -115,10 +115,17 @@ public class CadastroFilmeController implements Initializable {
                     duracaoFilme.setText(String.valueOf(filmeGeral.getDuracao()));
                     nomeAtor.setText(filmeGeral.getAtorPrincipal());
                     nomeDiretor.setText(filmeGeral.getDiretor());
-                    
+                    BufferedImage bufferedImage;
+                    try {
+                        imageFile = filmeGeral.getImageFile();
+                        bufferedImage = ImageIO.read(filmeGeral.getImageFile());
+                        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                        bigImage.setImage(image);
+                    } catch (IOException ex) {
+                        Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
-
         });
 
         MaskField.timeField(duracaoFilme, 5);
@@ -187,6 +194,7 @@ public class CadastroFilmeController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(CadastroFilmeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    
                     /*boxGenero.getSelectionModel().clearSelection();
                     boxGenero.getItems().clear();
                     boxGenero.getItems().addAll(novoGenero);

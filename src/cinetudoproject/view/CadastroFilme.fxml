@@ -19,6 +19,22 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFilmeController">
       <children>
+      <BorderPane layoutX="470.0" layoutY="99.0" prefHeight="39.0" prefWidth="479.0">
+         <right>
+              <JFXTextField fx:id="tf_buscaFilme" focusColor="#ff4537" labelFloat="true" maxWidth="550.0" minWidth="100.0" prefHeight="39.0" prefWidth="355.0" promptText="Busca (Titulo do Filme)" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXTextField>
+         </right>
+         <left>
+             <JFXCheckBox fx:id="cb_buscaFilme" mnemonicParsing="false" text="Busca Filme" BorderPane.alignment="CENTER"> 
+                  <font>
+                      <Font name="Droid Sans Georgian" size="15.0" />
+                  </font>
+              </JFXCheckBox>
+         </left>
+      </BorderPane>
       <ImageView fitHeight="683.0" fitWidth="34.0" layoutX="384.0" layoutY="59.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/sombra.png" />
@@ -97,16 +113,6 @@
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>
       </JFXButton>
-       <JFXCheckBox fx:id="cb_buscaFilme"  layoutX="474.0" layoutY="110.0" mnemonicParsing="false" text="Busca Filme" > 
-            <font>
-                <Font name="Droid Sans Georgian" size="15.0" />
-            </font>
-        </JFXCheckBox>
-        <JFXTextField fx:id="tf_buscaFilme" focusColor="#ff4537" labelFloat="true" layoutX="580.0" layoutY="102.0" maxWidth="550.0" minWidth="100.0" prefHeight="39.0" prefWidth="370.0" promptText="Busca (Titulo do Filme)">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
         
     </children>
 </AnchorPane>

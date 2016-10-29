@@ -135,7 +135,7 @@ public class FilmeDAO {
         return filme;
     }
     
-    private Filme buscaFilme(ResultSet resultadoBusca) throws SQLException, ParseException {
+    private Filme buscaFilme(ResultSet resultadoBusca) throws SQLException, ParseException, FileNotFoundException, IOException {
         Genero genero = null;
         GeneroDAO generoDAO = new GeneroDAO();
         
@@ -151,8 +151,14 @@ public class FilmeDAO {
         
         filme.setClassEtaria(resultadoBusca.getInt(6));
         
-        File imageFile = new File(resultadoBusca.getString(7));
+        File imageFile = new File("src/img/" + filme.getTitulo()+".png");
+        FileOutputStream fos = new FileOutputStream(imageFile);
+        Blob blob = resultadoBusca.getBlob("image");
+        byte b[] = blob.getBytes(1,(int)blob.length());
+        fos.write(b);
+        fos.close();
         filme.setImageFile(imageFile);
+
         return filme;
     }
     
