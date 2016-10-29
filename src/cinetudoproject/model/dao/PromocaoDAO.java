@@ -7,6 +7,9 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Promocao;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +31,7 @@ public class PromocaoDAO {
     }
 
     public void insertPromocao(Promocao promocao) {
-        final String inserir = "INSERT INTO promocao (nome,data,descricao,cinema_id,desconto) values(?,?,?,?,?)";
+        final String inserir = "INSERT INTO promocao (nome,data,desconto,descricao,cinema_id) values(?,?,?,?,?)";
         try {
             //get the connection
 
@@ -39,6 +42,30 @@ public class PromocaoDAO {
             salvar.setFloat(3, promocao.getDesconto());
             salvar.setString(4, promocao.getDescricao());
             salvar.setFloat(5, promocao.getCinema_id());
+            salvar.executeUpdate();
+            salvar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            //return true;
+        } catch (SQLException ex) {
+            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+    public void insertPromocao(Promocao promocao, File imageFile) throws FileNotFoundException {
+        final String inserir = "INSERT INTO promocao (nome,data,desconto,descricao,cinema_id,image) values(?,?,?,?,?,?)";
+        try {
+            //get the connection
+            FileInputStream fis = new FileInputStream(imageFile);
+            Connection conn = database.connect();
+            PreparedStatement salvar = conn.prepareStatement(inserir);
+            salvar.setString(1, promocao.getNome());
+            salvar.setString(2, promocao.getData());
+            salvar.setFloat(3, promocao.getDesconto());
+            salvar.setString(4, promocao.getDescricao());
+            salvar.setFloat(5, promocao.getCinema_id());
+            salvar.setBinaryStream(6, fis, (int) imageFile.length());
             salvar.executeUpdate();
             salvar.close();
             conn.close();

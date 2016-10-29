@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -97,6 +100,19 @@ public class SidePanelContentGController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    private void cadastrarPromocao(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Cadastro Promoção");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CadastroPromocao.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        CadastroPromocaoController CScontroller = fxmlLoader.<CadastroPromocaoController>getController(); 
+        CScontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @FXML
     private void exit(ActionEvent event) {

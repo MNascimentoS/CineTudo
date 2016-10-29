@@ -1,5 +1,7 @@
 package cinetudoproject.model.domain;
 
+import java.io.File;
+
 public class Promocao {
 
     private int id;
@@ -7,15 +9,17 @@ public class Promocao {
     private int diaDaSemana;
     private float desconto;
     private int cinema_id;
+    private File imageFile;
 
     public Promocao() {
     }
 
-    public Promocao(String nome, String descricao, int diaDaSemana, float desconto) {
+    public Promocao(String nome, String descricao, int diaDaSemana, float desconto, File imageFile) {
         this.nome = nome;
         this.descricao = descricao;
         this.diaDaSemana = diaDaSemana;
         this.desconto = desconto;
+        this.imageFile = imageFile;
     }
 
     public int getId() {
@@ -72,5 +76,13 @@ public class Promocao {
 
     public void setDesconto(float desconto) {
         this.desconto = desconto;
+    }
+    
+    public File getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 }
