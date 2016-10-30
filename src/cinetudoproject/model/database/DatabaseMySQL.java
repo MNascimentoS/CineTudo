@@ -26,7 +26,9 @@ public class DatabaseMySQL implements Database{
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
 	//Continuarei mudando a senha até vc desistir :D - Cade a segurança ? kkkkk
-	//Ótimo chegar na sala e vai mostrar essa parte do código, e é uma senha beeem conhecida (deixando no ar) 
+	//Ótimo chegar na sala e vai mostrar essa parte do código, e é uma senha beeem conhecida (deixando no ar)
+        /*Mas que viadagem vocês dois! kkkkkkkk | Parem de da commit nesse arquivo e tudo se resolve,
+        a menos que seja algo importante.*/
         this.password = "";
     }
    
