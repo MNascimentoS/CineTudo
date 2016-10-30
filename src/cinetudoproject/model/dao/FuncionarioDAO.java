@@ -81,12 +81,12 @@ public class FuncionarioDAO {
         }
     }
     
-    public void delete(String user) {
-        final String delete = "delete from funcionario where usuario = ?";
+    public void delete(int funcionarioId) {
+        final String delete = "delete from funcionario where id = ?";
         try {
             Connection conn = database.connect();
             PreparedStatement deletar = conn.prepareStatement(delete);
-            deletar.setString(1, user);
+            deletar.setInt(1, funcionarioId);
             deletar.executeUpdate();
             deletar.close();
             conn.close();

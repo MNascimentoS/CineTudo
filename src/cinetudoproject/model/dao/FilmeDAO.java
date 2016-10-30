@@ -161,8 +161,22 @@ public class FilmeDAO {
         return filme;
     }
     
-    public void delete(String filme){
-        
+    public void delete(int filmeId){
+        final String delete = "delete from filme where id = ?";
+         try {
+            Connection conn = database.connect();
+            PreparedStatement deletar = conn.prepareStatement(delete);
+            deletar.setInt(1, filmeId);
+            deletar.executeUpdate();
+            deletar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Deletado Com Sucesso!");
+
+        } catch (SQLException ex) {
+            // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
     }
     public void update(Filme filme){
         

@@ -194,7 +194,7 @@ public class CadastroFilmeController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(CadastroFilmeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                     /*boxGenero.getSelectionModel().clearSelection();
                     boxGenero.getItems().clear();
                     boxGenero.getItems().addAll(novoGenero);
@@ -256,7 +256,8 @@ public class CadastroFilmeController implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-
+        FilmeDAO filme = new FilmeDAO();
+        filme.delete(filmeGeral.getId());
     }
 
     @FXML
@@ -270,15 +271,15 @@ public class CadastroFilmeController implements Initializable {
         alert.setHeaderText(null);
 
         if (tituloFilme.getText().equals("") || nomeDiretor.getText().equals("")
-            || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
-            || boxGenero.getValue() == null  || comboBox.getValue() == null) {
+                || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
+                || boxGenero.getValue() == null || comboBox.getValue() == null) {
 
             alert.setTitle("Campos vazios");
             alert.setContentText("Preencha todos os campos antes de continuar!");
             alert.showAndWait();
             return false;
         }
-        
+
         if (duracaoFilme.getLength() < 8) {
             alert.setTitle("Campo duração inválido");
             alert.setContentText("Preencha a duração do filme segundo o exemplo - HH:MM:SS");

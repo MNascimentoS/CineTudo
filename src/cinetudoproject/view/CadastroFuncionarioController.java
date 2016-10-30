@@ -183,7 +183,7 @@ public class CadastroFuncionarioController implements Initializable {
 
     public void delete(ActionEvent event) throws Exception {
         FuncionarioDAO funcionario = new FuncionarioDAO();
-        funcionario.delete(tf_user.getText());
+        funcionario.delete(funcionarioDados.getId());
     }
 
     //cancelar event - Voltar para o menu principal

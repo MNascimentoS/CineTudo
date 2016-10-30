@@ -157,7 +157,7 @@ public class CadastroSalaController implements Initializable {
     @FXML
     void delete(ActionEvent event) {
         SalaDAO deletar = new SalaDAO();
-        deletar.delete(Integer.parseInt(tfNumSala.getText()));
+        deletar.delete(sala.getId());
     }
 
     @FXML

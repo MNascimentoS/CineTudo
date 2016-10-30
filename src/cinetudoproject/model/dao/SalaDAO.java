@@ -113,12 +113,12 @@ public class SalaDAO {
         return sala;
     }
 
-    public void delete(int numero) {
-        final String delete = "delete from sala where numero = ?";
+    public void delete(int salaId) {
+        final String delete = "delete from sala where id = ?";
         try {
             Connection conn = database.connect();
             PreparedStatement deletar = conn.prepareStatement(delete);
-            deletar.setInt(1, numero);
+            deletar.setInt(1, salaId);
             deletar.executeUpdate();
             deletar.close();
             conn.close();
