@@ -6,9 +6,6 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
-import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sessao;
 import java.sql.Connection;
 import java.sql.Date;
@@ -17,12 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,17 +53,20 @@ public class SessaoDAO {
                alert.setContentText("Cadastrado com sucesso!");
                alert.showAndWait();
            
-            //return true;
             } catch (SQLException ex) {
-            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Erro");
                 alert.setContentText("Erro: "+ex.getMessage());
                 alert.showAndWait();
-                //return false;
             }
         
+        }else{
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+             alert.setHeaderText(null);
+             alert.setTitle("Cuidado");
+             alert.setContentText("Ja existe uma sessao para este horario nesta sala!");
+             alert.showAndWait();
         }
     }
     
@@ -95,8 +92,9 @@ public class SessaoDAO {
     }
     
      public ArrayList<Sessao> listar() throws ParseException {
-        final String sql = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao";
+        final String sql = "SELECT * from sessao";
         ArrayList<Sessao> retorno = new ArrayList<>();
+        
         try {
             PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
@@ -110,67 +108,22 @@ public class SessaoDAO {
         }
         return retorno;
     }
-    //listagem para verificacao de validade para cadastro
-    public ArrayList<Sessao>listarAux()
-    {
-        final String busca = "SELECT sala_id, horario_id, data_inicio, data_final FROM sessao";
-         ArrayList<Sessao> sessoes = new ArrayList<>();
-         
-         try {
-            PreparedStatement stmt = database.connect().prepareStatement(busca);
-            ResultSet resultado = stmt.executeQuery();
-      
-            while(resultado.next()) {
-                Sessao se = new Sessao();
-                se.setSala_id(resultado.getInt(1));
-                se.setHorario_id(resultado.getInt(2));
-                se.setDataInicio(new Date(resultado.getDate(3).getTime()));
-                se.setDataFinal(new Date(resultado.getDate(4).getTime()));
-                sessoes.add(se);
-            }
-            
-            database.desconnect();
-            
-        } catch (SQLException ex) {
-            //Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setHeaderText(null);
-             alert.setTitle("Erro");
-             alert.setContentText("Erro: "+ex.getMessage());
-             alert.showAndWait();
-        }
-         
-         return sessoes;
-    }
-     
+ 
     //verifica se a sessao pode ser cadastrada
     public boolean eValida(Sessao s) throws ParseException
     {
-        ArrayList<Sessao> sessoes = listarAux();
-    
+        ArrayList<Sessao> sessoes = listar();
+        //para cada sessao
         for(Sessao i : sessoes)
-        {   
-            if(s.getDataInicio().getYear() >= i.getDataInicio().getYear()){
-               if(s.getDataInicio().getMonth() >= i.getDataInicio().getMonth()){
-                     if(s.getDataInicio().getDate()>= i.getDataInicio().getDate()){
-                         if(s.getDataFinal().getYear() <= i.getDataFinal().getYear()){
-                            if(s.getDataFinal().getMonth() <= i.getDataFinal().getMonth()){
-                                if(s.getDataFinal().getDate()<= i.getDataFinal().getDate()){
-                                    //compara se o horario e igual e se a sala tbm ai n podera cadastrar
-                                    if(s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
-                                    {
-                                         Alert alert = new Alert(Alert.AlertType.WARNING);
-                                         alert.setHeaderText(null);
-                                         alert.setTitle("Alerta");
-                                         alert.setContentText("Ja existe uma sessao cadastrada neste horario para a sala escolhida!");
-                                         alert.showAndWait();
-                                         return false;
-                                    }    
-                                }
-                            }
-                         }
-                     }
-               }
+        {
+            //se estiver no intervalo
+            if(s.getDataInicio().compareTo(i.getDataInicio()) >= 0 && s.getDataFinal().compareTo(i.getDataFinal()) <= 0)
+            {
+                    //se for na mesma sala e mesmo horario nao permita o cadastro
+                    if(s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
+                    {
+                        return false;
+                    }
             }
         }
         
@@ -181,7 +134,6 @@ public class SessaoDAO {
         Sessao sessao = null;
         final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao WHERE hora = ?";
         try {
-            //DBConect db = new DBConect();
             PreparedStatement buscar =  database.connect().prepareStatement(busca);
             buscar.setString(1, filme);
             ResultSet resultadoBusca = buscar.executeQuery();
@@ -190,22 +142,23 @@ public class SessaoDAO {
             database.desconnect();
         } catch (Exception e) {
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ filme);
-            //System.exit(0);
         }
         return sessao;
     }
     
     private Sessao buscaSessao(ResultSet resultadoBusca) throws SQLException, ParseException {
+        
         Sessao sessao = new Sessao();
+        
         sessao.setId(resultadoBusca.getInt(1));
-        sessao.setSala_id(resultadoBusca.getInt(2));
-        sessao.setFilme_id(resultadoBusca.getInt(3));
-        sessao.setHorario_id(resultadoBusca.getInt(4));
-        sessao.setIngresso_disponivel(resultadoBusca.getInt(5));
-        sessao.setDataInicio(new Date(resultadoBusca.getDate(5).getTime()));
-        sessao.setDataFinal(new Date(resultadoBusca.getDate(6).getTime()));
-        sessao.setAssento(resultadoBusca.getInt(7));
+        sessao.setAssento(resultadoBusca.getInt(2));
+        sessao.setIngresso_disponivel(resultadoBusca.getInt(3));
+        sessao.setFilme_id(resultadoBusca.getInt(4));
+        sessao.setHorario_id(resultadoBusca.getInt(5));
+        sessao.setSala_id(resultadoBusca.getInt(6));
+        sessao.setDataFinal(new Date(resultadoBusca.getDate(7).getTime()));
+        sessao.setDataInicio(new Date(resultadoBusca.getDate(8).getTime()));
+        
         return sessao;
     }
-
 }

@@ -1,6 +1,7 @@
 package cinetudoproject.model.domain;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by diogo on 20/08/16.
@@ -26,6 +27,15 @@ public class Filme {
         this.genero = genero;
         this.imageFile = imageFile;
         this.cinema_id = cinema_id;
+    }
+    
+    public static boolean jaExisteNaLista(ArrayList<Filme> filmes, Filme filme)
+    {
+        for(Filme i : filmes)
+        {
+            if(i.getId() == filme.getId()) return true;
+        }
+        return false;
     }
     
     public Filme(int id, String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {

@@ -134,6 +134,26 @@ public class FilmeDAO {
         return filme;
     }
     
+    public Filme buscaFilme(int idFilme) {
+        Filme filme = null;
+        
+        final String busca = "SELECT id, titulo, diretor, ator, duracao, genero_id, classificacao, image FROM filme WHERE id = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement buscar = conn.prepareStatement(busca);
+            buscar.setInt(1, idFilme);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            filme = buscaFilme(resultadoBusca);
+            buscar.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return filme;
+    }
+    
+    
     private Filme buscaFilme(ResultSet resultadoBusca) throws SQLException, ParseException, FileNotFoundException, IOException {
         Genero genero = null;
         GeneroDAO generoDAO = new GeneroDAO();

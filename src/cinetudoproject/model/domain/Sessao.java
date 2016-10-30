@@ -109,8 +109,7 @@ public final class Sessao {
     //inicializa os assentos
     public void initAssentos() {
         char fila = 'A';
-        int capacidade = this.getSala().getCapacidade();
-        for (int i = 0; i < capacidade; i++) {
+        for (int i = 0; i < this.getAssento(); i++) {
             if (i % 10 == 0 && i != 0) {
                 fila += 1;
             }
