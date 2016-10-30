@@ -32,7 +32,6 @@ public class HorarioDAO {
         final String inserir = "INSERT INTO horario (hora) values(?)";
         try {
             //get the connection
-
             Connection conn = database.connect();
             PreparedStatement salvar = conn.prepareStatement(inserir);
             salvar.setString(1, horario.getHorario());
@@ -43,7 +42,7 @@ public class HorarioDAO {
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
             //return false;
         }
     }

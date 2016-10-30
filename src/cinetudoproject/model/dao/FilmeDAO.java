@@ -46,8 +46,7 @@ public class FilmeDAO {
             //to keep image on database
             FileInputStream fis = new FileInputStream(filme.getImageFile());
             //get the connection
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
+            PreparedStatement salvar = database.connect().prepareStatement(inserir);
             salvar.setString(1, filme.getTitulo());
             salvar.setString(2, filme.getDiretor());
             salvar.setString(3, filme.getAtorPrincipal());
@@ -59,7 +58,7 @@ public class FilmeDAO {
             
             salvar.executeUpdate();
             
-            database.desconnect(conn);
+            database.desconnect();
               
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);

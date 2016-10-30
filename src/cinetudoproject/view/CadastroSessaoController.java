@@ -5,6 +5,7 @@
  */
 package cinetudoproject.view;
 
+
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.HorarioDAO;
@@ -18,12 +19,17 @@ import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sessao;
 import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +53,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+import sun.java2d.loops.MaskFill;
 
 /**
  * FXML Controller class
@@ -62,7 +70,11 @@ public class CadastroSessaoController implements Initializable {
     @FXML
     private BorderPane paneHorario;
     @FXML
-    private TextField fieldDiaInicio, fieldDiaFim, fieldHorario;
+    private TextField  fieldHorario;
+    @FXML
+    private JFXDatePicker dataInicial;
+    @FXML
+    private JFXDatePicker dataFinal;
     
     private Funcionario func;
 
@@ -76,9 +88,9 @@ public class CadastroSessaoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        MaskField.dateField((JFXTextField) fieldDiaInicio);
-        MaskField.dateField((JFXTextField) fieldDiaFim);
+       
         MaskField.timeField((JFXTextField) fieldHorario, 5);
+        
         try {
             createFilmeBox();
             createSalaBox();
@@ -131,7 +143,6 @@ public class CadastroSessaoController implements Initializable {
                 sala.forEach((i) -> {
                     if (("Sala: " + i.getNumero() + ", do tipo: " + i.getTipo()).equals(newValue)){
                         chooseSala = i;
-                        System.out.println("ENTROU " + chooseSala.getId());
                     }
                 });
             }
@@ -143,7 +154,8 @@ public class CadastroSessaoController implements Initializable {
         horarioBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (chooseMovie == null){
+                /**@TODO: checar se o horário não interfere em outra sessão*/
+                /*if (chooseMovie == null){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
                     alert.setTitle("Alerta");
@@ -151,7 +163,7 @@ public class CadastroSessaoController implements Initializable {
                     alert.showAndWait();
                     horarioBox.getSelectionModel().clearSelection();
                     return;
-                }
+                }*/
                 if(newValue.equals(adicionarHorario)){
                     horarioBox.getSelectionModel().clearSelection();
                     paneHorario.setVisible(true);
@@ -162,50 +174,64 @@ public class CadastroSessaoController implements Initializable {
     
     @FXML
     void salvarHorario(ActionEvent event) throws IOException {
-        //TODO checar se o horário não interfere em outra sessão
+        /**@TODO: checar se o horário não interfere em outra sessão*/
         /*Horario novoHorario = new Horario();
         novoHorario.setHorario(fieldHorario.getText());*/
-        
         horarioBox.getItems().addAll(fieldHorario.getText());
         fieldHorario.setText("");
         paneHorario.setVisible(false);
     }
     
-    boolean isValidDate(String dataInicio, String dataFinal) throws ParseException{
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    //checar se as datas são válidas
+    boolean isValidDate(Date dataI, Date  dataF) throws ParseException{
+        //formato da data para poder ser comparado
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.format(dataI);
+        dateFormat.format(dataF);
         
-        Date dataI = formato.parse(dataInicio);
-        Date dataF = formato.parse(dataFinal);
-        
+        //se a data final for antes da tata inicial
         if(dataF.before(dataI)) return false;
 
+        //setando o horário para 0
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-
+        //data atual
         Date today = c.getTime();
+        //se as datas iniciais e finais são depois da data atual
         return dataI.after(today) && dataF.after(today);
     }
     
+    
     @FXML
     void salvarSessao(ActionEvent event) throws IOException, ParseException {
+        //data inicial
+        LocalDate inicialDate = dataInicial.getValue();
+        Instant instant = Instant.from(inicialDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        //data final
+        LocalDate finalDate = dataFinal.getValue();
+        Instant instantFinal = Instant.from(finalDate.atStartOfDay(ZoneId.systemDefault()));
+        Date dateFinal = Date.from(instantFinal);
+        
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        //checar se as datas são válidas
+        if(!isValidDate(date, dateFinal)) {
+            alert.setTitle("Erro");
+            alert.setContentText("Data Inválida. Por favor, escolha outra.");
+            alert.showAndWait();
+            return;
+        }
+        
         horario = new Horario();
         HorarioDAO horarioDAO = new HorarioDAO();
         Sessao sessao = new Sessao();
         SessaoDAO sessaoDAO = new SessaoDAO();
         
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(null);
-        
-        if (!isValidDate(fieldDiaInicio.getText(), fieldDiaFim.getText())){
-            alert.setTitle("Erro");
-            alert.setContentText("Data inválida");
-            alert.showAndWait();
-            return;
-        }
-        
+        //irá adicionar uma sessão para cada horário
         horarioBox.getItems().forEach((i)->{
             if(!i.toString().equals(adicionarHorario)){
                 horario.setHorario(i.toString());
@@ -214,12 +240,16 @@ public class CadastroSessaoController implements Initializable {
                 sessao.setHorario_id(horario.getId());
                 sessao.setFilme_id(chooseMovie.getId());
                 sessao.setSala_id(chooseSala.getId());
-                sessao.setDataInicio(fieldDiaInicio.getText());
-                sessao.setDataFinal(fieldDiaFim.getText());
+                sessao.setDataInicio(date);
+                sessao.setDataFinal(dateFinal);
                 sessao.setSala(chooseSala);
                 sessao.setAssento(chooseSala.getCapacidade());
                 sessao.setIngresso_disponivel(chooseSala.getCapacidade());
-                sessaoDAO.insertSessao(sessao);
+                try {
+                    sessaoDAO.insertSessao(sessao);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

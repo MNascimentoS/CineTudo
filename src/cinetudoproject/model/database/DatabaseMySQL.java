@@ -25,7 +25,8 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-	//Continuarei mudando a senha até vc desistir :D
+	//Continuarei mudando a senha até vc desistir :D - Cade a segurança ? kkkkk
+	//Ótimo chegar na sala e vai mostrar essa parte do código, e é uma senha beeem conhecida (deixando no ar) 
         this.password = "";
     }
    
@@ -55,9 +56,9 @@ public class DatabaseMySQL implements Database{
     }
 
     @Override
-    public void desconnect(Connection conn) {
+    public void desconnect() {
         try {
-            conn.close();
+            connection.close();
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);

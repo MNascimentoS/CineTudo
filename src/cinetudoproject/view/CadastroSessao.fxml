@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroSessaoController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroSessaoController">
    <children>
       <ImageView id="bigImage" fx:id="bigImage" fitHeight="620.0" fitWidth="424.0" layoutX="-1.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -42,16 +44,6 @@
       </JFXButton>
       <JFXComboBox id="comboBox" fx:id="salaBox" layoutX="717.0" layoutY="240.0" prefHeight="38.0" prefWidth="239.0" promptText="Sala" style="-fx-background-color: #FFFFFF;" />
       <JFXComboBox id="comboBox" fx:id="filmeBox" layoutX="455.0" layoutY="240.0" prefHeight="38.0" prefWidth="239.0" promptText="Filme" style="-fx-background-color: #FFFFFF;" />
-      <JFXTextField fx:id="fieldDiaInicio" focusColor="#ff4537" labelFloat="true" layoutX="446.0" layoutY="300.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data Inicial">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
-      <JFXTextField fx:id="fieldDiaFim" focusColor="#ff4537" labelFloat="true" layoutX="719.0" layoutY="300.0" maxWidth="550.0" minWidth="168.0" prefHeight="39.0" prefWidth="246.0" promptText="Data Final">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
       <JFXComboBox id="comboBox" fx:id="horarioBox" layoutX="453.0" layoutY="357.0" prefHeight="38.0" prefWidth="503.0" promptText="Horários" style="-fx-background-color: #FFFFFF;" />
       <BorderPane fx:id="paneHorario" layoutX="447.0" layoutY="407.0" prefHeight="61.0" prefWidth="509.0" visible="false">
          <center>
@@ -70,5 +62,7 @@
          </right>
       </BorderPane>
       <JFXComboBox id="comboBox" fx:id="cinemaBox" disable="true" layoutX="454.0" layoutY="168.0" prefHeight="38.0" prefWidth="503.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
+      <JFXDatePicker fx:id="dataInicial" defaultColor="#e15738" layoutX="452.0" layoutY="304.0" prefHeight="32.0" prefWidth="246.0" promptText="Data Inicial" />
+      <JFXDatePicker fx:id="dataFinal" defaultColor="#cd4a3f" layoutX="714.0" layoutY="304.0" prefHeight="32.0" prefWidth="246.0" promptText="Data Final" />
    </children>
 </AnchorPane>

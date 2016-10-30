@@ -6,9 +6,14 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Sala;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,7 +97,7 @@ public class SalaDAO {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR A SALA: " + numero);
+            System.err.println("ERRO AO BUSCAR A SALA: "+ numero);
             //System.exit(0);
         }
         return sala;

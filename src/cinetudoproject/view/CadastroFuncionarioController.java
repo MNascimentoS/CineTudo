@@ -65,7 +65,6 @@ public class CadastroFuncionarioController implements Initializable {
 
     private List<Cinema> cinema;
     private String cinemaNome;
-    
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     Funcionario funcionarioDados = new Funcionario();
 

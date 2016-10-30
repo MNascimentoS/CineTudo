@@ -57,12 +57,14 @@ public class LoginFXMLController implements Initializable {
     @FXML
     private Text text_erro;
     
-    MaskField mask = new MaskField();
+    //MaskField mask = new MaskField();
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     
+        MaskField.maxField(tv_password, 6);
+        MaskField.maxField(tv_name, 16);
         // Valida os campos de entrada (login e senha)
         RequiredFieldValidator validator = new RequiredFieldValidator();
         RequiredFieldValidator validatorPass = new RequiredFieldValidator();
@@ -92,8 +94,6 @@ public class LoginFXMLController implements Initializable {
         });
     }
     
-      
-    
     /*Quando logar, valide os campos*/
     public void login(ActionEvent event) throws Exception {
         
@@ -114,17 +114,17 @@ public class LoginFXMLController implements Initializable {
             text_erro.setVisible(true);
         }
         
-        CryptMD5 md5 = new CryptMD5();
+        //CryptMD5 md5 = new CryptMD5();
          
-        String pass;
-        if(funcionario.getCargo() == 0)
+        //String pass;
+        /*if(funcionario.getCargo() == 0)
         {
             pass = md5.cryptWithMD5(tv_password.getText());
         }else{
             pass = tv_password.getText();
-        }
+        }*/
             
-        if (tv_name.getText().equals(funcionario.getUser()) &&  pass.equals(funcionario.getSenha())) {
+        if (tv_name.getText().equals(funcionario.getUser()) &&  tv_password.getText().equals(funcionario.getSenha())) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader fxmlLoader;
             Parent root;
@@ -152,7 +152,6 @@ public class LoginFXMLController implements Initializable {
             System.out.println("Usuário ou senha incorretos!");
             text_erro.setText("Usuário ou senha incorretos!");
             text_erro.setVisible(true);
-             //mostre o spinner
         }
       
     }

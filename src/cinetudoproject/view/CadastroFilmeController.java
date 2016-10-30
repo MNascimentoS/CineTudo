@@ -128,7 +128,7 @@ public class CadastroFilmeController implements Initializable {
             }
         });
 
-        MaskField.timeField(duracaoFilme, 5);
+        MaskField.timeField(duracaoFilme);
         comboBox.getItems().addAll(
                 "Livre", "10 anos",
                 "12 anos", "14 anos",
@@ -185,7 +185,7 @@ public class CadastroFilmeController implements Initializable {
                     generoMovie = "";
                     Stage stage = new Stage();
                     stage.setTitle("Cadastrar Gênero");
-                    Pane myPane = null;
+                    Pane myPane;
                     try {
                         myPane = FXMLLoader.load(getClass().getResource("CadastroGenero.fxml"));
                         Scene scene = new Scene(myPane);
@@ -238,7 +238,8 @@ public class CadastroFilmeController implements Initializable {
             String duracao = duracaoFilme.getText();
             int hora = Integer.parseInt(duracao.substring(0, 2));
             int minuto = Integer.parseInt(duracao.substring(3, 5));
-            duracao = "" + hora + minuto + 0 + 0;
+            int segundos = Integer.parseInt(duracao.substring(6, 8));
+            duracao = "" + hora + minuto + segundos;
             int tempo = Integer.parseInt(duracao);
 
             GeneroDAO generoDAO = new GeneroDAO();
@@ -269,11 +270,18 @@ public class CadastroFilmeController implements Initializable {
         alert.setHeaderText(null);
 
         if (tituloFilme.getText().equals("") || nomeDiretor.getText().equals("")
-                || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
-                || boxGenero.getValue() == null || comboBox.getValue() == null) {
+            || nomeAtor.getText().equals("") || duracaoFilme.getText().equals("")
+            || boxGenero.getValue() == null  || comboBox.getValue() == null) {
 
             alert.setTitle("Campos vazios");
             alert.setContentText("Preencha todos os campos antes de continuar!");
+            alert.showAndWait();
+            return false;
+        }
+        
+        if (duracaoFilme.getLength() < 8) {
+            alert.setTitle("Campo duração inválido");
+            alert.setContentText("Preencha a duração do filme segundo o exemplo - HH:MM:SS");
             alert.showAndWait();
             return false;
         }

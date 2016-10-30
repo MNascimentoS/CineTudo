@@ -14,5 +14,5 @@ import java.sql.Connection;
 public interface Database {
     
     public Connection connect();
-    public void desconnect(Connection conn);
+    public void desconnect();
 }

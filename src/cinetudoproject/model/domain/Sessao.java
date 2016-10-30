@@ -1,6 +1,7 @@
 package cinetudoproject.model.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by diogo on 20/08/16.
@@ -14,13 +15,13 @@ public final class Sessao {
     private int horario_id;
     private ArrayList<Assento> assentos;
     private int assento;
-    private String dataInicio, dataFim;
+    private Date dataInicio, dataFim;
 
     public Sessao() {
         this.assentos = new ArrayList<>();
     }
 
-    public Sessao(int filme_id, Sala sala, int horario_id, String dataInicio, String dataFim, int ingresso_disponivel, int assento) {
+    public Sessao(int filme_id, Sala sala, int horario_id, Date dataInicio, Date dataFim, int ingresso_disponivel, int assento) {
         this.assentos = new ArrayList<>();
         this.filme_id = filme_id;
         this.sala = sala;
@@ -80,19 +81,19 @@ public final class Sessao {
         this.horario_id = horario_id;
     }
 
-    public String getDataInicio() {
+    public Date getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
     
-    public String getDataFinal() {
+    public Date getDataFinal() {
         return dataFim;
     }
 
-    public void setDataFinal(String dataFim) {
+    public void setDataFinal(Date dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -115,7 +116,6 @@ public final class Sessao {
             }
             Assento novo_assento = new Assento(fila, i + 1);
             this.assentos.add(novo_assento);
-
         }
     }
 
