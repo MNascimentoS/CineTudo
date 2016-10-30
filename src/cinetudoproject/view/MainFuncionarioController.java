@@ -5,8 +5,12 @@
  */
 package cinetudoproject.view;
 import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.dao.CinemaDAO;
+import cinetudoproject.model.dao.PromocaoDAO;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Promocao;
+import cinetudoproject.model.domain.Cinema;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
@@ -44,26 +48,52 @@ import javafx.scene.text.Text;
 public class MainFuncionarioController implements Initializable {
     @FXML
     private Text usernameLabel;
-    
     @FXML
     private JFXHamburger hamburguer;
-
     @FXML
     private JFXDrawer drawer;
-    
     @FXML
     private AnchorPane root;
-
     public static AnchorPane rootP;
-    
     @FXML
     private JFXListView<Label> moviesListView = new JFXListView<>();
 
+    private Funcionario func;
+    private ArrayList<Promocao> promocao;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
         rootP = root;
-       
+    } 
+    
+    public void getUserInfo(Funcionario func) throws IOException
+    {
+        this.func = func;
+        usernameLabel.setText("Ola, " + func.getNome());
+        if (this.func != null){
+            CinemaDAO cinemaDAO = new CinemaDAO();
+            Cinema cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
+            promocao = new ArrayList();
+            ArrayList<Promocao> todaPromocao;
+            PromocaoDAO promocaoDAO = new PromocaoDAO();
+            todaPromocao = promocaoDAO.listar();
+            todaPromocao.forEach((i)->{
+                if (cinema.getId() == i.getCinema_id()) {
+                    promocao.add(i);
+                }
+            });   
+        }
+        
+        try {
+             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SidePanelContent.fxml"));
+             VBox box = fxmlLoader.load();
+             SidePanelContentController drawercontroller = fxmlLoader.<SidePanelContentController>getController(); 
+             drawercontroller.getPromocao(promocao);
+             drawer.setSidePane(box);
+        } catch (IOException ex) {
+             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         try {
             loadMoviesList();
         } catch (FileNotFoundException ex) {
@@ -71,16 +101,9 @@ public class MainFuncionarioController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("SidePanelContent.fxml"));
-            drawer.setSidePane(box);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         //setting the hamburguer button
-         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburguer);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburguer);
         transition.setRate(-1);
         hamburguer.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
             transition.setRate(transition.getRate()*-1);
@@ -98,12 +121,6 @@ public class MainFuncionarioController implements Initializable {
                 //moviesListView.widthProperty().
             }
         });
-    } 
-    
-    public void getUserInfo(Funcionario func)
-    {
-        //usernameLabel.setText("Ola, "+func);
-       usernameLabel.setText("Ola, "+func.getNome());
     }
     
    /**@TODO: Descobrir o erro stackoverflow quando percorrido os itens na tela*/ 

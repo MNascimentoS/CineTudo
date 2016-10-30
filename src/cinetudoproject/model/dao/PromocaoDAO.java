@@ -6,15 +6,23 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Promocao;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -78,6 +86,39 @@ public class PromocaoDAO {
         }
     }
 
+    public ArrayList<Promocao> listar() throws FileNotFoundException, IOException {
+        final String sql = "SELECT * FROM promocao";
+        ArrayList<Promocao> retorno = new ArrayList<>();
+        
+        try {
+            connection = database.connect();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Promocao promocao = new Promocao();
+                promocao.setNome(resultado.getString("nome"));
+                
+                File imageFile = new File("src/img/" + promocao.getNome()+".png");
+                FileOutputStream fos = new FileOutputStream(imageFile);
+                Blob blob = resultado.getBlob("image");
+                byte b[] = blob.getBytes(1,(int)blob.length());
+                fos.write(b);
+                fos.close();
+                promocao.setImageFile(imageFile);
+                
+                promocao.setId(resultado.getInt("id"));
+                promocao.setCinema_id(resultado.getInt("cinema_id"));
+                promocao.setData(resultado.getString("data"));
+                promocao.setDescricao(resultado.getString("descricao"));
+                promocao.setDesconto(resultado.getFloat("desconto"));
+                retorno.add(promocao);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PromocaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+    
     public Promocao buscaSessaoPorHora(String nome) {
         Promocao promocao = null;
         final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto FROM promocao WHERE nome = ?";
