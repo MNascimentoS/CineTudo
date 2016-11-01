@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public final class Sessao {
 
-    private int id, ingresso_disponivel;
+    private int id, cinema_id,ingresso_disponivel;
     private int filme_id;
     private int sala_id;
     private Sala sala;
@@ -41,6 +41,14 @@ public final class Sessao {
         this.id = id;
     }
 
+    public int getCinema_id() {
+        return cinema_id;
+    }
+
+    public void setCinema_id(int cinema_id) {
+        this.cinema_id = cinema_id;
+    }
+    
     public void setIngresso_disponivel(int ingresso_disponivel) {
         this.ingresso_disponivel = ingresso_disponivel;
     }

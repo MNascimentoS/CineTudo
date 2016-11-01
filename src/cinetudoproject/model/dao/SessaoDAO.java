@@ -32,7 +32,7 @@ public class SessaoDAO {
     }
 
     public void insertSessao(Sessao sessao) throws ParseException {
-        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos) values(?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos, cinema_id) values(?,?,?,?,?,?,?,?)";
         
         if(eValida(sessao))
         {
@@ -45,6 +45,7 @@ public class SessaoDAO {
                salvar.setDate(5, new java.sql.Date(sessao.getDataInicio().getTime()));
                salvar.setDate(6, new java.sql.Date(sessao.getDataFinal().getTime()));
                salvar.setInt(7, sessao.getAssento());
+               salvar.setInt(8, sessao.getCinema_id());
                salvar.executeUpdate();
                database.desconnect();
                Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -72,7 +73,7 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorHora(String hora) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao WHERE hora = ?";
+        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos,cinema_id FROM sessao WHERE hora = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -132,7 +133,7 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorFilme(String filme) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos FROM sessao WHERE hora = ?";
+        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos,cinema_id FROM sessao WHERE hora = ?";
         try {
             PreparedStatement buscar =  database.connect().prepareStatement(busca);
             buscar.setString(1, filme);
@@ -158,6 +159,7 @@ public class SessaoDAO {
         sessao.setSala_id(resultadoBusca.getInt(6));
         sessao.setDataFinal(new Date(resultadoBusca.getDate(7).getTime()));
         sessao.setDataInicio(new Date(resultadoBusca.getDate(8).getTime()));
+        sessao.setCinema_id(resultadoBusca.getInt(9));
         
         return sessao;
     }

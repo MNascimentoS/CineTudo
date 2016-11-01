@@ -54,6 +54,7 @@ public class SidePanelContentController implements Initializable {
     }
     
     public void getPromocao(ArrayList<Promocao> promocao) {
+        if (promocao.isEmpty()) return;
         int size = promocao.size();
         Random random = new Random();
         int rn = random.nextInt(size);

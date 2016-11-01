@@ -68,6 +68,27 @@ public class HorarioDAO {
         return hora;
     }
     
+    public Horario buscaPorId(int id) {
+        Horario hora = null;
+        final String busca = "SELECT id, hora FROM horario WHERE id = ?";
+        try {
+            //DBConect db = new DBConect();
+            Connection conn = database.connect();
+            PreparedStatement buscar = conn.prepareStatement(busca);
+            buscar.setInt(1, id);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            hora = buscaHorario(resultadoBusca);
+            buscar.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ hora);
+            //System.exit(0);
+        }
+        return hora;
+    }
+    
     private Horario buscaHorario(ResultSet resultadoBusca) throws SQLException, ParseException {
         Horario horario = new Horario();
         horario.setId(resultadoBusca.getInt(1));

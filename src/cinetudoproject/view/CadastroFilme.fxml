@@ -88,7 +88,7 @@
       <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="473.0" layoutY="395.0" prefHeight="38.0" prefWidth="209.0" promptText="Classificação" style="-fx-background-color: #FFFFFF;" />
       <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="724.0" layoutY="395.0" prefHeight="38.0" prefWidth="215.0" promptText="Gênero" style="-fx-background-color: #FFFFFF;" />
       <ImageView id="classImage" fx:id="classImage" fitHeight="72.0" fitWidth="72.0" layoutX="20.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXToolbar layoutX="-4.0" prefHeight="70.0" prefWidth="1009.0" style="-fx-background-color: #FFF;">
+      <JFXToolbar layoutX="-4.0" prefHeight="70.0" prefWidth="1009.0" style="-fx-background-color: #FFFFFF;">
          <center>
             <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                <image>

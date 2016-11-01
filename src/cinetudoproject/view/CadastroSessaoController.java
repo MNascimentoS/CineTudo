@@ -85,6 +85,7 @@ public class CadastroSessaoController implements Initializable {
     private List<Sala> sala;
     private Sala chooseSala;
     private Horario horario;
+    private Cinema cinema;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -201,7 +202,7 @@ public class CadastroSessaoController implements Initializable {
         //data atual
         Date today = c.getTime();
         //se as datas iniciais e finais são depois da data atual
-        return dataI.after(today) && dataF.after(today);
+        return (dataI.after(today) || dataI.equals(today)) && dataF.after(today);
     }
     
     
@@ -237,6 +238,7 @@ public class CadastroSessaoController implements Initializable {
                 horario.setHorario(i.toString());
                 horarioDAO.insertHorario(horario);
                 horario = horarioDAO.buscaPorHora(horario.getHorario());
+                sessao.setCinema_id(cinema.getId());
                 sessao.setHorario_id(horario.getId());
                 sessao.setFilme_id(chooseMovie.getId());
                 sessao.setSala_id(chooseSala.getId());
@@ -259,7 +261,7 @@ public class CadastroSessaoController implements Initializable {
     {
        this.func = func;
        CinemaDAO cinemaDAO = new CinemaDAO();
-       Cinema cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
+       cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
        cinemaBox.setPromptText(cinema.getNome());
     }
     

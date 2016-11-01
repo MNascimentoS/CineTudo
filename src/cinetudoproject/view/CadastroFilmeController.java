@@ -245,8 +245,7 @@ public class CadastroFilmeController implements Initializable {
             GeneroDAO generoDAO = new GeneroDAO();
             Genero genero = generoDAO.buscaGenero(generoMovie);
             Filme filme = new Filme(tituloFilme.getText(), nomeDiretor.getText(), nomeAtor.getText(),
-                    tempo, classificacao,
-                    genero, imageFile, func.getCinema_id());
+                    tempo, classificacao, genero, imageFile, func.getCinema_id());
             //try save the movie
             FilmeDAO filmeDAO = new FilmeDAO();
             filmeDAO.insert(filme);
