@@ -239,7 +239,9 @@ public class MainFuncionarioController implements Initializable {
         for(Sessao i : sessaoList)
         {
             //verifica se a sessao pertence ao intervalo
-            if(atual.compareTo(i.getDataInicio()) >= 0 && atual.compareTo(i.getDataFinal()) <= 0)
+            if(atual.getDay()   == i.getData().getDay()   &&
+               atual.getMonth() == i.getData().getMonth() &&
+               atual.getYear()  == i.getData().getYear()     )
             {
                 //busca o pelo id
                 Filme filmes = filmeDao.buscaFilme(i.getFilme_id());

@@ -104,13 +104,13 @@ public class BuscarFilmeController implements Initializable {
            if(filme != null)
            {
                SessaoDAO s = new SessaoDAO();
-               ArrayList<Sessao> sessoes = s.listarSessoesPorData(filme.getId());
-               if(sessoes != null)
+               //ArrayList<Sessao> sessoes = s.listarSessoesPorData(filme.getId());
+               /*if(sessoes != null)
                {
                    JOptionPane.showMessageDialog(null, "Existem sessoes para este filme");
                }else{
                     JOptionPane.showMessageDialog(null, "Não existem sessoes para este filme!");
-               }
+               }*/
                
            }else{
                alert.setTitle("Filme Inexistente");
@@ -131,7 +131,7 @@ public class BuscarFilmeController implements Initializable {
     }
     
     @FXML
-    void back2main(ActionEvent event) throws IOException {
+    void back2main(ActionEvent event) throws IOException, ParseException {
         System.out.println("Back Event!");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Menu Funcionário");

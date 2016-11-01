@@ -15,19 +15,18 @@ public final class Sessao {
     private int horario_id;
     private ArrayList<Assento> assentos;
     private int assento;
-    private Date dataInicio, dataFim;
+    private Date data;
 
     public Sessao() {
         this.assentos = new ArrayList<>();
     }
 
-    public Sessao(int filme_id, Sala sala, int horario_id, Date dataInicio, Date dataFim, int ingresso_disponivel, int assento) {
+    public Sessao(int filme_id, Sala sala, int horario_id, Date data, int ingresso_disponivel, int assento) {
         this.assentos = new ArrayList<>();
         this.filme_id = filme_id;
         this.sala = sala;
         this.horario_id = horario_id;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+        this.data = data;
         this.ingresso_disponivel = ingresso_disponivel;
         this.assento = assento;
         initAssentos();//cria os assentos disponiveis para a sessao
@@ -89,20 +88,12 @@ public final class Sessao {
         this.horario_id = horario_id;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
+    public Date getData() {
+        return data;
     }
 
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-    
-    public Date getDataFinal() {
-        return dataFim;
-    }
-
-    public void setDataFinal(Date dataFim) {
-        this.dataFim = dataFim;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public int getAssento() {

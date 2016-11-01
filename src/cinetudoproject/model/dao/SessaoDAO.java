@@ -6,6 +6,7 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Sessao;
 import java.sql.Connection;
 import java.sql.Date;
@@ -32,7 +33,7 @@ public class SessaoDAO {
     }
 
     public void insertSessao(Sessao sessao) throws ParseException {
-        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos, cinema_id) values(?,?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,cinema_id) values(?,?,?,?,?,?,?)";
         
         if(eValida(sessao))
         {
@@ -42,10 +43,9 @@ public class SessaoDAO {
                salvar.setInt(2, sessao.getFilme_id());
                salvar.setInt(3, sessao.getHorario_id());
                salvar.setInt(4, sessao.getIngresso_disponivel());
-               salvar.setDate(5, new java.sql.Date(sessao.getDataInicio().getTime()));
-               salvar.setDate(6, new java.sql.Date(sessao.getDataFinal().getTime()));
-               salvar.setInt(7, sessao.getAssento());
-               salvar.setInt(8, sessao.getCinema_id());
+               salvar.setDate(5, new java.sql.Date(sessao.getData().getTime()));
+               salvar.setInt(6, sessao.getAssento());
+               salvar.setInt(7, sessao.getCinema_id());
                salvar.executeUpdate();
                database.desconnect();
                Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -71,14 +71,14 @@ public class SessaoDAO {
         }
     }
     
-    public Sessao buscaSessaoPorHora(String hora) {
+    public Sessao buscaSessaoPorHora(int hora_id) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos,cinema_id FROM sessao WHERE hora = ?";
+        final String busca = "SELECT * FROM sessao WHERE hora_id = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
-            buscar.setString(1, hora);
+            buscar.setInt(1, hora_id);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             sessao = buscaSessao(resultadoBusca);
@@ -86,7 +86,7 @@ public class SessaoDAO {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ hora);
+            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO ");
             //System.exit(0);
         }
         return sessao;
@@ -114,35 +114,31 @@ public class SessaoDAO {
     public boolean eValida(Sessao s) throws ParseException
     {
         ArrayList<Sessao> sessoes = listar();
+        if (sessoes.isEmpty()) return true;
         //para cada sessao
         for(Sessao i : sessoes)
         {
-            //se estiver no intervalo
-            if(s.getDataInicio().compareTo(i.getDataInicio()) >= 0 && s.getDataFinal().compareTo(i.getDataFinal()) <= 0)
+            //se estiver no intervalo e for na mesma sala e mesmo horario nao permita o cadastro
+            if(s.getData().equals(i.getData()) && s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
             {
-                    //se for na mesma sala e mesmo horario nao permita o cadastro
-                    if(s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
-                    {
-                        return false;
-                    }
+                return false;
             }
-        }
-        
+        }   
         return true;
     }
     
-    public Sessao buscaSessaoPorFilme(String filme) {
+    public Sessao buscaSessaoPorFilme(int filme_id) {
         Sessao sessao = null;
-        final String busca = "SELECT id,sala_id,filme_id,horario_id,ingresso_disponivel,data_inicio,data_final,assentos,cinema_id FROM sessao WHERE hora = ?";
+        final String busca = "SELECT * FROM sessao WHERE filme_id = ?";
         try {
             PreparedStatement buscar =  database.connect().prepareStatement(busca);
-            buscar.setString(1, filme);
+            buscar.setInt(1, filme_id);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             sessao = buscaSessao(resultadoBusca);
             database.desconnect();
         } catch (Exception e) {
-            System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ filme);
+            System.err.println("ERRO AO BUSCAR");
         }
         return sessao;
     }
@@ -151,15 +147,14 @@ public class SessaoDAO {
         
         Sessao sessao = new Sessao();
         
-        sessao.setId(resultadoBusca.getInt(1));
-        sessao.setAssento(resultadoBusca.getInt(2));
-        sessao.setIngresso_disponivel(resultadoBusca.getInt(3));
-        sessao.setFilme_id(resultadoBusca.getInt(4));
-        sessao.setHorario_id(resultadoBusca.getInt(5));
-        sessao.setSala_id(resultadoBusca.getInt(6));
-        sessao.setDataFinal(new Date(resultadoBusca.getDate(7).getTime()));
-        sessao.setDataInicio(new Date(resultadoBusca.getDate(8).getTime()));
-        sessao.setCinema_id(resultadoBusca.getInt(9));
+        sessao.setId(resultadoBusca.getInt("id"));
+        sessao.setAssento(resultadoBusca.getInt("assentos"));
+        sessao.setIngresso_disponivel(resultadoBusca.getInt("ingresso_disponivel"));
+        sessao.setFilme_id(resultadoBusca.getInt("filme_id"));
+        sessao.setHorario_id(resultadoBusca.getInt("horario_id"));
+        sessao.setSala_id(resultadoBusca.getInt("sala_id"));
+        sessao.setData(new Date(resultadoBusca.getDate("data").getTime()));
+        sessao.setCinema_id(resultadoBusca.getInt("cinema_id"));
         
         return sessao;
     }

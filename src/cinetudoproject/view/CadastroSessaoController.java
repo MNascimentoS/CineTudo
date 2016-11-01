@@ -184,14 +184,10 @@ public class CadastroSessaoController implements Initializable {
     }
     
     //checar se as datas são válidas
-    boolean isValidDate(Date dataI, Date  dataF) throws ParseException{
+    boolean isValidDate(Date data) throws ParseException{
         //formato da data para poder ser comparado
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.format(dataI);
-        dateFormat.format(dataF);
-        
-        //se a data final for antes da tata inicial
-        if(dataF.before(dataI)) return false;
+        dateFormat.format(data);
 
         //setando o horário para 0
         Calendar c = Calendar.getInstance();
@@ -202,7 +198,7 @@ public class CadastroSessaoController implements Initializable {
         //data atual
         Date today = c.getTime();
         //se as datas iniciais e finais são depois da data atual
-        return (dataI.after(today) || dataI.equals(today)) && dataF.after(today);
+        return (data.after(today) || data.equals(today));
     }
     
     
@@ -212,15 +208,11 @@ public class CadastroSessaoController implements Initializable {
         LocalDate inicialDate = dataInicial.getValue();
         Instant instant = Instant.from(inicialDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        //data final
-        LocalDate finalDate = dataFinal.getValue();
-        Instant instantFinal = Instant.from(finalDate.atStartOfDay(ZoneId.systemDefault()));
-        Date dateFinal = Date.from(instantFinal);
         
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         //checar se as datas são válidas
-        if(!isValidDate(date, dateFinal)) {
+        if(!isValidDate(date)) {
             alert.setTitle("Erro");
             alert.setContentText("Data Inválida. Por favor, escolha outra.");
             alert.showAndWait();
@@ -242,8 +234,7 @@ public class CadastroSessaoController implements Initializable {
                 sessao.setHorario_id(horario.getId());
                 sessao.setFilme_id(chooseMovie.getId());
                 sessao.setSala_id(chooseSala.getId());
-                sessao.setDataInicio(date);
-                sessao.setDataFinal(dateFinal);
+                sessao.setData(date);
                 sessao.setSala(chooseSala);
                 sessao.setAssento(chooseSala.getCapacidade());
                 sessao.setIngresso_disponivel(chooseSala.getCapacidade());
