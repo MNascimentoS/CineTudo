@@ -15,6 +15,7 @@ import cinetudoproject.model.domain.Sessao;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -28,6 +29,7 @@ public class VendaFXMLController implements Initializable {
     @FXML 
     private ComboBox cb_cinema, cb_filme,cb_ingresso, cb_tipo, cb_promocao, cb_horario;
     
+    private String addIngresso;
     private Funcionario func;
     private Cinema cinema;
     private Filme filme;
@@ -37,7 +39,7 @@ public class VendaFXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        addIngresso = "Adicionar Ingresso";
     }    
     
     public void getUserInfo(Funcionario func)
@@ -56,7 +58,35 @@ public class VendaFXMLController implements Initializable {
     }
     
     public void initComponents() {
+        cb_cinema.setPromptText(cinema.getNome());
+        cb_filme.setPromptText(filme.getTitulo());
+        cb_ingresso.getItems().add(addIngresso);
         
+    }
+    
+    @FXML
+    void addClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void canClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void assentoClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void cancelClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void buyClicked(ActionEvent event) {
+
     }
     
 }

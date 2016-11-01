@@ -63,7 +63,7 @@
             <Font size="19.0" />
          </font>
       </JFXButton>
-      <JFXButton id="updateButton" fx:id="buy_clicked" buttonType="RAISED" layoutX="406.0" layoutY="484.0" onAction="#buyClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Confirmar Compra" textFill="#f5f5f0">
+      <JFXButton id="updateButton" fx:id="buy_clicked" buttonType="RAISED" layoutX="426.0" layoutY="484.0" onAction="#buyClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Confirmar Compra" textFill="#f5f5f0">
          <font>
             <Font size="19.0" />
          </font>
