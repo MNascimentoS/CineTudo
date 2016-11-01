@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.BuscarFilmeController">
+   <children>
+      <BorderPane prefHeight="81.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" AnchorPane.bottomAnchor="519.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" BorderPane.alignment="CENTER">
+               <center>
+                  <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../../img/logonov.png" />
+                     </image>
+                  </ImageView>
+               </center>
+               <right>
+                  <Text fx:id="usernameLabel" fill="#171717" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </right>
+            </JFXToolbar>
+         </top>
+      </BorderPane>
+      <JFXTextField fx:id="searchField" focusColor="#ee1e07" labelFloat="true" layoutX="79.0" layoutY="185.0" maxWidth="246.0" minWidth="246.0" onAction="#SearchMovies" prefHeight="32.0" prefWidth="246.0" promptText="Buscar" />
+      <JFXDatePicker fx:id="dataField" defaultColor="#ee4704" layoutX="423.0" layoutY="186.0" prefHeight="32.0" prefWidth="268.0" />
+      <JFXComboBox fx:id="salaCombo" layoutX="87.0" layoutY="262.0" prefHeight="26.0" prefWidth="239.0" promptText="Salas" />
+      <JFXButton fx:id="backButton" buttonType="RAISED" layoutX="209.0" layoutY="359.0" onAction="#back2main" prefHeight="41.0" prefWidth="158.0" style="-fx-background-color: #f44336;" text="Voltar" textFill="WHITE" />
+      <ImageView fitHeight="19.0" fitWidth="33.0" layoutX="288.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/ic_search_black_24dp/android/drawable-hdpi/ic_search_black_24dp.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="423.0" layoutY="359.0" onAction="#SearchMovies" prefHeight="41.0" prefWidth="158.0" style="-fx-background-color: #f44336;" text="Buscar" textFill="WHITE" />
+   </children>
+</AnchorPane>
