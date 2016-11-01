@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="cinetudoproject.view.VendaFXMLController">
+   <children>
+      <JFXToolbar prefHeight="70.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;">
+         <center>
+            <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../img/logonov.png" />
+               </image>
+            </ImageView>
+         </center>
+      </JFXToolbar>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9a9a9a" height="117.0" layoutX="450.0" layoutY="102.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="316.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="51.0" layoutX="457.0" layoutY="143.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="302.0" />
+      <Label fx:id="lb_diretor" layoutX="459.0" layoutY="105.0" prefHeight="35.0" prefWidth="302.0" text="Total a pagar:" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_diretor1" alignment="CENTER_RIGHT" layoutX="462.0" layoutY="151.0" prefHeight="35.0" prefWidth="292.0" text="0,00" textFill="#aeaeae" wrapText="true">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_diretor2" alignment="CENTER" layoutX="457.0" layoutY="193.0" prefHeight="26.0" prefWidth="302.0" text="Total em R$ ref. Venda" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <ComboBox disable="true" layoutX="25.0" layoutY="116.0" prefHeight="35.0" prefWidth="403.0" promptText="Cinema" />
+      <ComboBox disable="true" layoutX="25.0" layoutY="162.0" prefHeight="35.0" prefWidth="403.0" promptText="Filme" />
+   </children>
+</AnchorPane>
