@@ -271,7 +271,8 @@ public class MainFuncionarioController implements Initializable {
         Parent rootFuncionario = (Parent)fxmlLoader.load();
         VendaFXMLController Vcontroller = fxmlLoader.<VendaFXMLController>getController(); 
         Vcontroller.getUserInfo(func);
-        Vcontroller.getMovieInfo(filme, cSessaoList, horarioList);
+        Vcontroller.getMovieInfo(filme, cSessaoList, horarioList, promocaoList);
+        Vcontroller.initComponents();
         Scene scene = new Scene(rootFuncionario);
         stage.setScene(scene);
         stage.show();

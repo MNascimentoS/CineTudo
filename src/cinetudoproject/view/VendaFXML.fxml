@@ -10,8 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="cinetudoproject.view.VendaFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.VendaFXMLController">
    <children>
       <JFXToolbar prefHeight="70.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;">
          <center>
@@ -22,24 +21,52 @@
             </ImageView>
          </center>
       </JFXToolbar>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9a9a9a" height="117.0" layoutX="450.0" layoutY="102.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="316.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="51.0" layoutX="457.0" layoutY="143.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="302.0" />
-      <Label fx:id="lb_diretor" layoutX="459.0" layoutY="105.0" prefHeight="35.0" prefWidth="302.0" text="Total a pagar:" textFill="WHITE" wrapText="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9a9a9a" height="102.0" layoutX="530.0" layoutY="102.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="236.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="51.0" layoutX="536.0" layoutY="145.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="223.0" />
+      <Label fx:id="lb_diretor" layoutX="538.0" layoutY="105.0" prefHeight="35.0" prefWidth="223.0" text="Total a pagar:" textFill="WHITE" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lb_diretor1" alignment="CENTER_RIGHT" layoutX="462.0" layoutY="151.0" prefHeight="35.0" prefWidth="292.0" text="0,00" textFill="#aeaeae" wrapText="true">
+      <Label fx:id="lb_diretor1" alignment="CENTER_RIGHT" layoutX="545.0" layoutY="153.0" prefHeight="35.0" prefWidth="209.0" text="0,00 R$" textFill="#aeaeae" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lb_diretor2" alignment="CENTER" layoutX="457.0" layoutY="193.0" prefHeight="26.0" prefWidth="302.0" text="Total em R$ ref. Venda" textFill="WHITE" wrapText="true">
+      <ComboBox id="cb_cinema" fx:id="cb_cinema" disable="true" layoutX="31.0" layoutY="102.0" prefHeight="43.0" prefWidth="479.0" promptText="Cinema" />
+      <ComboBox id="cb_filme" fx:id="cb_filme" disable="true" layoutX="31.0" layoutY="161.0" prefHeight="43.0" prefWidth="479.0" promptText="Filme" />
+      <ComboBox id="cb_ingressos" fx:id="cb_ingresso" layoutX="31.0" layoutY="222.0" prefHeight="43.0" prefWidth="738.0" promptText="Ingressos" />
+      <Pane layoutX="31.0" layoutY="281.0" prefHeight="183.0" prefWidth="738.0">
+         <children>
+            <JFXButton id="updateButton" fx:id="add_button" buttonType="RAISED" layoutX="416.0" layoutY="127.0" onAction="#addClicked" prefHeight="32.0" prefWidth="195.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Adicionar" textFill="#f5f5f0" visible="false">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="updateButton" fx:id="can_clicked" buttonType="RAISED" cancelButton="true" disable="true" layoutX="111.0" layoutY="127.0" onAction="#canClicked" prefHeight="32.0" prefWidth="195.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0" visible="false">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <ComboBox fx:id="cb_horario" disable="true" layoutX="71.0" layoutY="14.0" prefHeight="43.0" prefWidth="276.0" promptText="Horário" />
+            <ComboBox fx:id="cb_promocao" disable="true" layoutX="71.0" layoutY="68.0" prefHeight="43.0" prefWidth="276.0" promptText="Promoção" />
+            <ComboBox fx:id="cb_tipo" disable="true" layoutX="376.0" layoutY="14.0" prefHeight="43.0" prefWidth="276.0" promptText="Tipo" />
+            <JFXButton id="updateButton" fx:id="assento_clicked" buttonType="RAISED" disable="true" layoutX="376.0" layoutY="71.0" onAction="#assentoClicked" prefHeight="38.0" prefWidth="276.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Assento" textFill="#f5f5f0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <JFXButton id="updateButton" fx:id="cancel_clicked" buttonType="RAISED" layoutX="158.0" layoutY="484.0" onAction="#cancelClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0">
          <font>
-            <Font size="12.0" />
+            <Font size="19.0" />
          </font>
-      </Label>
-      <ComboBox disable="true" layoutX="25.0" layoutY="116.0" prefHeight="35.0" prefWidth="403.0" promptText="Cinema" />
-      <ComboBox disable="true" layoutX="25.0" layoutY="162.0" prefHeight="35.0" prefWidth="403.0" promptText="Filme" />
+      </JFXButton>
+      <JFXButton id="updateButton" fx:id="buy_clicked" buttonType="RAISED" layoutX="406.0" layoutY="484.0" onAction="#buyClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Confirmar Compra" textFill="#f5f5f0">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
