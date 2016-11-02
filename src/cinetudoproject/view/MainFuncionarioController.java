@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
+import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.PromocaoDAO;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;

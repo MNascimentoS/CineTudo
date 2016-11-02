@@ -12,8 +12,9 @@
             <Image url="@../../img/fundo_promocao.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="b1" buttonType="RAISED" onAction="#changeColor" prefHeight="50.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Inicio" />
-      <JFXButton fx:id="b3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#buscarFilme" prefHeight="50.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Buscar Filme" />
-      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" prefHeight="50.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Sair" />
+      <JFXButton fx:id="b1" buttonType="RAISED" onAction="#changeColor" prefHeight="67.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Inicio" />
+      <JFXButton fx:id="b3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#buscarFilme" prefHeight="65.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Buscar Filme" />
+      <JFXButton fx:id="bucarSessaoButton" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#buscarSessao" prefHeight="64.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Buscar Sessao" />
+      <JFXButton fx:id="exit1" buttonType="RAISED" onAction="#exit" prefHeight="62.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Sair" />
    </children>
 </VBox>
