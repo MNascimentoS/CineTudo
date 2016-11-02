@@ -138,10 +138,10 @@ public class BuscarFilmeController implements Initializable {
                    {
                        for(Sala sa : salas)
                        {
-                         salaCombo.getItems().addAll("Sala "+sa.getNumero()+" "+sa.getTipo());
+                         salaCombo.getItems().addAll("Sala "+sa.getNumero()+" - "+sa.getTipo());
                        }
                        salaCombo.setVisible(true);
-                       salaCombo.setPromptText("Sala "+salas.get(0).getNumero()+" "+salas.get(0).getTipo());
+                       salaCombo.setPromptText("Sala "+salas.get(0).getNumero()+" - "+salas.get(0).getTipo());
                    }
                    
                    if(sessoes.isEmpty())
