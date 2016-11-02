@@ -5,22 +5,25 @@ package cinetudoproject.model.domain;
  */
 public class Assento {
 
-    private char fila;
+    private String fila;
     private int numero;
-    private boolean ocupado;
+    private int ocupado;
 
-	public Assento(char fila, int numero) {
+    public Assento(String fila, int numero) {
         this.fila = fila;
         this.numero = numero;
-        this.ocupado = false;
+        this.ocupado = 0;
     }
 
-    public char getFila() {
+    public Assento() {
+    }
+
+    public String getFila() {
         return fila;
     }
 
-    public void setFila(char fila) {
-        if(fila >= 'a' && fila <= 'z') this.fila = fila;
+    public void setFila(String fila) {
+         this.fila = fila;
     }
 
     public int getNumero() {
@@ -31,11 +34,11 @@ public class Assento {
         if(numero > 0) this.numero = numero;
     }
     
-    public boolean isOcupado() {
-		return ocupado;
-	}
+    public int getOcupado() {
+	return ocupado;
+    }
 
-	public void setOcupado(boolean ocupado) {
-		this.ocupado = ocupado;
-	}
+    public void setOcupado(int ocupado) {
+        this.ocupado = ocupado;
+    }
 }
