@@ -6,11 +6,13 @@
 package cinetudoproject.view;
 
 
+import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.SessaoDAO;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
@@ -30,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -240,6 +243,30 @@ public class CadastroSessaoController implements Initializable {
                 sessao.setIngresso_disponivel(chooseSala.getCapacidade());
                 try {
                     sessaoDAO.insertSessao(sessao);
+                    ArrayList<Sessao> sessoes = sessaoDAO.listar();
+                    if(sessoes != null || !sessoes.isEmpty())
+                    {
+                        sessoes.forEach((t) -> {
+                            if(t.getHorario_id() == sessao.getHorario_id() && t.getSala_id() == sessao.getSala_id()
+                            && t.getData().getDate() == sessao.getData().getDate() && t.getData().getMonth()== sessao.getData().getMonth()
+                             && t.getData().getYear() == sessao.getData().getYear())
+                            {
+                                  System.out.println("Achei a sessao!"); 
+                                  sessao.setId(t.getId());
+                            }
+                        }); 
+                        //se conseguiu achou a sessao
+                        if(sessao.getId() > 0)
+                        {
+                            AssentoDAO assentoDAO = new AssentoDAO();
+                            //cadastra os assentos na sessao
+                            for(Assento as : sessao.getAssentos())
+                            {
+                                System.out.println("Fila: "+ as.getFila()+" Número: "+as.getNumero());
+                                assentoDAO.insertAssento(as, sessao.getId());
+                            }
+                        }
+                    }         
                 } catch (ParseException ex) {
                     Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
