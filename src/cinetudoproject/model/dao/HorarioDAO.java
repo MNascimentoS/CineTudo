@@ -41,7 +41,7 @@ public class HorarioDAO {
             //JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
             //return true;
         } catch (SQLException ex) {
-            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             //JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
             //return false;
         }
