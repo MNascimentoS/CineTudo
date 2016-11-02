@@ -52,7 +52,6 @@ public class Cinema {
         } else {
             valorDoIngresso = valorSemana;
         }
-
         //the magic is happen
         if (this.promocoes.size() > 0) {
             for (Promocao promo : this.promocoes) {

@@ -5,12 +5,14 @@
  */
 package cinetudoproject.view;
 import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;
 import cinetudoproject.model.domain.Promocao;
 import cinetudoproject.model.domain.Cinema;
+import cinetudoproject.model.domain.Sala;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -25,10 +27,14 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +80,7 @@ public class BuscarFilmeController implements Initializable {
     @FXML
     private AnchorPane root;    
  
+     private List<Sala> sala;
 
     private Funcionario func;
     public static AnchorPane rootP;
@@ -91,6 +98,8 @@ public class BuscarFilmeController implements Initializable {
     
     public void SearchMovies() throws ParseException
     {
+        salaCombo.setVisible(false);
+        
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
         
@@ -101,15 +110,51 @@ public class BuscarFilmeController implements Initializable {
            
            if(filme != null)
            {
+               //data inicial
+               LocalDate initialDate = dataField.getValue();
+               Instant instant = Instant.from(initialDate.atStartOfDay(ZoneId.systemDefault()));
+               Date date = Date.from(instant);
                SessaoDAO s = new SessaoDAO();
-               //ArrayList<Sessao> sessoes = s.listarSessoesPorData(filme.getId());
-               /*if(sessoes != null)
+               //buscar as sessoes do dia
+              ArrayList<Sessao> sessoes = s.buscarSessoesFilmeEData(filme.getId(), date);
+               //se tiver sessoes deste filme neste dia
+               if(sessoes != null)
                {
-                   JOptionPane.showMessageDialog(null, "Existem sessoes para este filme");
+                   ArrayList<Sala> salas = new ArrayList<Sala>();
+                   SalaDAO salaDao = new SalaDAO();
+                   for(Sessao i : sessoes)
+                   {
+                      Sala sala = salaDao.buscaPorSala(i.getSala_id());
+                      if(sala != null)
+                      {
+                          if(!salas.contains(sala))//se nao contem a nova sala, guarde na lista
+                          {
+                              salas.add(sala);
+                          }
+                      }
+                   } 
+                   //se as salas foram preenchidas adicione no combobox
+                   if(!salas.isEmpty())
+                   {
+                       for(Sala sa : salas)
+                       {
+                         salaCombo.getItems().addAll("Sala "+sa.getNumero()+" "+sa.getTipo());
+                       }
+                       salaCombo.setVisible(true);
+                       salaCombo.setPromptText("Sala "+salas.get(0).getNumero()+" "+salas.get(0).getTipo());
+                   }
+                   
+                   if(sessoes.isEmpty())
+                   {
+                        alert.setTitle("Não há sessões");
+                        alert.setContentText("Nenhuma sessão disponível nesta data!");
+                        alert.showAndWait(); 
+                   }
                }else{
-                    JOptionPane.showMessageDialog(null, "Não existem sessoes para este filme!");
-               }*/
-               
+                  alert.setTitle("Não Existem Sessões");
+                  alert.setContentText("Nenhuma sessão adicionada para este filme!");
+                  alert.showAndWait(); 
+               }
            }else{
                alert.setTitle("Filme Inexistente");
                alert.setContentText("Filme ainda não cadastrado!");
