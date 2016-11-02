@@ -118,13 +118,50 @@ public class SessaoDAO {
         //para cada sessao
         for(Sessao i : sessoes)
         {
-            //se estiver no intervalo e for na mesma sala e mesmo horario nao permita o cadastro
-            if(s.getData().equals(i.getData()) && s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
+            //se for no mesmo dia e for na mesma sala e mesmo horario nao permita o cadastro
+            if(s.getData().getDate() == i.getData().getDate()&& s.getData().getMonth() == i.getData().getMonth() &&
+                    s.getData().getYear() == i.getData().getYear()&& s.getSala_id() == i.getSala_id() && 
+                    s.getHorario_id() == i.getHorario_id())
             {
                 return false;
             }
         }   
         return true;
+    }
+    
+    public ArrayList<Sessao> buscarSessoesFilmeEData(int filme_id, java.util.Date data) throws ParseException
+    {
+        ArrayList<Sessao> sessoes = new ArrayList<Sessao>();
+        final String busca = "SELECT * FROM sessao WHERE filme_id = '"+filme_id+"'";
+         
+        try {
+            PreparedStatement stmt = database.connect().prepareStatement(busca);
+            ResultSet resultado = stmt.executeQuery();    
+            if(!resultado.next()){
+                System.out.println("Nao achei o filme!");
+                return sessoes;
+            } 
+            while(resultado.next()) {
+                //sessoes = new ArrayList<>();
+                Sessao s = buscaSessao(resultado);
+                //se esta na data buscada adicione a lista de retorno
+                if(s != null)
+                {
+                  if(s.getData().getDay() == data.getDay() && s.getData().getMonth() == data.getMonth() && 
+                     s.getData().getYear() == data.getYear())
+                    {
+                        sessoes.add(s);
+                    }
+                }else{
+                    System.out.print("SOUUUUUUUUUUUUUU NUULOOOOOOOOOOOOOOOOOOOOOO!");
+                }
+            }
+            database.desconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return sessoes;
     }
     
     public Sessao buscaSessaoPorFilme(int filme_id) {
