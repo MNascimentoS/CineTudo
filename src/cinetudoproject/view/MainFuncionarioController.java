@@ -117,6 +117,7 @@ public class MainFuncionarioController implements Initializable {
              VBox box = fxmlLoader.load();
              SidePanelContentController drawercontroller = fxmlLoader.<SidePanelContentController>getController(); 
              drawercontroller.getPromocao(promocaoList);
+             drawercontroller.getUserInfo(this.func);
              drawer.setSidePane(box);
         } catch (IOException ex) {
             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,11 +149,15 @@ public class MainFuncionarioController implements Initializable {
         ArrayList<Promocao> todaPromocao;
         PromocaoDAO promocaoDAO = new PromocaoDAO();
         todaPromocao = promocaoDAO.listar();
-        todaPromocao.forEach((i)->{
-            if (cinema.getId() == i.getCinema_id()) {
-                promocaoList.add(i);
-            }
-        });   
+        
+        if(todaPromocao != null)
+        {
+            todaPromocao.forEach((i)->{
+                if (cinema.getId() == i.getCinema_id()) {
+                 promocaoList.add(i);
+                }
+            });   
+        }
     }
     
     public void preencherSessao(Cinema cinema) throws ParseException {
@@ -160,14 +165,16 @@ public class MainFuncionarioController implements Initializable {
         ArrayList<Sessao> todaSessao;
         SessaoDAO sessaoDAO = new SessaoDAO();
         todaSessao = sessaoDAO.listar();
-        todaSessao.forEach((i)->{
-            if (i.getCinema_id() == cinema.getId()) {
-                sessaoList.add(i);
-            }
-        });
+        if(todaSessao != null)
+            todaSessao.forEach((i)->{
+                if (i.getCinema_id() == cinema.getId()) {
+                    sessaoList.add(i);
+                }
+            });
     }
     
     public void preencherFilme(int choice) {
+        
         int listSize = filmeList.size();
         int next = 1; int back = -1;
         if (choice == 0) listPosition = 0;
@@ -241,7 +248,7 @@ public class MainFuncionarioController implements Initializable {
             //verifica se a sessao pertence ao intervalo
             if(atual.getDay()   == i.getData().getDay()   &&
                atual.getMonth() == i.getData().getMonth() &&
-               atual.getYear()  == i.getData().getYear()     )
+               atual.getYear()  == i.getData().getYear())
             {
                 //busca o pelo id
                 Filme filmes = filmeDao.buscaFilme(i.getFilme_id());

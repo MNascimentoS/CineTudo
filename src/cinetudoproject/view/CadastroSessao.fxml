@@ -62,7 +62,6 @@
          </right>
       </BorderPane>
       <JFXComboBox id="comboBox" fx:id="cinemaBox" disable="true" layoutX="454.0" layoutY="168.0" prefHeight="38.0" prefWidth="503.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
-      <JFXDatePicker fx:id="dataInicial" defaultColor="#e15738" layoutX="452.0" layoutY="304.0" prefHeight="32.0" prefWidth="246.0" promptText="Data Inicial" />
-      <JFXDatePicker fx:id="dataFinal" defaultColor="#cd4a3f" layoutX="714.0" layoutY="304.0" prefHeight="32.0" prefWidth="246.0" promptText="Data Final" />
+      <JFXDatePicker fx:id="dataInicial" defaultColor="#e15738" layoutX="452.0" layoutY="304.0" prefHeight="32.0" prefWidth="503.0" promptText="Data" />
    </children>
 </AnchorPane>

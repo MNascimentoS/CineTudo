@@ -1,5 +1,6 @@
 package cinetudoproject.view;
 
+import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Promocao;
 import com.jfoenix.controls.JFXButton;
 import java.awt.image.BufferedImage;
@@ -13,10 +14,15 @@ import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 
@@ -32,6 +38,8 @@ public class SidePanelContentController implements Initializable {
     private JFXButton exit;
     @FXML
     private ImageView promo_image;
+    
+    private Funcionario func;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,8 +79,27 @@ public class SidePanelContentController implements Initializable {
     }
 
     @FXML
+    void buscarFilme(ActionEvent event) throws IOException {
+        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Buscar Filme");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BuscarFilme.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        BuscarFilmeController CScontroller = fxmlLoader.<BuscarFilmeController>getController(); 
+        CScontroller.getUserInfo(this.func);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
     private void exit(ActionEvent event) {
         System.exit(0);
+    }
+    
+     void getUserInfo(Funcionario func) {
+        this.func = func;
+        System.out.println("Novo funcionario logado: "+func.getNome());
     }
     
 }
