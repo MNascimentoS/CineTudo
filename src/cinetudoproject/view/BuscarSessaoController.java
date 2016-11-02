@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
+import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.SessaoDAO;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;
-import cinetudoproject.model.domain.Promocao;
-import cinetudoproject.model.domain.Cinema;
+import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Sala;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -65,22 +67,26 @@ import javax.swing.JOptionPane;
  *
  * @author mateus
  */
-public class BuscarFilmeController implements Initializable {
+public class BuscarSessaoController implements Initializable {
     
-    @FXML
-    private Text usernameLabel;
-    @FXML
-    private JFXTextField searchField;
-    @FXML
+     @FXML
     private JFXDatePicker dataField;
     @FXML
     private JFXComboBox<String> salaCombo;
     @FXML
+    private JFXComboBox<String> horarioSessaoCombo;
+    @FXML
+    private JFXComboBox<String> assentosDisponiveisCombo;
+    @FXML
+    private Text usernameLabel;
+    @FXML
     private JFXButton backButton;
+    @FXML
+    private JFXButton searchButton;
     @FXML
     private AnchorPane root;    
  
-     private List<Sala> sala;
+    private List<Sala> sala;
 
     private Funcionario func;
     public static AnchorPane rootP;
@@ -88,6 +94,12 @@ public class BuscarFilmeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         rootP = root;
+        try {
+            //BUSCAR PELAS SALAS
+            initSala();
+        } catch (IOException ex) {
+            System.out.println("Salas não encontradas!");
+        }
     } 
     
     public void getUserInfo(Funcionario func) throws IOException
@@ -96,80 +108,125 @@ public class BuscarFilmeController implements Initializable {
         usernameLabel.setText("Ola, " + func.getNome());
     }
     
-    public void SearchMovies() throws ParseException
+    public void initSala() throws IOException
     {
-        salaCombo.setVisible(false);
-        
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
-        
-        if(validateFields())
+        SalaDAO salaDAO = new SalaDAO();
+        List<Sala> salas = salaDAO.listar();
+        //verifica se existem salas, se existirem atribua no combobox
+        if(!salas.isEmpty())
         {
-           FilmeDAO filmeDao = new FilmeDAO();
-           Filme filme = filmeDao.buscaFilme(searchField.getText());
-           
-           if(filme != null)
-           {
-               //data inicial
+            for(Sala sala : salas)
+            {
+                salaCombo.getItems().addAll("Sala "+sala.getNumero());
+            }
+            salaCombo.setValue("Sala "+salas.get(0).getNumero());
+            salaCombo.setPromptText("Sala "+salas.get(0).getNumero());
+        }
+    }
+    //exibe os assentos disponiveis em uma sessao em uma determinada data
+    @FXML
+    void mostrarDisponibilidade(ActionEvent event) throws ParseException {
+        
+         if(validateFields())
+         {
+            //deleta todos os campos e pega somente os numeros, no caso o numero da sala
+            String numeroSala = salaCombo.getValue().replaceAll("\\D+","");
+            System.out.println(numeroSala);
+            //buscando a sala pelo numero dela
+            SalaDAO salaDao = new SalaDAO();
+            Sala sala = salaDao.buscaPorNumeroSala(Integer.parseInt(numeroSala));
+            //se a sala existe
+            if(sala != null)
+            {
+               //pegando a data
                LocalDate initialDate = dataField.getValue();
                Instant instant = Instant.from(initialDate.atStartOfDay(ZoneId.systemDefault()));
                Date date = Date.from(instant);
-               SessaoDAO s = new SessaoDAO();
-               //buscar as sessoes do dia
-              ArrayList<Sessao> sessoes = s.buscarSessoesFilmeEData(filme.getId(), date);
-               //se tiver sessoes deste filme neste dia
-               if(sessoes != null)
+               SessaoDAO sessaoDao = new SessaoDAO();
+               ArrayList<Sessao> sessoes = sessaoDao.listarPorSalaEData(Integer.parseInt(numeroSala), date);
+               //se houver sessoes para esta data exiba-as no combobox
+               if(!sessoes.isEmpty())
                {
-                   ArrayList<Sala> salas = new ArrayList<Sala>();
-                   SalaDAO salaDao = new SalaDAO();
-                   for(Sessao i : sessoes)
-                   {
-                      Sala sala = salaDao.buscaPorSala(i.getSala_id());
-                      if(sala != null)
-                      {
-                          if(!salas.contains(sala))//se nao contem a nova sala, guarde na lista
-                          {
-                              salas.add(sala);
-                          }
-                      }
-                   } 
-                   //se as salas foram preenchidas adicione no combobox
-                   if(!salas.isEmpty())
-                   {
-                       for(Sala sa : salas)
-                       {
-                         salaCombo.getItems().addAll("Sala "+sa.getNumero()+" "+sa.getTipo());
-                       }
-                       salaCombo.setVisible(true);
-                       salaCombo.setPromptText("Sala "+salas.get(0).getNumero()+" "+salas.get(0).getTipo());
-                   }
+                   ArrayList<Integer> sessao_id = new ArrayList<>();
+                   int contador = 0;
                    
-                   if(sessoes.isEmpty())
+                   for(Sessao t : sessoes)
                    {
-                        alert.setTitle("Não há sessões");
-                        alert.setContentText("Nenhuma sessão disponível nesta data!");
-                        alert.showAndWait(); 
+                       if(sala.getId() == t.getSala_id())
+                       {
+                          contador = contador + 1;
+                          sessao_id.add(t.getId());
+                          HorarioDAO horarioDao = new HorarioDAO();
+                          FilmeDAO filmeDao = new FilmeDAO();
+                          Horario hora = horarioDao.buscaPorId(t.getHorario_id());
+                          Filme filme = filmeDao.buscaFilme(t.getFilme_id());
+                          System.out.println(filme.getTitulo()+" às "+hora.getHorario());
+                          if(!horarioSessaoCombo.getItems().contains(filme.getTitulo()+" às "+hora.getHorario()))
+                                horarioSessaoCombo.getItems().add(filme.getTitulo()+" às "+hora.getHorario());
+                          horarioSessaoCombo.setPromptText("Sessões Encontradas!");
+                       }
+                   }
+                   if(sessoes.size() == 0) horarioSessaoCombo.setPromptText("Não há sessões");
+                   //se os horarios nos combos estiverem preenchidos
+                   if(horarioSessaoCombo.getValue() != null && !sessao_id.isEmpty())
+                   {
+                       AssentoDAO assentodao = new AssentoDAO();
+                       ArrayList<Assento> assentos = new ArrayList<>();
+                       //percorre toda o combo horario
+                       for(int i =0; i < horarioSessaoCombo.getItems().size(); i++)
+                       {
+                           //quando chegar no selecionado, busque e carregue as cadeiras disponiveis
+                           if(horarioSessaoCombo.getItems().get(i).equals(horarioSessaoCombo.getValue()))
+                           {
+                               assentos = assentodao.listar(sessao_id.get(i));
+                               break;
+                           }
+                       }
+                       //se houver assentos
+                       if(!assentos.isEmpty())
+                       {
+                           for(Assento assento : assentos)
+                           {
+                               if(!assentosDisponiveisCombo.getItems().contains(assento.getNumero()+" - "+assento.getFila()) && assento.getOcupado() == 0)
+                                    assentosDisponiveisCombo.getItems().addAll(assento.getNumero()+" - "+assento.getFila());
+                           }
+                       }else{
+                           //remova os elementos se houver algum
+                           for(int i = 0; i < assentosDisponiveisCombo.getItems().size(); i++)
+                           {
+                               assentosDisponiveisCombo.getItems().remove(i);
+                           }
+                           assentosDisponiveisCombo.setPromptText("Esgotada");
+                       }
                    }
                }else{
-                  alert.setTitle("Não Existem Sessões");
-                  alert.setContentText("Nenhuma sessão adicionada para este filme!");
-                  alert.showAndWait(); 
+                   //remove todos os elementos contidos na lista anteriormente
+                   for(int i = 0; i < horarioSessaoCombo.getItems().size(); i++)
+                   {
+                        horarioSessaoCombo.getItems().remove(i);
+                   }
+                   horarioSessaoCombo.setPromptText("Não há sessões!");
                }
-           }else{
-               alert.setTitle("Filme Inexistente");
-               alert.setContentText("Filme ainda não cadastrado!");
-               alert.showAndWait(); 
-           } 
-        }else{
-            alert.setTitle("Campos vazios");
-            alert.setContentText("O campo filme não pode estar vazio!");
-            alert.showAndWait();
-        } 
+            }else{
+                horarioSessaoCombo.setPromptText("Não há sessões!");
+            }
+         }
     }
     
     boolean validateFields()
     {
-        if(searchField.getText().equals("")) return false;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        //valide os campos
+        if(salaCombo.getValue() == null  || dataField.getValue() == null){
+          alert.setTitle("Cuidado!");
+          alert.setContentText("Preencha todos os campos antes de continuar!");
+          alert.showAndWait();
+          return false;
+        } 
+       
         return true;
     }
     
