@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="332.0" prefWidth="223.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.SidePanelContentGController">
+<VBox prefHeight="332.0" prefWidth="223.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.SidePanelContentGController">
    <children>
       <JFXButton fx:id="b1" buttonType="RAISED" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Inicio" />
       <JFXButton fx:id="bsessao" buttonType="RAISED" onAction="#cadastrarSessao" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Sessao" />
@@ -15,5 +12,6 @@
       <JFXButton fx:id="cadastrar" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#cadastrarSala" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Sala" />
       <JFXButton fx:id="cadastrar1" buttonType="RAISED" onAction="#cadastrarPromocao" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Promoção" />
       <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Sair" />
+      <JFXButton fx:id="b22" buttonType="RAISED" onAction="#updateFilme" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Atualizar/Deletar Filme" />
    </children>
 </VBox>

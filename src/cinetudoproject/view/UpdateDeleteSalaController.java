@@ -6,35 +6,33 @@
 package cinetudoproject.view;
 
 import cinetudoproject.model.dao.SalaDAO;
+import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Sala;
+import cinetudoproject.model.domain.Sala2D;
+import cinetudoproject.model.domain.Sala3D;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.model.domain.Sala;
-import cinetudoproject.model.domain.Sala2D;
-import cinetudoproject.model.domain.Sala3D;
-import com.jfoenix.validation.NumberValidator;
-import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
  *
- * @author Jose
+ * @author Wellington
  */
-public class CadastroSalaController implements Initializable {
+public class UpdateDeleteSalaController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -49,6 +47,9 @@ public class CadastroSalaController implements Initializable {
     private JFXTextField tfNumSala;
 
     @FXML
+    private JFXTextField tfBuscaSala;
+
+    @FXML
     private JFXTextField tfCapaMax;
 
     Sala sala;
@@ -58,6 +59,14 @@ public class CadastroSalaController implements Initializable {
         configValidators();
         initTipo();
 
+        tfBuscaSala.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (!newValue) {
+                sala = new SalaDAO().buscaPorNumeroSala(Integer.parseInt(tfBuscaSala.getText()));
+                tfNumSala.setText(String.valueOf(sala.getNumero()));
+                tfCapaMax.setText(String.valueOf(sala.getCapacidade()));
+
+            }
+        });
     }
 
     public void initTipo() {
@@ -102,20 +111,6 @@ public class CadastroSalaController implements Initializable {
     }
 
     @FXML
-    void salvarSala(ActionEvent event) {
-        //se estiver tudo ok!
-        if (validateFields()) {
-            if (tipoComboBox.getValue().equals("2D")) {
-                Sala sala2d = new Sala2D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-                saladao.insertSala(sala2d);
-            } else {
-                Sala sala3d = new Sala3D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-                saladao.insertSala(sala3d);
-            }
-        }
-    }
-
-    @FXML
     void delete(ActionEvent event) {
         SalaDAO deletar = new SalaDAO();
         deletar.delete(sala.getId());
@@ -132,7 +127,7 @@ public class CadastroSalaController implements Initializable {
     }
 
     boolean validateFields() {
-        Alert alert = new Alert(AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
 
         if (tfCapaMax.getText().equals("") || tfNumSala.getText().equals("") || tipoComboBox.getValue() == null) {

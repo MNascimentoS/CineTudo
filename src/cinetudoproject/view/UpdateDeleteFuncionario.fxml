@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" translateX="2.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFuncionarioController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" translateX="2.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.UpdateDeleteFuncionarioController">
     <children>
         <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFF;">
             <center>
@@ -55,7 +55,12 @@
                 <Font size="17.0" />
             </font>
         </JFXPasswordField>
-        <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="515.0" layoutY="429.0" onAction="#cadastro" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+        <JFXButton id="updateButton" fx:id="updateButton" buttonType="RAISED" layoutX="525.0" layoutY="429.0" onAction="#update" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ATUALIZAR" textFill="WHITE">
+            <font>
+                <Font name="Droid Sans Georgian" size="15.0" />
+            </font>
+        </JFXButton>
+        <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="400.0" layoutY="500.0" onAction="#delete" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETE" textFill="WHITE">
             <font>
                 <Font name="Droid Sans Georgian" size="15.0" />
             </font>
@@ -66,6 +71,11 @@
                 <Font name="Droid Sans Georgian" size="15.0" />
             </font>
         </JFXButton>
+        <JFXTextField id="tf_userBusca" fx:id="tf_userBusca" focusColor="#ff4537" labelFloat="true" layoutX="270.0" layoutY="156.0" maxWidth="550.0" minWidth="118.0" prefHeight="38.0" prefWidth="471.0" promptText="Busca Funcionário (Usuário)" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXTextField>
   
     </children>
 </AnchorPane>
