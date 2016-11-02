@@ -105,6 +105,11 @@ public final class Sessao {
         initAssentos();
     }
     
+    public ArrayList<Assento> getAssentos()
+    {
+        return this.assentos;
+    }
+    
     //inicializa os assentos
     public void initAssentos() {
         char fila = 'A';
@@ -112,7 +117,7 @@ public final class Sessao {
             if (i % 10 == 0 && i != 0) {
                 fila += 1;
             }
-            Assento novo_assento = new Assento(fila, i + 1);
+            Assento novo_assento = new Assento(Character.toString(fila), i + 1);
             this.assentos.add(novo_assento);
         }
     }
@@ -120,12 +125,19 @@ public final class Sessao {
     public int getAssentosDisponiveis() {
         int disponiveis = 0;
         for (Assento i : this.assentos) {
-            if (!i.isOcupado()) {
+            if (i.getOcupado() == 0) {
                 disponiveis++;
             }
         }
 
         return disponiveis;
+    }
+    
+    public void printarAssento()
+    {
+         for (Assento ass : this.assentos) {
+                System.out.println("Fila: " + ass.getFila() + " número: " + ass.getNumero());
+        }
     }
 
     public void printarAssento(int numero) {
