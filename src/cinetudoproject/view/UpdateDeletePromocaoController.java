@@ -217,13 +217,13 @@ public class UpdateDeletePromocaoController implements Initializable {
             promocao.setImageFile(imageFile);
 
             if (imageFile == null) {
-                promocaoDAO.insertPromocao(promocao);
+                promocaoDAO.update(promocao);
             } else {
-                promocaoDAO.insertPromocao(promocao, imageFile);
+                promocaoDAO.update(promocao, imageFile);
             }
 
             //try save the movie
-            promocaoDAO.update(promocao);
+            promocaoDAO.update(promocao, imageFile);
             //back2main(event);
         }
     }

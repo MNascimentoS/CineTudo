@@ -6,8 +6,6 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Promocao;
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,6 +60,7 @@ public class PromocaoDAO {
             //return false;
         }
     }
+
     public void insertPromocao(Promocao promocao, File imageFile) throws FileNotFoundException {
         final String inserir = "INSERT INTO promocao (nome,data,desconto,dia_semana,descricao,cinema_id,image) values(?,?,?,?,?,?,?)";
         try {
@@ -91,7 +90,7 @@ public class PromocaoDAO {
     public ArrayList<Promocao> listar() throws FileNotFoundException, IOException {
         final String sql = "SELECT * FROM promocao";
         ArrayList<Promocao> retorno = new ArrayList<>();
-        
+
         try {
             connection = database.connect();
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -99,17 +98,17 @@ public class PromocaoDAO {
             while (resultado.next()) {
                 Promocao promocao = new Promocao();
                 promocao.setNome(resultado.getString("nome"));
-                
-                File imageFile = new File("src/img/" + promocao.getNome()+".png");
+
+                File imageFile = new File("src/img/" + promocao.getNome() + ".png");
                 FileOutputStream fos = new FileOutputStream(imageFile);
                 Blob blob = resultado.getBlob("image");
                 if (blob != null) {
-                    byte b[] = blob.getBytes(1,(int)blob.length());
+                    byte b[] = blob.getBytes(1, (int) blob.length());
                     fos.write(b);
                     fos.close();
                     promocao.setImageFile(imageFile);
                 }
-                
+
                 promocao.setId(resultado.getInt("id"));
                 promocao.setCinema_id(resultado.getInt("cinema_id"));
                 promocao.setData(resultado.getString("data"));
@@ -123,7 +122,7 @@ public class PromocaoDAO {
         }
         return retorno;
     }
-    
+
     public Promocao buscaPromocao(String nome) {
         Promocao promocao = null;
         final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto FROM promocao WHERE nome = ?";
@@ -157,11 +156,73 @@ public class PromocaoDAO {
         return promocao;
     }
 
-    public void update(Promocao promocao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Promocao promocao, File imageFile) throws FileNotFoundException {
+        final String update = "update promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ?,image = ? where id = ?";
+        FileInputStream fis = new FileInputStream(imageFile);
+        try {
+
+            Connection conn = database.connect();
+            PreparedStatement atualizar = conn.prepareStatement(update);
+            atualizar.setString(1, promocao.getNome());
+            atualizar.setString(2, promocao.getData());
+            atualizar.setFloat(3, promocao.getDesconto());
+            atualizar.setInt(4, promocao.getDiaDaSemana());
+            atualizar.setString(5, promocao.getDescricao());
+            atualizar.setInt(6, promocao.getCinema_id());
+            atualizar.setBinaryStream(7, fis, (int) imageFile.length());
+            atualizar.setInt(8, promocao.getId());
+            atualizar.executeUpdate();
+            atualizar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+        } catch (SQLException ex) {
+            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
     }
 
-    public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Promocao promocao) throws FileNotFoundException {
+        final String update = "update promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ? where id = ?";
+        
+        try {
+
+            Connection conn = database.connect();
+            PreparedStatement atualizar = conn.prepareStatement(update);
+            atualizar.setString(1, promocao.getNome());
+            atualizar.setString(2, promocao.getData());
+            atualizar.setFloat(3, promocao.getDesconto());
+            atualizar.setInt(4, promocao.getDiaDaSemana());
+            atualizar.setString(5, promocao.getDescricao());
+            atualizar.setInt(6, promocao.getCinema_id());
+           
+            atualizar.setInt(7, promocao.getId());
+            atualizar.executeUpdate();
+            atualizar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+        } catch (SQLException ex) {
+            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+    
+    public void delete(int promocaoId) {
+        final String delete = "delete from promocao where id = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement deletar = conn.prepareStatement(delete);
+            deletar.setInt(1, promocaoId);
+            deletar.executeUpdate();
+            deletar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Deletado Com Sucesso!");
+
+        } catch (SQLException ex) {
+            // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
     }
 }
