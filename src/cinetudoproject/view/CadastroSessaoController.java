@@ -76,8 +76,6 @@ public class CadastroSessaoController implements Initializable {
     private TextField  fieldHorario;
     @FXML
     private JFXDatePicker dataInicial;
-    @FXML
-    private JFXDatePicker dataFinal;
     
     private Funcionario func;
 
