@@ -133,6 +133,24 @@ public class SessaoDAO {
         return retorno;
     }
      
+    public ArrayList<Sessao> buscaSessoesFilme(int filme_id) throws ParseException {
+       
+        final String sql = "SELECT * from sessao where '"+filme_id+"'";
+        ArrayList<Sessao> retorno = new ArrayList<>();
+        
+        try {
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            
+            while (resultado.next()) {
+                Sessao s = buscaSessao(resultado);
+                retorno.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
  
     //verifica se a sessao pode ser cadastrada
     public boolean eValida(Sessao s) throws ParseException
