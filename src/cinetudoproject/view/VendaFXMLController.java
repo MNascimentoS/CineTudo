@@ -5,15 +5,21 @@
  */
 package cinetudoproject.view;
 
+import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.IngressoDAO;
+import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.VendaDAO;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Ingresso;
 import cinetudoproject.model.domain.Promocao;
+import cinetudoproject.model.domain.Sala;
+import cinetudoproject.model.domain.Sala2D;
+import cinetudoproject.model.domain.Sala3D;
 import cinetudoproject.model.domain.Sessao;
 import cinetudoproject.model.domain.Venda;
 import com.jfoenix.controls.JFXButton;
@@ -25,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,7 +46,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -47,21 +54,25 @@ import javax.swing.JOptionPane;
  */
 public class VendaFXMLController implements Initializable {
     @FXML
-    private JFXButton cancel_button,  buy_button, add_button, can_button, assento_button;
+    private JFXButton cancel_button,  buy_button, add_button, can_button;
     @FXML
     private Label lb_total;
     @FXML 
-    private ComboBox cb_cinema, cb_filme,cb_ingresso, cb_tipo, cb_promocao, cb_horario;
+    private ComboBox cb_cinema, cb_filme,cb_ingresso, cb_tipo, cb_promocao, cb_horario, cb_assento;
     
-    private String addIngresso;
+    private String addIngresso, numAssento;
     private Funcionario func;
     private Cinema cinema;
     private Filme filme;
+    
+    private ArrayList<Assento> assentosMarcados;
     private ArrayList<Sessao> sessaoList;
     private ArrayList<Horario> horarioList;
     private ArrayList<Promocao> promocaoList;
     private ArrayList<Ingresso> ingressoList;
     
+    private Sessao sessao;
+    private Sala sala;
     private Venda venda;
     private int tipoIngresso;
     private Horario cHorario;
@@ -71,6 +82,7 @@ public class VendaFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         addIngresso = "Adicionar Ingresso";
         tipoIngresso = -1;          
+        assentosMarcados = new ArrayList();
     }    
     
     //Pegar informaçoes do funcionário
@@ -95,7 +107,7 @@ public class VendaFXMLController implements Initializable {
         this.promocaoList = promocaoList;
     }
     
-    public void initComponents() {
+    public void initComponents() throws ParseException {
         cb_cinema.setPromptText(cinema.getNome());  //setando o nome do cinema
         cb_filme.setPromptText(filme.getTitulo());  //setando o nome do filme
         
@@ -147,6 +159,11 @@ public class VendaFXMLController implements Initializable {
                 horarioList.forEach((i)->{
                     if (newValue.equals(i.getHorario())) { //checar qual horário foi escolhido
                         cHorario = i;
+                        try {
+                            ativarAssentos();
+                        } catch (ParseException ex) {
+                            Logger.getLogger(VendaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 });
             }        
@@ -171,13 +188,13 @@ public class VendaFXMLController implements Initializable {
         cancel_button.setDisable(true);
         add_button.setVisible(true);
         can_button.setVisible(true);
-        assento_button.setDisable(false);
         cb_tipo.setDisable(false);
         cb_promocao.setDisable(false);
         cb_horario.setDisable(false);
     }
     //desativa os itens da tela
     public void desativarIngresso() {
+        desativarAssentos();
         tipoIngresso = -1;
         cHorario = null;
         cb_ingresso.getSelectionModel().clearSelection();
@@ -188,14 +205,72 @@ public class VendaFXMLController implements Initializable {
         cancel_button.setDisable(false);
         add_button.setVisible(false);
         can_button.setVisible(false);
-        assento_button.setDisable(true);
         cb_tipo.setDisable(true);
         cb_promocao.setDisable(true);
         cb_horario.setDisable(true);
     }
     
+    //ativa os assentos da tela
+    public void ativarAssentos() throws ParseException {
+        desativarAssentos();
+        sessaoList.forEach((i)->{
+            if (i.getHorario_id() == cHorario.getId()){
+                sessao = i;
+            }
+        });
+        
+        SalaDAO salaDAO = new SalaDAO();
+        sala = new Sala();
+        sala.setId(sessao.getSala_id());
+        sala = salaDAO.buscaPorSala(sala.getId());
+        
+        
+        ArrayList<Assento> assento;
+        AssentoDAO assentoDAO = new AssentoDAO();
+        assento = assentoDAO.listar(sessao.getId(), false);
+        
+        cb_assento.setDisable(false);
+        if(!assento.isEmpty())
+        {
+            for(Assento assentos : assento)
+            {
+                if(!cb_assento.getItems().contains(assentos.getNumero()+" - "+assentos.getFila()) && assentos.getOcupado() == 0)
+                    cb_assento.getItems().addAll(assentos.getNumero()+" - "+assentos.getFila());
+            }
+            
+            cb_assento.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                numAssento = newValue;
+                String numeroDoAssento = numAssento.replaceAll("\\D+","");
+                assento.forEach((i)->{
+                    if (i.getNumero() == Integer.parseInt(numeroDoAssento)) {
+                        i.setOcupado(1);
+                        assentoDAO.update(i, sessao.getId());
+                        assentosMarcados.add(i);
+                    } 
+                });
+                        
+            }
+        });
+        }else{
+            //remova os elementos se houver algum
+            for(int i = 0; i < cb_assento.getItems().size(); i++) {
+                cb_assento.getItems().remove(i);
+            }
+            cb_assento.setPromptText("Esgotada");
+        }
+    }
+    
+    public void desativarAssentos() {
+        numAssento = null;
+        cb_assento.getItems().clear();
+        cb_assento.setDisable(true);
+        cb_assento.getSelectionModel().clearSelection();
+    }
+    
     public boolean isValid() {
-        return cHorario != null && tipoIngresso != -1;
+        return cHorario != null && tipoIngresso != -1 && numAssento != null;
     }
     
     @FXML
@@ -213,10 +288,21 @@ public class VendaFXMLController implements Initializable {
                 sessaoId = i.getId();
             }
         });
+        
         Ingresso ingresso = new Ingresso();
         ingresso.setTipo(tipoIngresso);
         ingresso.setSessao_id(sessaoId);
         ingresso.setPreco(cinema.getValorIngresso(), true);
+        if (sala.getTipo().equals("3D")){
+            sala = new Sala3D(sala.getNumero(), sala.getCapacidade(), sala.getTipo(), ingresso.getPreco());
+        } else {
+            sala = new Sala2D(sala.getNumero(), sala.getCapacidade(), sala.getTipo(), ingresso.getPreco());
+        }
+        ingresso.setPreco(sala.getPreco_ingresso(), false);
+        ingresso.setAssento(numAssento);
+        
+        AssentoDAO assentoDAO = new AssentoDAO();
+        
         
         venda.addIngressos(ingresso);
         
@@ -238,11 +324,6 @@ public class VendaFXMLController implements Initializable {
     @FXML
     void canClicked(ActionEvent event) {
         desativarIngresso();
-    }
-    
-    @FXML
-    void assentoClicked(ActionEvent event) {
-
     }
     
     @FXML
@@ -272,6 +353,14 @@ public class VendaFXMLController implements Initializable {
     
     @FXML
     void cancelClicked(ActionEvent event) throws IOException, ParseException {
+        AssentoDAO assentoDAO = new AssentoDAO();
+        if (!assentosMarcados.isEmpty()) {
+            assentosMarcados.forEach((i)->{
+                i.setOcupado(0);
+                assentoDAO.update(i, sessao.getId());
+            });
+        }
+        
         back2main(event);
     }
     
