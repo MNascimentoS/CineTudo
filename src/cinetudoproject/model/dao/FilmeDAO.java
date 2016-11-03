@@ -50,7 +50,7 @@ public class FilmeDAO {
             salvar.setString(1, filme.getTitulo());
             salvar.setString(2, filme.getDiretor());
             salvar.setString(3, filme.getAtorPrincipal());
-            salvar.setInt(4, filme.getDuracao());
+            salvar.setString(4, filme.getDuracao());
             salvar.setInt(5, filme.getGenero().getId());
             salvar.setInt(6, filme.getClassEtaria());
             salvar.setBinaryStream(7, fis, (int) filme.getImageFile().length());
@@ -103,7 +103,7 @@ public class FilmeDAO {
                 filme.setId(resultado.getInt("id"));
                 filme.setAtorPrincipal(resultado.getString("ator"));
                 filme.setDiretor(resultado.getString("diretor"));
-                filme.setDuracao(resultado.getInt("duracao"));
+                filme.setDuracao(resultado.getString("duracao"));
                 filme.setClassEtaria(resultado.getInt("classificacao"));
                 filme.setGenero(genero);
                 filme.setCinema_id(resultado.getInt("cinema_id"));
@@ -163,7 +163,7 @@ public class FilmeDAO {
         filme.setTitulo(resultadoBusca.getString(2));
         filme.setDiretor(resultadoBusca.getString(3));
         filme.setAtorPrincipal(resultadoBusca.getString(4));
-        filme.setDuracao(resultadoBusca.getInt(5));      
+        filme.setDuracao(resultadoBusca.getString(5));      
         int generoId = resultadoBusca.getInt(6);
         genero = generoDAO.buscaGenero(generoId);
         filme.setGenero(genero);

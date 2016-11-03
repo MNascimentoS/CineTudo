@@ -9,15 +9,15 @@ import java.util.ArrayList;
 public class Filme {
 
     private int id;
-    private String titulo, diretor, atorPrincipal;
-    private int duracao, classEtaria, cinema_id;
+    private String duracao, titulo, diretor, atorPrincipal;
+    private int classEtaria, cinema_id;
     private Genero genero;
     private File imageFile;
 
     public Filme() {
     }
 
-    public Filme(String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
+    public Filme(String titulo, String diretor, String atorPrincipal, String duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
         super();
         this.titulo = titulo;
         this.diretor = diretor;
@@ -38,7 +38,7 @@ public class Filme {
         return false;
     }
     
-    public Filme(int id, String titulo, String diretor, String atorPrincipal, int duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
+    public Filme(int id, String titulo, String diretor, String atorPrincipal, String duracao, int classEtaria, Genero genero, File imageFile, int cinema_id) {
         super();
         this.id = id;
         this.titulo = titulo;
@@ -83,11 +83,11 @@ public class Filme {
         this.atorPrincipal = atorPrincipal;
     }
 
-    public int getDuracao() {
+    public String getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(int duracao) {
+    public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
 

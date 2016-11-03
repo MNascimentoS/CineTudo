@@ -16,7 +16,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +32,7 @@ public class IngressoDAO {
     }
 
     public void insert(Ingresso ingresso) {
-        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id, venda_id) values(?,?,?,?)";
+        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id, venda_id, assento) values(?,?,?,?,?)";
         try {
             //get the connection
 
@@ -43,6 +42,7 @@ public class IngressoDAO {
                 salvar.setInt(2, ingresso.getTipo());
                 salvar.setInt(3, ingresso.getSessao_id());
                 salvar.setInt(4, ingresso.getVenda_id());
+                salvar.setString(5, ingresso.getNumAssento());
                 
                 salvar.executeUpdate();
             }
@@ -78,6 +78,7 @@ public class IngressoDAO {
         ingresso.setTipo(resultadoBusca.getInt("tipo"));
         ingresso.setSessao_id(resultadoBusca.getInt("sessao_id"));
         ingresso.setVenda_id(resultadoBusca.getInt("venda_id"));
+        ingresso.setAssento(resultadoBusca.getString("assento"));
         return ingresso;
     }
 }
