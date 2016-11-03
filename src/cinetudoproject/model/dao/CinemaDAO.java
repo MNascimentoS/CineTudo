@@ -7,9 +7,6 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Cinema;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,8 +67,7 @@ public class CinemaDAO {
             }
             
             connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
         return cinema;
     }
@@ -97,8 +93,7 @@ public class CinemaDAO {
             }
             
             connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
         return cinema;
     }

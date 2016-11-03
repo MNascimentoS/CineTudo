@@ -7,12 +7,16 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Ingresso;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -27,58 +31,49 @@ public class IngressoDAO {
         database = new DatabaseMySQL();
     }
 
-    public void insertHorario(Ingresso ingresso) {
-        final String inserir = "INSERT INTO ingresso (preco, tipo, venda_id, sessao_id) values(?,?,?,?)";
+    public void insert(Ingresso ingresso) {
+        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id) values(?,?,?)";
         try {
             //get the connection
 
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
-            salvar.setFloat(1, ingresso.getPreco());
-            salvar.setInt(2, ingresso.getTipo());
-            salvar.setInt(3, ingresso.getVenda_id());
-            salvar.setInt(4, ingresso.getSessao_id());
-
-            salvar.executeUpdate();
-            salvar.close();
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
-            //return true;
+            connection = database.connect();
+            try (PreparedStatement salvar = connection.prepareStatement(inserir)) {
+                salvar.setFloat(1, ingresso.getPreco());
+                salvar.setInt(2, ingresso.getTipo());
+                salvar.setInt(3, ingresso.getSessao_id());
+                
+                salvar.executeUpdate();
+            }
+            connection.close();
         } catch (SQLException ex) {
-            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
-            //return false;
         }
     }
 
-    public Ingresso buscaIngressoPorSessao(int sessao) {
-        Ingresso ingresso = null;
-        final String busca = "SELECT id, preco, tipo, sessao_id, venda_id FROM ingresso WHERE sessao_id = ?";
+    public ArrayList<Ingresso> listar() throws IOException, ParseException {
+        final String sql = "SELECT * FROM ingresso";
+        ArrayList<Ingresso> retorno = new ArrayList();
+        
         try {
-            //DBConect db = new DBConect();
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(busca);
-            buscar.setInt(1, sessao);
-            ResultSet resultadoBusca = buscar.executeQuery();
-            resultadoBusca.next();
-            ingresso = buscaIngresso(resultadoBusca);
-            buscar.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("ERRO AO BUSCAR A SESSAO: " + sessao);
-            //System.exit(0);
+            connection = database.connect();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Ingresso ingresso;
+                ingresso = buscaIngresso(resultado);
+                retorno.add(ingresso);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngressoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ingresso;
+        return retorno;
     }
 
     private Ingresso buscaIngresso(ResultSet resultadoBusca) throws SQLException, ParseException {
         Ingresso ingresso = new Ingresso();
-        ingresso.setId(resultadoBusca.getInt(1));
-        ingresso.setPreco(resultadoBusca.getFloat(2));
-        ingresso.setTipo(resultadoBusca.getInt(3));
-        ingresso.setSessao_id(resultadoBusca.getInt(4));
-        ingresso.setVenda_id(resultadoBusca.getInt(5));
+        ingresso.setId(resultadoBusca.getInt("id"));
+        ingresso.setPreco(resultadoBusca.getFloat("preco"), false);
+        ingresso.setTipo(resultadoBusca.getInt("tipo"));
+        ingresso.setSessao_id(resultadoBusca.getInt("sessao_id"));
         return ingresso;
     }
 }
