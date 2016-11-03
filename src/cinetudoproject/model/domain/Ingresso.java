@@ -25,6 +25,12 @@ public class Ingresso {
         return id;
     }
 
+    public void setPreco(float preco) {
+        this.preco = preco;
+    }
+    
+    
+
     public int getSessao_id() {
         return sessao_id;
     }

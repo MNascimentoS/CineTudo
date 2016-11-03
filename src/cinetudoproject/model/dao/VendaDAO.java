@@ -100,6 +100,50 @@ public class VendaDAO {
         }
         return venda;
     }
+    
+    
+    public void update(Venda venda) {
+        final String update = "update venda set valor_total = ? where id = ?";
+        try {
+            //get the connection
+            Connection conn = database.connect();
+            PreparedStatement salvar = conn.prepareStatement(update);
+            salvar.setFloat(1, venda.getValor_total());
+            salvar.setInt(2, venda.getId());
+            salvar.executeUpdate();
+            salvar.close();
+            conn.close();
+            //JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+            //return true;
+        } catch (SQLException ex) {
+            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na alteração" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+    
+    
+    public Venda buscarVendaId(int vendaId) throws IOException, ParseException {
+        final String sql = "SELECT * FROM venda where id = ?";
+        Venda venda = new Venda();
+        
+        try {
+            Connection conn = database.connect();
+            PreparedStatement buscar = conn.prepareStatement(sql);
+            buscar.setInt(1, vendaId);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            venda = buscarVenda(resultadoBusca);
+            buscar.close();
+            conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return venda;
+    }
+    
+    
 
     private Venda buscarVenda(ResultSet resultadoBusca) throws SQLException, ParseException {
         Venda venda = new Venda();
@@ -110,6 +154,25 @@ public class VendaDAO {
         venda.setValor_total(resultadoBusca.getFloat("valor_total"));
 
         return venda;
+    }
+    
+    
+    public void cancelaVenda(int ingressoID) throws IOException, ParseException{
+       VendaDAO vendaDAO = new VendaDAO();
+       Ingresso ingresso = new Ingresso();
+       IngressoDAO ingressoDAO = new IngressoDAO();
+       Venda venda = new Venda();
+       
+       ingresso = ingressoDAO.buscarIngressoId(ingressoID);
+       if(ingresso != null){
+       venda = vendaDAO.buscarVendaId(ingresso.getId());
+       //Subtração
+       venda.setValor_total(venda.getValor_total()-ingresso.getPreco());
+       ingressoDAO.delete(ingressoID);
+       vendaDAO.update(venda);
+       }else{
+           JOptionPane.showMessageDialog(null, "Ingresso não vendido!");
+       }
     }
 
 }
