@@ -8,6 +8,7 @@ package cinetudoproject.model.dao;
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Sessao;
 import java.sql.Connection;
 import java.sql.Date;
@@ -33,7 +34,7 @@ public class SessaoDAO {
         database = new DatabaseMySQL();
     }
 
-    public void insertSessao(Sessao sessao) throws ParseException {
+    public void insertSessao(Sessao sessao, Horario horario) throws ParseException {
         final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,cinema_id) values(?,?,?,?,?,?,?)";
         
         if(eValida(sessao))
@@ -52,8 +53,9 @@ public class SessaoDAO {
                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                alert.setHeaderText(null);
                alert.setTitle("Sucesso");
-               alert.setContentText("Cadastrado com sucesso!");
+               alert.setContentText("Sessão das " + horario.getHorario() + " horas, foi cadastrado com sucesso!");
                alert.showAndWait();
+           
             } catch (SQLException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);

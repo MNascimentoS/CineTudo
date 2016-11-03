@@ -70,8 +70,7 @@ public class CinemaDAO {
             }
             
             connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
         return cinema;
     }
@@ -97,8 +96,7 @@ public class CinemaDAO {
             }
             
             connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
         return cinema;
     }

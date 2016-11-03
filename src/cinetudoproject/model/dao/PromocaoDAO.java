@@ -39,7 +39,7 @@ public class PromocaoDAO {
     }
 
     public void insertPromocao(Promocao promocao) {
-        final String inserir = "INSERT INTO promocao (nome,data,desconto,descricao,cinema_id) values(?,?,?,?,?)";
+        final String inserir = "INSERT INTO promocao (nome,data,desconto,dia_semana,descricao,cinema_id) values(?,?,?,?,?,?)";
         try {
             //get the connection
 
@@ -48,8 +48,9 @@ public class PromocaoDAO {
             salvar.setString(1, promocao.getNome());
             salvar.setString(2, promocao.getData());
             salvar.setFloat(3, promocao.getDesconto());
-            salvar.setString(4, promocao.getDescricao());
-            salvar.setFloat(5, promocao.getCinema_id());
+            salvar.setInt(4, promocao.getDiaDaSemana());
+            salvar.setString(5, promocao.getDescricao());
+            salvar.setFloat(6, promocao.getCinema_id());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
@@ -62,7 +63,7 @@ public class PromocaoDAO {
         }
     }
     public void insertPromocao(Promocao promocao, File imageFile) throws FileNotFoundException {
-        final String inserir = "INSERT INTO promocao (nome,data,desconto,descricao,cinema_id,image) values(?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO promocao (nome,data,desconto,dia_semana,descricao,cinema_id,image) values(?,?,?,?,?,?,?)";
         try {
             //get the connection
             FileInputStream fis = new FileInputStream(imageFile);
@@ -71,9 +72,10 @@ public class PromocaoDAO {
             salvar.setString(1, promocao.getNome());
             salvar.setString(2, promocao.getData());
             salvar.setFloat(3, promocao.getDesconto());
-            salvar.setString(4, promocao.getDescricao());
-            salvar.setFloat(5, promocao.getCinema_id());
-            salvar.setBinaryStream(6, fis, (int) imageFile.length());
+            salvar.setInt(4, promocao.getDiaDaSemana());
+            salvar.setString(5, promocao.getDescricao());
+            salvar.setFloat(6, promocao.getCinema_id());
+            salvar.setBinaryStream(7, fis, (int) imageFile.length());
             salvar.executeUpdate();
             salvar.close();
             conn.close();
@@ -101,16 +103,19 @@ public class PromocaoDAO {
                 File imageFile = new File("src/img/" + promocao.getNome()+".png");
                 FileOutputStream fos = new FileOutputStream(imageFile);
                 Blob blob = resultado.getBlob("image");
-                byte b[] = blob.getBytes(1,(int)blob.length());
-                fos.write(b);
-                fos.close();
-                promocao.setImageFile(imageFile);
+                if (blob != null) {
+                    byte b[] = blob.getBytes(1,(int)blob.length());
+                    fos.write(b);
+                    fos.close();
+                    promocao.setImageFile(imageFile);
+                }
                 
                 promocao.setId(resultado.getInt("id"));
                 promocao.setCinema_id(resultado.getInt("cinema_id"));
                 promocao.setData(resultado.getString("data"));
                 promocao.setDescricao(resultado.getString("descricao"));
                 promocao.setDesconto(resultado.getFloat("desconto"));
+                promocao.setDiaDaSemana(resultado.getInt("dia_semana"));
                 retorno.add(promocao);
             }
         } catch (SQLException ex) {

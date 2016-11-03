@@ -15,11 +15,11 @@ public class Cinema {
 
     private int id;
     private String nome, endereco, cpnj;
-    private ArrayList<Filme> filmes = new ArrayList<>();
-    private ArrayList<Promocao> promocoes = new ArrayList<>();
-    private ArrayList<Sessao> sessoes = new ArrayList<>();
-    private ArrayList<Sala> salas = new ArrayList<>();
-    private ArrayList<Venda> vendas = new ArrayList<>();
+    private ArrayList<Filme> filmes = new ArrayList();
+    private Promocao promocoes;
+    private ArrayList<Sessao> sessoes = new ArrayList();
+    private ArrayList<Sala> salas = new ArrayList();
+    private ArrayList<Venda> vendas = new ArrayList();
     private float valorSemana, valorFDS, montante;
 
     public Cinema() {
@@ -52,14 +52,10 @@ public class Cinema {
         } else {
             valorDoIngresso = valorSemana;
         }
+
         //the magic is happen
-        if (this.promocoes.size() > 0) {
-            for (Promocao promo : this.promocoes) {
-                if (promo.getDiaDaSemana() == day) {
-                    valorDoIngresso -= valorDoIngresso * (promo.getDesconto() / 100);
-                    break;
-                }
-            }
+        if (this.promocoes != null) {
+            valorDoIngresso -= ((valorDoIngresso * promocoes.getDesconto()) / 100);
         }
         return valorDoIngresso;
     }
@@ -151,6 +147,6 @@ public class Cinema {
     }
 
     public void addPromocao(Promocao promo) {
-        this.promocoes.add(promo);
+        this.promocoes = promo;
     }
 }

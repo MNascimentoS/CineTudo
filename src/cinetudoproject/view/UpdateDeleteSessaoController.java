@@ -238,7 +238,7 @@ public class UpdateDeleteSessaoController implements Initializable {
                 sessao.setAssento(chooseSala.getCapacidade());
                 sessao.setIngresso_disponivel(chooseSala.getCapacidade());
                 try {
-                    sessaoDAO.insertSessao(sessao);
+                    sessaoDAO.insertSessao(sessao, horario);
                 } catch (ParseException ex) {
                     Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
                 }

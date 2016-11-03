@@ -75,7 +75,7 @@ public class CadastroPromocaoController implements Initializable {
     public void createComboBoxSemana() {
         cb_semana.getItems().addAll("Segunda-Feira", "Terça-Feira",
                                     "Quarta-Feira", "Quinta-Feira",
-                                    "Sexta-Feira", "Sabado", "Domingo");
+                                    "Sexta-Feira", "Sábado", "Domingo");
         cb_semana.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -162,6 +162,23 @@ public class CadastroPromocaoController implements Initializable {
     
     public void save(ActionEvent event) throws FileNotFoundException, IOException{
         PromocaoDAO promocaoDAO = new PromocaoDAO();
+        int diaDaSemana = 0;
+        switch(dia) {
+            case "Domingo": diaDaSemana = 1;
+                break;
+            case "Segunda-Feira": diaDaSemana = 2;
+                break;
+            case "Terça-Feira": diaDaSemana = 3;
+                break;
+            case "Quarta-Feira": diaDaSemana = 4;
+                break;
+            case "Quinta-Feira": diaDaSemana = 5;
+                break;
+            case "Sexta-Feira": diaDaSemana = 6;
+                break;
+            case "Sábado": diaDaSemana = 7;
+                break;
+        }
         
         if (!validateFields()) return;
         
@@ -169,6 +186,7 @@ public class CadastroPromocaoController implements Initializable {
         promocao.setData(dia);
         promocao.setDesconto(desconto);
         promocao.setDescricao(ta_descricao.getText());
+        promocao.setDiaDaSemana(diaDaSemana);
         promocao.setImageFile(imageFile);
         
         if (imageFile == null) promocaoDAO.insertPromocao(promocao);

@@ -286,6 +286,7 @@ public class MainFuncionarioController implements Initializable {
     
     @FXML
     void buyClicked(ActionEvent event) throws IOException {
+        if (filme == null) return;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Vendas");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VendaFXML.fxml"));

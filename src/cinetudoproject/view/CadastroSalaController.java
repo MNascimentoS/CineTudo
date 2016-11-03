@@ -19,6 +19,7 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sala2D;
 import cinetudoproject.model.domain.Sala3D;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.validation.NumberValidator;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
 /**

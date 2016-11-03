@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 public class Venda {
 
-    private int id, horario_id, cinema_id, ingresso_id;
+    private int id, cinema_id, ingresso_id; //Tudo que irá para o banco
+    private String data, horario;
     private ArrayList<Ingresso> ingressos = new ArrayList<>();
     private float valor_total;
 
     public Venda() {
     }
 
-    public Venda(int horario_id, int cinema_id, float valor_total) {
-        this.horario_id = horario_id;
+    public Venda(String horario, int cinema_id, float valor_total) {
+        this.horario = horario;
         this.cinema_id = cinema_id;
         this.valor_total = valor_total;
     }
@@ -49,12 +50,20 @@ public class Venda {
         this.id = id;
     }
 
-    public int getHorario_id() {
-        return horario_id;
+    public String getData() {
+        return data;
     }
 
-    public void setHorario_id(int horario_id) {
-        this.horario_id = horario_id;
+    public void setData(String data) {
+        this.data = data;
+    }
+    
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     public int getCinema_id() {
