@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -14,14 +9,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="767.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.LoginFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="767.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.LoginFXMLController">
     <children>
       <JFXTextField fx:id="tv_name" focusColor="#ff4537" labelFloat="true" layoutX="235.0" layoutY="237.0" maxWidth="489.0" minWidth="309.0" prefHeight="45.0" prefWidth="309.0" promptText="Usuário" unFocusColor="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" labelFloat="true" layoutX="237.0" layoutY="330.0" maxWidth="489.0" minWidth="290.0" prefHeight="45.0" prefWidth="309.0" promptText="Senha" unFocusColor="WHITE">
+      <JFXPasswordField fx:id="tv_password" focusColor="#f44336" labelFloat="true" layoutX="237.0" layoutY="330.0" maxWidth="489.0" minWidth="290.0" onAction="#login" prefHeight="45.0" prefWidth="309.0" promptText="Senha" unFocusColor="WHITE">
          <font>
             <Font size="16.0" />
          </font>
