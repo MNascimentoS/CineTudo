@@ -46,7 +46,7 @@ public class AssentoDAO {
         }
     }
     
-    public ArrayList<Assento> listar(int sessao_id) throws ParseException
+    public ArrayList<Assento> listar(int sessao_id, boolean todosAssentos) throws ParseException
     {
          final String busca = "SELECT * FROM assento where sessao_id = '"+sessao_id+"'";
          ArrayList<Assento> assentos = new ArrayList<>();
@@ -57,7 +57,13 @@ public class AssentoDAO {
             
             while(resultado.next()) {
                 Assento assento = buscaAssento(resultado);
-                assentos.add(assento);
+                if (todosAssentos){
+                    assentos.add(assento);
+                } else {
+                    if (assento.getOcupado() != 1) {
+                        assentos.add(assento);
+                    }
+                }
             }
             database.desconnect();
         } catch (SQLException ex) {
@@ -65,6 +71,17 @@ public class AssentoDAO {
         }
         
         return assentos;
+    }
+    
+    public void update (Assento assento, int sessao_id){
+        final String update = "UPDATE assento SET ocupado = '"+assento.getOcupado()+"' WHERE numero = '" + assento.getNumero() + "' and sessao_id = '" + sessao_id + "'";
+        try {
+             PreparedStatement salvar = database.connect().prepareStatement(update);
+             salvar.executeUpdate();
+             database.desconnect();
+        } catch (Exception e) {
+             System.out.println("ERRRRORRRR:> " +e.getMessage());
+        }
     }
 
 

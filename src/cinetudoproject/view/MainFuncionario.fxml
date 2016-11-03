@@ -23,70 +23,70 @@
 
 <AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.MainFuncionarioController">
    <children>
-      <Pane layoutX="143.0" layoutY="106.0" maxWidth="1.7976931348623157E308" prefHeight="442.0" prefWidth="577.0" style="-fx-background-color: #FFF;">
+      <ImageView fitHeight="120.0" fitWidth="577.0" layoutX="112.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/sombra-2.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="112.0" layoutY="109.0" maxWidth="1.7976931348623157E308" prefHeight="442.0" prefWidth="577.0" style="-fx-background-color: #FFF;">
          <children>
             <JFXButton id="updateButton" fx:id="buy_button" buttonType="RAISED" layoutX="309.0" layoutY="323.0" onAction="#buyClicked" prefHeight="35.0" prefWidth="226.0" ripplerFill="#ee0d0d" style="-fx-background-color: #f44336;" text="COMPRAR" textFill="WHITE">
                <font>
                   <Font name="Droid Sans Georgian" size="15.0" />
                </font>
             </JFXButton>
-            <ImageView fx:id="bt_back" fitHeight="54.0" fitWidth="48.0" layoutX="81.0" layoutY="354.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="bt_back" fitHeight="54.0" fitWidth="48.0" layoutX="45.0" layoutY="372.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/seta.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="bt_next" fitHeight="47.0" fitWidth="48.0" layoutX="235.0" layoutY="354.0" onMouseClicked="#nextClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="bt_next" fitHeight="47.0" fitWidth="48.0" layoutX="210.0" layoutY="372.0" onMouseClicked="#nextClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/seta.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="bigImage" fitHeight="316.0" fitWidth="238.0" layoutX="45.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/filme.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lb_nome" alignment="CENTER" layoutX="261.0" layoutY="50.0" prefHeight="35.0" prefWidth="310.0" text="Nome do Filme" textAlignment="CENTER" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_diretor" layoutX="267.0" layoutY="91.0" prefHeight="35.0" prefWidth="310.0" text="Diretor: " textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_ator" layoutX="267.0" layoutY="126.0" prefHeight="35.0" prefWidth="310.0" text="Ator Principal: " textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_duracao" layoutX="267.0" layoutY="161.0" prefHeight="35.0" prefWidth="310.0" text="Duração:" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_genero" layoutX="267.0" layoutY="197.0" prefHeight="35.0" prefWidth="310.0" text="Gênero:" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_classificacao" layoutX="267.0" layoutY="232.0" prefHeight="35.0" prefWidth="310.0" text="Classificação:" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lb_horario" layoutX="267.0" layoutY="267.0" prefHeight="35.0" prefWidth="310.0" text="Horários:" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <ImageView fitHeight="289.0" fitWidth="31.0" layoutX="415.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/sombra.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="bigImage" fitHeight="378.0" fitWidth="192.0" layoutX="226.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/filme.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="lb_nome" alignment="CENTER" layoutX="352.0" layoutY="152.0" prefHeight="35.0" prefWidth="413.0" text="Nome do Filme" textAlignment="CENTER" textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_diretor" layoutX="447.0" layoutY="201.0" prefHeight="35.0" prefWidth="413.0" text="Diretor: " textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_ator" layoutX="447.0" layoutY="236.0" prefHeight="35.0" prefWidth="413.0" text="Ator Principal: " textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_duracao" layoutX="447.0" layoutY="271.0" prefHeight="35.0" prefWidth="413.0" text="Duração:" textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_genero" layoutX="447.0" layoutY="306.0" prefHeight="35.0" prefWidth="413.0" text="Gênero:" textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_classificacao" layoutX="447.0" layoutY="341.0" prefHeight="35.0" prefWidth="413.0" text="Classificação:" textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_horario" layoutX="447.0" layoutY="385.0" prefHeight="35.0" prefWidth="413.0" text="Horários:" textFill="#a4a4a4" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
       <BorderPane prefHeight="80.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
@@ -113,10 +113,5 @@
             <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="-6.0" maxHeight="-Infinity" prefHeight="523.0" prefWidth="163.0" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
-      <ImageView fitHeight="442.0" fitWidth="48.0" layoutX="720.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/sombra.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

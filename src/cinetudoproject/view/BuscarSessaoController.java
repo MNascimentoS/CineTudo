@@ -194,7 +194,7 @@ public class BuscarSessaoController implements Initializable {
                            //quando chegar no selecionado, busque e carregue as cadeiras disponiveis
                            if(horarioSessaoCombo.getItems().get(i).equals(horarioSessaoCombo.getValue()))
                            {
-                               assentos = assentodao.listar(sessao_id.get(i));
+                               assentos = assentodao.listar(sessao_id.get(i), true);
                                break;
                            }
                        }

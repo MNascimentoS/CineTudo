@@ -285,7 +285,7 @@ public class MainFuncionarioController implements Initializable {
     }
     
     @FXML
-    void buyClicked(ActionEvent event) throws IOException {
+    void buyClicked(ActionEvent event) throws IOException, ParseException {
         if (filme == null) return;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Vendas");

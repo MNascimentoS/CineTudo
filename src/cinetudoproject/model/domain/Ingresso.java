@@ -3,18 +3,21 @@ package cinetudoproject.model.domain;
 public class Ingresso {
 
     final int MEIA = 0;
+    final boolean Sala3D = false;
 
     private float preco;
-    private int id, tipo, sessao_id, venda_id;;
+    private int id, tipo, sessao_id, venda_id;
+    private String numAssento;
 
     public Ingresso() {
     }
 
-    public Ingresso(float preco, int tipo, int sessao_id, int venda_id) {
+    public Ingresso(float preco, int tipo, int sessao_id, int venda_id, String numAssento) {
         this.preco = preco;
         this.tipo = tipo;
         this.sessao_id = sessao_id;
         this.venda_id = venda_id;
+        this.numAssento = numAssento;
     }
 
     public void setId(int id) {
@@ -52,6 +55,7 @@ public class Ingresso {
             } else {
                 this.preco = preco;
             }
+            
         } else {
             this.preco = preco;
         }
@@ -63,6 +67,14 @@ public class Ingresso {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public String getNumAssento() {
+        return numAssento;
+    }
+    
+    public void setAssento(String numAssento) {
+        this.numAssento = numAssento;
     }
 
 }
