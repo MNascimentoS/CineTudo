@@ -174,7 +174,7 @@ public class MainFuncionarioController implements Initializable {
     }
     
     public void preencherFilme(int choice) {
-        
+        if (filmeList.isEmpty()) return;
         int listSize = filmeList.size();
         int next = 1; int back = -1;
         if (choice == 0) listPosition = 0;
@@ -274,6 +274,7 @@ public class MainFuncionarioController implements Initializable {
     
     @FXML
     void buyClicked(ActionEvent event) throws IOException {
+        if (filme == null) return;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Vendas");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VendaFXML.fxml"));

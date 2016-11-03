@@ -68,13 +68,15 @@ public class SidePanelContentController implements Initializable {
         int rn = random.nextInt(size);
         Promocao ePromocao = promocao.get(rn);
         
-        BufferedImage bufferedImage;
-        try {
-            bufferedImage = ImageIO.read(ePromocao.getImageFile());
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            promo_image.setImage(image);
-        } catch (IOException ex) {
-            Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+        if (ePromocao.getImageFile() != null) {
+            BufferedImage bufferedImage;
+            try {
+                bufferedImage = ImageIO.read(ePromocao.getImageFile());
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                promo_image.setImage(image);
+            } catch (IOException ex) {
+                Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
