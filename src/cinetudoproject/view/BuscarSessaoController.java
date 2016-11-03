@@ -7,6 +7,7 @@ package cinetudoproject.view;
 import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.HorarioDAO;
+import cinetudoproject.model.dao.PromocaoDAO;
 import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.domain.Assento;
@@ -14,6 +15,7 @@ import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;
 import cinetudoproject.model.domain.Horario;
+import cinetudoproject.model.domain.Promocao;
 import cinetudoproject.model.domain.Sala;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -41,10 +43,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -69,7 +73,7 @@ import javax.swing.JOptionPane;
  */
 public class BuscarSessaoController implements Initializable {
     
-     @FXML
+    @FXML
     private JFXDatePicker dataField;
     @FXML
     private JFXComboBox<String> salaCombo;
@@ -84,18 +88,26 @@ public class BuscarSessaoController implements Initializable {
     @FXML
     private JFXButton searchButton;
     @FXML
-    private AnchorPane root;    
- 
+    private AnchorPane root;   
+    @FXML
+    private JFXButton comprarIngressoButton;
+
     private List<Sala> sala;
 
     private Funcionario func;
     public static AnchorPane rootP;
+    //variaveis a passar para venda
+    Filme filmeV = new Filme();
+    ArrayList sessoesV = new ArrayList();
+    ArrayList horariosV = new ArrayList();
+    ArrayList promocoesV = new ArrayList();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         rootP = root;
         try {
             //BUSCAR PELAS SALAS
+            comprarIngressoButton.setDisable(true);
             initSala();
         } catch (IOException ex) {
             System.out.println("Salas não encontradas!");
@@ -128,7 +140,9 @@ public class BuscarSessaoController implements Initializable {
     //exibe os assentos disponiveis em uma sessao em uma determinada data
     @FXML
     void mostrarDisponibilidade(ActionEvent event) throws ParseException {
-        
+         
+         comprarIngressoButton.setDisable(true);
+         
          if(validateFields())
          {
             //deleta todos os campos e pega somente os numeros, no caso o numero da sala
@@ -180,7 +194,7 @@ public class BuscarSessaoController implements Initializable {
                            //quando chegar no selecionado, busque e carregue as cadeiras disponiveis
                            if(horarioSessaoCombo.getItems().get(i).equals(horarioSessaoCombo.getValue()))
                            {
-                               assentos = assentodao.listar(sessao_id.get(i));
+                               assentos = assentodao.listar(sessao_id.get(i), true);
                                break;
                            }
                        }
@@ -192,6 +206,9 @@ public class BuscarSessaoController implements Initializable {
                                if(!assentosDisponiveisCombo.getItems().contains(assento.getNumero()+" - "+assento.getFila()) && assento.getOcupado() == 0)
                                     assentosDisponiveisCombo.getItems().addAll(assento.getNumero()+" - "+assento.getFila());
                            }
+                           //habilitando a compra do ingresso
+                           comprarIngressoButton.setDisable(false);
+                           
                        }else{
                            //remova os elementos se houver algum
                            for(int i = 0; i < assentosDisponiveisCombo.getItems().size(); i++)
@@ -228,6 +245,69 @@ public class BuscarSessaoController implements Initializable {
         } 
        
         return true;
+    }
+    
+    void buyIngresso(Event event) throws IOException, ParseException
+    {
+        FilmeDAO filmedao = new FilmeDAO();
+        ArrayList<Filme> filmes =  filmedao.listar();
+        //verifica se o filme foi escolhido
+        if(!filmes.isEmpty() && horarioSessaoCombo.getValue() != null)
+        {
+            for(Filme t : filmes)
+            {
+                if(horarioSessaoCombo.getValue().contains(t.getTitulo()))
+                { //se o nome pertence a algum filme
+                    SessaoDAO sessaodao = new SessaoDAO();
+                    ArrayList<Sessao> sessoesV = sessaodao.buscaSessoesFilme(t.getId());
+                    //se encontrou sessoes para este filme
+                    if(!sessoesV.isEmpty())
+                    {
+                        System.out.println("ACHEI A SESSAO!");
+                        HorarioDAO horariodao = new HorarioDAO();
+                        ArrayList<Horario> horarios = new ArrayList<>();
+                        for(Sessao sessao : sessoesV)
+                        {
+                           Horario hora = horariodao.buscaPorId(sessao.getHorario_id());
+                           //verifica se existe o horario
+                           if(hora != null)
+                           {
+                               horarios.add(hora);
+                           }
+                        }
+                        
+                        PromocaoDAO promodao = new PromocaoDAO();
+                        ArrayList<Promocao> promocoes = promodao.listar();
+                        //chama a proxima tela
+                        goVenda(t, sessoesV, horarios, promocoes, event);
+                    }
+                }
+            }
+        }
+    }
+    
+    void goVenda(Filme filme, ArrayList<Sessao> sessoes, ArrayList<Horario> horarios, ArrayList<Promocao> promocoes, Event event) throws IOException
+    {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Vendas");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VendaFXML.fxml"));
+        Parent rootFuncionario = (Parent)fxmlLoader.load();
+        VendaFXMLController Vcontroller = fxmlLoader.<VendaFXMLController>getController(); 
+        Vcontroller.getUserInfo(this.func);
+        Vcontroller.getMovieInfo(filme, sessoes, horarios, promocoes);
+        Vcontroller.initComponents();
+        Scene scene = new Scene(rootFuncionario);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     @FXML
+    void comprarIngresso(ActionEvent event) throws IOException, ParseException {
+  
+         if(horarioSessaoCombo.getValue() != null)
+         {
+             buyIngresso(event);
+         }
     }
     
     @FXML

@@ -31,6 +31,7 @@
             <JFXComboBox fx:id="salaCombo" layoutX="78.0" layoutY="112.0" prefHeight="26.0" prefWidth="197.0" promptText="Salas" />
             <JFXComboBox fx:id="horarioSessaoCombo" layoutX="77.0" layoutY="179.0" prefHeight="26.0" prefWidth="205.0" promptText="Horario Sessao" />
             <JFXComboBox fx:id="assentosDisponiveisCombo" layoutX="336.0" layoutY="180.0" prefHeight="26.0" prefWidth="214.0" promptText="Assentos Disponíveis" />
+            <JFXButton fx:id="comprarIngressoButton" buttonType="RAISED" layoutX="241.0" layoutY="325.0" onAction="#comprarIngresso" prefHeight="41.0" prefWidth="158.0" style="-fx-background-color: #f44336;" text="Comprar" textFill="WHITE" />
          </children>
       </Pane>
       <BorderPane prefHeight="81.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" AnchorPane.bottomAnchor="519.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

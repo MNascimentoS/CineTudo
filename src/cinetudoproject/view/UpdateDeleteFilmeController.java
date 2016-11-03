@@ -208,16 +208,11 @@ public class UpdateDeleteFilmeController implements Initializable{
     void update(ActionEvent event) throws FileNotFoundException {
         if (validateFields()) {
             String duracao = duracaoFilme.getText();
-            int hora = Integer.parseInt(duracao.substring(0, 2));
-            int minuto = Integer.parseInt(duracao.substring(3, 5));
-            int segundos = Integer.parseInt(duracao.substring(6, 8));
-            duracao = "" + hora + minuto + segundos;
-            int tempo = Integer.parseInt(duracao);
 
             GeneroDAO generoDAO = new GeneroDAO();
             Genero genero = generoDAO.buscaGenero(generoMovie);
             Filme filme = new Filme(tituloFilme.getText(), nomeDiretor.getText(), nomeAtor.getText(),
-                    tempo, classificacao, genero, imageFile, func.getCinema_id());
+                    duracao, classificacao, genero, imageFile, func.getCinema_id());
             //try save the movie
             FilmeDAO filmeDAO = new FilmeDAO();
             filmeDAO.insert(filme);
