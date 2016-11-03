@@ -38,6 +38,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -177,6 +178,8 @@ public class VendaFXMLController implements Initializable {
     }
     //desativa os itens da tela
     public void desativarIngresso() {
+        tipoIngresso = -1;
+        cHorario = null;
         cb_ingresso.getSelectionModel().clearSelection();
         cb_tipo.getSelectionModel().clearSelection();
         cb_promocao.getSelectionModel().clearSelection();
@@ -191,9 +194,20 @@ public class VendaFXMLController implements Initializable {
         cb_horario.setDisable(true);
     }
     
+    public boolean isValid() {
+        return cHorario != null && tipoIngresso != -1;
+    }
+    
     @FXML
     void addClicked(ActionEvent event) throws IOException, ParseException {
-        desativarIngresso();
+        if (!isValid()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Você deixou de preencher algum campo");
+            alert.showAndWait();
+            return;
+        }
         sessaoList.forEach((i)->{
             if (i.getHorario_id() == cHorario.getId()) {
                 sessaoId = i.getId();
@@ -218,6 +232,7 @@ public class VendaFXMLController implements Initializable {
         
         lb_total.setText(retorno1 + " R$");
         cb_ingresso.getItems().add("Valor: " + retorno2);
+        desativarIngresso();
     }
     
     @FXML
@@ -233,28 +248,16 @@ public class VendaFXMLController implements Initializable {
     @FXML
     void buyClicked(ActionEvent event) throws IOException, ParseException {
         if (!venda.getIngressos().isEmpty()) {
-            ingressoList = new ArrayList();
-            IngressoDAO ingressoDAO = new IngressoDAO();
-            ArrayList<Ingresso> todosIngressos;
-            ingressoList = venda.getIngressos();
-            
-            ingressoList.forEach((i)->{
-                ingressoDAO.insert(i);
-            });
-            
             VendaDAO vendaDAO = new VendaDAO();
-            todosIngressos = ingressoDAO.listar();
+            vendaDAO.insert(venda);
+            
+            Venda searchVenda = vendaDAO.buscar(venda);
+            
+            IngressoDAO ingressoDAO = new IngressoDAO();
+            ingressoList = venda.getIngressos();
             ingressoList.forEach((i)->{
-                todosIngressos.forEach((j)->{
-                    if (i.getTipo()      == j.getTipo()      &&
-                        i.getPreco()     == j.getPreco()     &&
-                        i.getSessao_id() == j.getSessao_id()    ) 
-                    {
-                        i.setId(j.getId());
-                        venda.setIngresso_id(i.getId());
-                        vendaDAO.insert(venda);
-                    }
-                });
+                i.setVenda_id(searchVenda.getId());
+                ingressoDAO.insert(i);
             });
             
             back2main(event);

@@ -52,7 +52,7 @@ public class SessaoDAO {
                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                alert.setHeaderText(null);
                alert.setTitle("Sucesso");
-               alert.setContentText("Sessão das" + horario.getHorario() + " horas, foi cadastrado com sucesso!");
+               alert.setContentText("Sessão das " + horario.getHorario() + " horas, foi cadastrado com sucesso!");
                alert.showAndWait();
            
             } catch (SQLException ex) {

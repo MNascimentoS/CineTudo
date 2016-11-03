@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +33,7 @@ public class IngressoDAO {
     }
 
     public void insert(Ingresso ingresso) {
-        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id) values(?,?,?)";
+        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id, venda_id) values(?,?,?,?)";
         try {
             //get the connection
 
@@ -41,11 +42,13 @@ public class IngressoDAO {
                 salvar.setFloat(1, ingresso.getPreco());
                 salvar.setInt(2, ingresso.getTipo());
                 salvar.setInt(3, ingresso.getSessao_id());
+                salvar.setInt(4, ingresso.getVenda_id());
                 
                 salvar.executeUpdate();
             }
             connection.close();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
         }
     }
 
@@ -74,6 +77,7 @@ public class IngressoDAO {
         ingresso.setPreco(resultadoBusca.getFloat("preco"), false);
         ingresso.setTipo(resultadoBusca.getInt("tipo"));
         ingresso.setSessao_id(resultadoBusca.getInt("sessao_id"));
+        ingresso.setVenda_id(resultadoBusca.getInt("venda_id"));
         return ingresso;
     }
 }
