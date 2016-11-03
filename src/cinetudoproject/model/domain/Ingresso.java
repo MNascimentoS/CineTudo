@@ -45,9 +45,13 @@ public class Ingresso {
         return preco;
     }
 
-    public void setPreco(float preco) {
-        if (tipo == MEIA) {
-            this.preco = preco / 2;
+    public void setPreco(float preco, boolean calcularPreco) {
+        if (calcularPreco){
+            if (tipo == MEIA) {
+                this.preco = preco / 2;
+            } else {
+                this.preco = preco;
+            }
         } else {
             this.preco = preco;
         }

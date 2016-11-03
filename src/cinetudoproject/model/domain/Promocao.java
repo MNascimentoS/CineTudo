@@ -85,4 +85,8 @@ public class Promocao {
     public void setImageFile(File imageFile) {
         this.imageFile = imageFile;
     }
+
+    public void setDiaDaSemana(String dia_semana) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
