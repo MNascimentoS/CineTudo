@@ -5,53 +5,51 @@
  */
 package cinetudoproject.view;
 
+/**
+ *
+ * @author Wellington
+ */
+
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.GeneroDAO;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.model.domain.Genero;
+import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javax.imageio.ImageIO;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.model.domain.Genero;
-import cinetudoproject.util.MaskField;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
-public class CadastroFilmeController implements Initializable {
+public class UpdateDeleteFilmeController implements Initializable{
 
     @FXML
-    private JFXTextField tf_busca;
+    private JFXTextField tf_buscaFilme;
 
     @FXML
     private ImageView bigImage, classImage;
@@ -74,9 +72,9 @@ public class CadastroFilmeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         configValidators();
 
-        /*tf_busca.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+        tf_buscaFilme.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (!newValue) {
-                filmeGeral = new FilmeDAO().buscaFilme(tf_busca.getText());
+                filmeGeral = new FilmeDAO().buscaFilme(tf_buscaFilme.getText());
                 tituloFilme.setText(filmeGeral.getTitulo());
                 duracaoFilme.setText(String.valueOf(filmeGeral.getDuracao()));
                 nomeAtor.setText(filmeGeral.getAtorPrincipal());
@@ -93,7 +91,7 @@ public class CadastroFilmeController implements Initializable {
                     Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });*/
+        });
 
         MaskField.timeField(duracaoFilme);
         comboBox.getItems().addAll(
@@ -182,7 +180,7 @@ public class CadastroFilmeController implements Initializable {
     public void chooseImage(ActionEvent event) throws Exception {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
-                new ExtensionFilter("Images Files", "*.png", "*.PNG", "*.jpg", "*.JPG")
+                new FileChooser.ExtensionFilter("Images Files", "*.png", "*.PNG", "*.jpg", "*.JPG")
         );
         fc.setInitialDirectory(
                 new File(System.getProperty("user.home"))
@@ -200,7 +198,14 @@ public class CadastroFilmeController implements Initializable {
         }
     }
 
-    public void saveMovie(ActionEvent event) throws Exception {
+    @FXML
+    void delete(ActionEvent event) {
+        FilmeDAO filme = new FilmeDAO();
+        filme.delete(filmeGeral.getId());
+    }
+
+    @FXML
+    void update(ActionEvent event) throws FileNotFoundException {
         if (validateFields()) {
             String duracao = duracaoFilme.getText();
             int hora = Integer.parseInt(duracao.substring(0, 2));
@@ -218,17 +223,6 @@ public class CadastroFilmeController implements Initializable {
             filmeDAO.insert(filme);
             //back2main(event);
         }
-    }
-
-    @FXML
-    void delete(ActionEvent event) {
-        FilmeDAO filme = new FilmeDAO();
-        filme.delete(filmeGeral.getId());
-    }
-
-    @FXML
-    void update(ActionEvent event) {
-
     }
 
     boolean validateFields() {

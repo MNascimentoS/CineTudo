@@ -4,22 +4,21 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroSalaController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="697.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroSalaController">
     <children>
-        <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="521.0" layoutY="425.0" onAction="#salvarSala" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+        <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="362.0" layoutY="381.0" onAction="#salvarSala" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
             <font>
                 <Font name="Droid Sans Georgian" size="15.0" />
             </font>
         </JFXButton>
         <ImageView id="classImage" fx:id="classImage" fitHeight="72.0" fitWidth="72.0" layoutX="20.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" />
-        <JFXToolbar layoutX="-4.0" prefHeight="70.0" prefWidth="1009.0" style="-fx-background-color: #FFF;">
+        <JFXToolbar layoutX="-4.0" prefHeight="70.0" prefWidth="705.0" style="-fx-background-color: #FFF;">
             <center>
                 <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
                     <image>
@@ -28,30 +27,14 @@
                 </ImageView>
             </center>
         </JFXToolbar>
-        <JFXButton id="backButton" fx:id="backButton" buttonType="RAISED" layoutX="272.0" layoutY="425.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
+        <JFXButton id="backButton" fx:id="backButton" buttonType="RAISED" layoutX="116.0" layoutY="381.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
             <font>
                 <Font name="Droid Sans Georgian" size="15.0" />
             </font>
         </JFXButton>
-        <JFXComboBox fx:id="tipoComboBox" layoutX="269.0" layoutY="309.0" prefHeight="26.0" prefWidth="466.0" promptText="Tipo" style="-fx-background-color: #FFF;" />
-        <JFXTextField fx:id="tfNumSala" focusColor="#a84740" labelFloat="true" layoutX="265.0" layoutY="226.0" maxWidth="215.0" minWidth="178.0" prefHeight="32.0" prefWidth="215.0" promptText="Número da Sala" unFocusColor="WHITE" />
-        <JFXTextField fx:id="tfCapaMax" focusColor="#a84740" labelFloat="true" layoutX="543.0" layoutY="226.0" maxWidth="192.0" minWidth="192.0" prefHeight="32.0" prefWidth="192.0" promptText="Capacidade Maxima" unFocusColor="WHITE" />
-        <JFXTextField fx:id="tfBuscaSala" focusColor="#a84740" labelFloat="true" layoutX="543.0" layoutY="170.0" maxWidth="192.0" minWidth="192.0" prefHeight="32.0" prefWidth="192.0" promptText="Busca Sala (Número)" unFocusColor="WHITE" />
-        <CheckBox fx:id="cb_numeroBusca"  layoutX="550.0" layoutY="130.0" mnemonicParsing="false" text="Busca Número" > 
-            <font>
-                <Font name="Droid Sans Georgian" size="12.0" />
-            </font>
-        </CheckBox>
-        <JFXButton id="updateButton" fx:id="updateButton" buttonType="RAISED" layoutX="521.0" layoutY="425.0" onAction="#update" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ATUALIZAR" textFill="WHITE">
-            <font>
-                <Font name="Droid Sans Georgian" size="15.0" />
-            </font>
-        </JFXButton>
-        <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="395.0" layoutY="500.0" onAction="#delete" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETAR" textFill="WHITE">
-            <font>
-                <Font name="Droid Sans Georgian" size="15.0" />
-            </font>
-        </JFXButton>
+        <JFXComboBox fx:id="tipoComboBox" layoutX="113.0" layoutY="265.0" prefHeight="26.0" prefWidth="466.0" promptText="Tipo" style="-fx-background-color: #FFF;" />
+        <JFXTextField fx:id="tfNumSala" focusColor="#a84740" labelFloat="true" layoutX="109.0" layoutY="182.0" maxWidth="215.0" minWidth="178.0" prefHeight="32.0" prefWidth="215.0" promptText="Número da Sala" unFocusColor="WHITE" />
+        <JFXTextField fx:id="tfCapaMax" focusColor="#a84740" labelFloat="true" layoutX="387.0" layoutY="182.0" maxWidth="192.0" minWidth="192.0" prefHeight="32.0" prefWidth="192.0" promptText="Capacidade Maxima" unFocusColor="WHITE" />
     </children>
     
 </AnchorPane>

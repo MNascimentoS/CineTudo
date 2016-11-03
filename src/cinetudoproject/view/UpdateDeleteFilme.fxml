@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,9 +11,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFilmeController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.UpdateDeleteFilmeController">
       <children>
-      <BorderPane layoutX="470.0" layoutY="99.0" prefHeight="39.0" prefWidth="479.0" />
+      <BorderPane layoutX="470.0" layoutY="99.0" prefHeight="39.0" prefWidth="479.0">
+         <right>
+              <JFXTextField fx:id="tf_buscaFilme" focusColor="#ff4537" labelFloat="true" maxWidth="550.0" minWidth="100.0" prefHeight="44.0" prefWidth="477.0" promptText="Busca (Titulo do Filme)" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXTextField>
+         </right>
+      </BorderPane>
       <ImageView fitHeight="683.0" fitWidth="34.0" layoutX="384.0" layoutY="59.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/sombra.png" />
@@ -65,11 +67,6 @@
             <Font size="17.0" />
          </font>
       </JFXTextField>
-      <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="725.0" layoutY="476.0" onAction="#saveMovie" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
-         <font>
-            <Font name="Droid Sans Georgian" size="15.0" />
-         </font>
-      </JFXButton>
       <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="473.0" layoutY="395.0" prefHeight="38.0" prefWidth="209.0" promptText="Classificação" style="-fx-background-color: #FFFFFF;" />
       <JFXComboBox id="boxGenero" fx:id="boxGenero" layoutX="724.0" layoutY="395.0" prefHeight="38.0" prefWidth="215.0" promptText="Gênero" style="-fx-background-color: #FFFFFF;" />
       <ImageView id="classImage" fx:id="classImage" fitHeight="72.0" fitWidth="72.0" layoutX="20.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" />
@@ -83,6 +80,17 @@
          </center>
       </JFXToolbar>
       <JFXButton id="saveButton" fx:id="backButton" buttonType="RAISED" layoutX="473.0" layoutY="476.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      
+      <JFXButton id="updateButton" fx:id="updateButton" buttonType="RAISED" layoutX="724.0" layoutY="476.0" onAction="#update" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ATUALIZAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="595" layoutY="550.0" onAction="#delete" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETAR" textFill="WHITE">
          <font>
             <Font name="Droid Sans Georgian" size="15.0" />
          </font>

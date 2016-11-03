@@ -76,7 +76,6 @@ public class FilmeDAO {
     }
  
    public ArrayList<Filme> listar() throws FileNotFoundException, IOException {
-        
         final String sql = "SELECT * FROM filme";
         ArrayList<Filme> retorno = new ArrayList<>();
         

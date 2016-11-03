@@ -119,7 +119,7 @@ public class PromocaoDAO {
         return retorno;
     }
     
-    public Promocao buscaSessaoPorHora(String nome) {
+    public Promocao buscaPromocao(String nome) {
         Promocao promocao = null;
         final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto FROM promocao WHERE nome = ?";
         try {
@@ -150,5 +150,13 @@ public class PromocaoDAO {
         promocao.setDesconto(resultadoBusca.getFloat(6));
 
         return promocao;
+    }
+
+    public void update(Promocao promocao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

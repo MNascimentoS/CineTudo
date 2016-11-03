@@ -8,37 +8,32 @@ package cinetudoproject.view;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.FuncionarioDAO;
 import cinetudoproject.model.domain.Cinema;
+import cinetudoproject.model.domain.Funcionario;
+import cinetudoproject.util.MaskField;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javax.swing.JOptionPane;
-import cinetudoproject.model.domain.Funcionario;
-import cinetudoproject.util.CryptMD5;
-import cinetudoproject.util.MaskField;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
  *
- * @author mateus
+ * @author Wellington
  */
-public class CadastroFuncionarioController implements Initializable {
+public class UpdateDeleteFuncionarioController implements Initializable {
 
     FuncionarioDAO insereFun = new FuncionarioDAO();
     private Funcionario func;
@@ -52,8 +47,7 @@ public class CadastroFuncionarioController implements Initializable {
     private JFXComboBox cinemaBox;
 
     @FXML
-    private JFXTextField tf_name, tf_cpf, tf_email, tf_user;
-
+    private JFXTextField tf_name, tf_cpf, tf_email, tf_user, tf_userBusca;
 
     @FXML
     private JFXPasswordField tf_pass;
@@ -83,6 +77,23 @@ public class CadastroFuncionarioController implements Initializable {
             }
 
         });
+
+        tf_userBusca.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue
+            ) {
+                if (!newValue) {
+                    funcionarioDados = funcionarioDAO.buscaPorUser(tf_userBusca.getText());
+                    tf_cpf.setText(funcionarioDados.getCpf());
+                    tf_email.setText(funcionarioDados.getEmail());
+                    tf_name.setText(funcionarioDados.getNome());
+                    tf_pass.setText(funcionarioDados.getSenha());
+                    tf_user.setText(funcionarioDados.getUser());
+
+                }
+            }
+        }
+        );
     }
 
     //recebe as informacoes de usuario
@@ -91,32 +102,7 @@ public class CadastroFuncionarioController implements Initializable {
         nameLabel.setText("Ola, " + this.func.getNome());
     }
 
-    //tente cadastrar
-    public void cadastro(ActionEvent event) throws Exception {
-        //caso algum campo esteja vazio
-        if (tf_name.getText().equals("") || tf_cpf.getText().equals("")
-                || tf_user.getText().equals("") || tf_pass.getText().equals("")
-                || tf_email.getText().equals("") || cinemaNome == null) {
-            JOptionPane.showMessageDialog(null, "Campo necessário não preenchido!");
-            return;
-        }
-
-        int cinemaId = 0;
-        //para cada cinema, verifique se existe um cinema igual a opcao escolhida
-        for (Cinema i : cinema) {
-            if (i.getNome().equals(cinemaNome)) {//se sim, pegue o seu id
-                cinemaId = i.getId();
-            }
-        }
-
-        CryptMD5 md5 = new CryptMD5();
-        //cria um novo funcionario
-        Funcionario funcionario = new Funcionario(cinemaId, tf_name.getText(), tf_cpf.getText(), tf_email.getText(),
-                tf_user.getText(), md5.cryptWithMD5(tf_pass.getText()));
-        //tente, cadastrar o novo funcionario caso este nao exista
-        insereFun.insertFuncionario(funcionario);
-    }
-
+   
     public void update(ActionEvent event) throws Exception {
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario;
@@ -151,3 +137,4 @@ public class CadastroFuncionarioController implements Initializable {
         stage.show();
     }
 }
+
