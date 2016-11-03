@@ -6,6 +6,7 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Genero;
 import java.io.File;
@@ -20,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;

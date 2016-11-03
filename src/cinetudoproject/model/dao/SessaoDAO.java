@@ -6,6 +6,7 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Sessao;
@@ -26,8 +27,8 @@ import javafx.scene.control.Alert;
  */
 public class SessaoDAO {
 
-    Connection connection;
-    DatabaseMySQL database;
+    private Connection connection;
+    private DatabaseMySQL database;
 
     public SessaoDAO() {
         database = new DatabaseMySQL();
@@ -93,7 +94,7 @@ public class SessaoDAO {
         return sessao;
     }
     
-     public ArrayList<Sessao> listar() throws ParseException {
+    public ArrayList<Sessao> listar() throws ParseException {
         final String sql = "SELECT * from sessao";
         ArrayList<Sessao> retorno = new ArrayList<>();
         
@@ -110,6 +111,28 @@ public class SessaoDAO {
         }
         return retorno;
     }
+    
+    
+    public ArrayList<Sessao> listarPorSalaEData(int sala_id, java.util.Date data) throws ParseException {
+        final String sql = "SELECT * from sessao where sala_id";
+        ArrayList<Sessao> retorno = new ArrayList<>();
+        
+        try {
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            
+            while (resultado.next()) {
+                Sessao s = buscaSessao(resultado);
+                //verificacao de data
+                if(s.getData().getDate() == data.getDate() && s.getData().getMonth() == data.getMonth() && s.getData().getYear() == data.getYear())
+                    retorno.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+     
  
     //verifica se a sessao pode ser cadastrada
     public boolean eValida(Sessao s) throws ParseException
@@ -119,13 +142,50 @@ public class SessaoDAO {
         //para cada sessao
         for(Sessao i : sessoes)
         {
-            //se estiver no intervalo e for na mesma sala e mesmo horario nao permita o cadastro
-            if(s.getData().equals(i.getData()) && s.getSala_id() == i.getSala_id() && s.getHorario_id() == i.getHorario_id())
+            //se for no mesmo dia e for na mesma sala e mesmo horario nao permita o cadastro
+            if(s.getData().getDate() == i.getData().getDate()&& s.getData().getMonth() == i.getData().getMonth() &&
+                    s.getData().getYear() == i.getData().getYear()&& s.getSala_id() == i.getSala_id() && 
+                    s.getHorario_id() == i.getHorario_id())
             {
                 return false;
             }
         }   
         return true;
+    }
+    
+    public ArrayList<Sessao> buscarSessoesFilmeEData(int filme_id, java.util.Date data) throws ParseException
+    {
+        ArrayList<Sessao> sessoes = new ArrayList<Sessao>();
+        final String busca = "SELECT * FROM sessao WHERE filme_id = '"+filme_id+"'";
+         
+        try {
+            PreparedStatement stmt = database.connect().prepareStatement(busca);
+            ResultSet resultado = stmt.executeQuery();    
+            if(!resultado.next()){
+                System.out.println("Nao achei o filme!");
+                return sessoes;
+            } 
+            while(resultado.next()) {
+                //sessoes = new ArrayList<>();
+                Sessao s = buscaSessao(resultado);
+                //se esta na data buscada adicione a lista de retorno
+                if(s != null)
+                {
+                  if(s.getData().getDate()== data.getDate()&& s.getData().getMonth() == data.getMonth() && 
+                     s.getData().getYear() == data.getYear())
+                    {
+                        sessoes.add(s);
+                    }
+                }else{
+                    System.out.print("NULO!");
+                }
+            }
+            database.desconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return sessoes;
     }
     
     public Sessao buscaSessaoPorFilme(int filme_id) {
@@ -142,6 +202,48 @@ public class SessaoDAO {
             System.err.println("ERRO AO BUSCAR");
         }
         return sessao;
+    }
+    
+    public Sessao buscarSessaoAtual(int filme_id, int horario_id, int sala_id) throws ParseException
+    {
+        final String busca = "SELECT * FROM sessao WHERE filme_id = '"+filme_id+"'";
+        Sessao s = null;
+        
+        try {
+            PreparedStatement stmt = database.connect().prepareStatement(busca);
+            ResultSet resultado = stmt.executeQuery();    
+            if(!resultado.next()){
+                System.out.println("Nao há sessoes para esta sala!");
+                return s;
+            } 
+            while(resultado.next()) {
+                //sessoes = new ArrayList<>();
+                Sessao ss = buscaSessao(resultado);
+                //se esta na data buscada adicione a lista de retorno
+                if(ss != null)
+                {
+                   if(ss.getHorario_id() == horario_id && ss.getSala_id() == sala_id)
+                   {
+                       return ss;
+                   }
+                  //se a sessao for valida retorne-a  
+                  /*if(ss.getData().getDate()== data.getDate()&& ss.getData().getMonth() == data.getMonth() && 
+                     ss.getData().getYear() == data.getYear() && ss.getHorario_id() == horario_id && ss.getSala_id() == sala_id)
+                    {
+                        s = new Sessao();
+                        s = ss;
+                        return s;
+                    }*/
+                }else{
+                    System.out.print("NULO!");
+                }
+            }
+            database.desconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return s;
     }
     
     private Sessao buscaSessao(ResultSet resultadoBusca) throws SQLException, ParseException {

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="569.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.UpdateDeletePromocaoController">
+   <children>
+      <ImageView fx:id="bigImage" fitHeight="287.0" fitWidth="570.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/promocao.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="47.0" fitWidth="570.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/sombra-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="47.0" fitWidth="113.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/logonov.png" />
+         </image>
+      </ImageView>
+      <JFXButton id="chooseImage" fx:id="chooseImage" buttonType="RAISED" layoutX="428.0" layoutY="233.0" onAction="#chooseImage" prefHeight="26.0" prefWidth="125.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ESCOLHER IMAGEM" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="saveButton" fx:id="backButton" buttonType="RAISED" layoutX="51.0" layoutY="606.0" onAction="#back2main" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="saveButton" fx:id="updateButton" buttonType="RAISED" layoutX="303.0" layoutY="606.0" onAction="#update" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="ATUALIZAR" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox id="comboBox" fx:id="cb_semana" layoutX="51.0" layoutY="426.0" prefHeight="38.0" prefWidth="209.0" promptText="Dia da Semana" style="-fx-background-color: #FFFFFF;" />
+      <JFXTextField fx:id="tf_nome" focusColor="#ff4537" labelFloat="true" layoutX="41.0" layoutY="369.0" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="484.0" promptText="Nome">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox id="comboBox" fx:id="cb_desconto" layoutX="306.0" layoutY="426.0" prefHeight="38.0" prefWidth="209.0" promptText="Desconto" style="-fx-background-color: #FFFFFF;" />
+      <JFXTextArea fx:id="ta_descricao" focusColor="#ff4537" labelFloat="true" layoutX="48.0" layoutY="503.0" maxWidth="651.0" minWidth="469.0" prefHeight="77.0" prefWidth="472.0" promptText="Descrição" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextArea>
+      <BorderPane fx:id="borderDesconto" layoutX="41.0" layoutY="407.0" prefHeight="15.0" prefWidth="472.0" visible="false">
+         <right>
+            <JFXButton id="saveButton" fx:id="addDesconto" buttonType="RAISED" onAction="#addDesconto" prefHeight="30.0" prefWidth="139.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="Adicionar Desconto" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </JFXButton>
+         </right>
+         <left>
+            <JFXTextField fx:id="tf_desconto" focusColor="#ff4537" maxWidth="550.0" minWidth="299.0" prefHeight="39.0" prefWidth="332.0" promptText="Desconto" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXTextField>
+         </left>
+      </BorderPane>
+      <JFXButton id="deleteButton" fx:id="deleteButton" buttonType="RAISED" layoutX="173.0" layoutY="667.0" onAction="#delete" prefHeight="38.0" prefWidth="215.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="DELETE" textFill="WHITE">
+         <font>
+            <Font name="Droid Sans Georgian" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="tf_buscaPromocao" focusColor="#ff4537" labelFloat="true" layoutX="41.0" layoutY="307.0" maxWidth="550.0" minWidth="418.0" prefHeight="39.0" prefWidth="484.0" promptText="Busca Promoção (Nome)">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextField>
+   </children>
+</AnchorPane>

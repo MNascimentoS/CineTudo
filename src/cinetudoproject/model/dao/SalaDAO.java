@@ -103,6 +103,25 @@ public class SalaDAO {
         return sala;
     }
 
+     public Sala buscaPorSala(int sala_id) {
+        Sala sala = null;
+        final String busca = "SELECT id, numero, capacidade, tipo, preco_ingresso FROM sala WHERE id = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement buscar = conn.prepareStatement(busca);
+            buscar.setInt(1, sala_id);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            sala = buscaHorario(resultadoBusca);
+            database.desconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("ERRO AO BUSCAR A SALA: "+ sala_id);
+        }
+        return sala;
+    }
+    
+    
     private Sala buscaHorario(ResultSet resultadoBusca) throws SQLException, ParseException {
         Sala sala = new Sala();
         sala.setId(resultadoBusca.getInt(1));

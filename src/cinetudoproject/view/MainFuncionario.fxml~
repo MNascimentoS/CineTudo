@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1000.0" style="-fx-background-color: #000;" translateX="2.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.CadastroFuncionarioController">
+    <children>
+        <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;">
+            <center>
+                <ImageView fitHeight="47.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" BorderPane.alignment="CENTER">
+                    <image>
+                        <Image url="@../../img/logonov.png" />
+                    </image>
+                </ImageView>
+            </center>
+            <right>
+                <Text fx:id="nameLabel" fill="#171717" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Text>
+            </right>
+        </JFXToolbar>
+        <JFXTextField id="tf_name" fx:id="tf_name" focusColor="#ff4537" labelFloat="true" layoutX="14.0" layoutY="229.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Nome" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXTextField>
+        <JFXTextField id="tf_cpf" fx:id="tf_cpf" focusColor="#ff4537" labelFloat="true" layoutX="14.0" layoutY="282.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="CPF" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXTextField>
+        <JFXTextField id="tf_email" fx:id="tf_email" focusColor="#ff4537" labelFloat="true" layoutX="14.0" layoutY="335.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Email" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXTextField>
+        <JFXTextField id="tf_user" fx:id="tf_user" focusColor="#ff4537" labelFloat="true" layoutX="515.0" layoutY="229.0" maxWidth="550.0" minWidth="418.0" prefHeight="38.0" prefWidth="471.0" promptText="Usuário" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXTextField>
+        <JFXPasswordField id="tf_pass" fx:id="tf_pass" focusColor="#ff4537" labelFloat="true" layoutX="515.0" layoutY="282.0" maxWidth="471.0" minWidth="171.0" prefHeight="38.0" prefWidth="471.0" promptText="Senha" unFocusColor="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </JFXPasswordField>
+        <JFXButton id="saveButton" fx:id="saveButton" buttonType="RAISED" layoutX="515.0" layoutY="429.0" onAction="#cadastro" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="SALVAR" textFill="WHITE">
+            <font>
+                <Font name="Droid Sans Georgian" size="15.0" />
+            </font>
+        </JFXButton>
+        <JFXComboBox fx:id="cinemaBox" layoutX="525.0" layoutY="335.0" prefHeight="32.0" prefWidth="451.0" promptText="Cinema" style="-fx-background-color: #FFFFFF;" />
+        <JFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" layoutX="275.0" layoutY="429.0" onAction="#back2menu" prefHeight="38.0" prefWidth="210.0" ripplerFill="#cd1b1b" style="-fx-background-color: #F44336;" text="CANCELAR" textFill="WHITE">
+            <font>
+                <Font name="Droid Sans Georgian" size="15.0" />
+            </font>
+        </JFXButton>
+  
+    </children>
+</AnchorPane>
+

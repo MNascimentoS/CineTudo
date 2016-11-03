@@ -95,6 +95,21 @@ public class SidePanelContentController implements Initializable {
     }
     
     @FXML
+    void buscarSessao(ActionEvent event) throws IOException {
+        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Buscar Sessão");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BuscarSessao.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        BuscarSessaoController CScontroller = fxmlLoader.<BuscarSessaoController>getController(); 
+        CScontroller.getUserInfo(this.func);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    
+    @FXML
     private void exit(ActionEvent event) {
         System.exit(0);
     }

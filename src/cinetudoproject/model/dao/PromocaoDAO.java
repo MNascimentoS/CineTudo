@@ -156,4 +156,12 @@ public class PromocaoDAO {
 
         return promocao;
     }
+
+    public void update(Promocao promocao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

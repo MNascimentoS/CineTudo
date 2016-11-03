@@ -70,6 +70,22 @@ public class SidePanelContentGController implements Initializable {
         stage.show();
     }
     
+     @FXML
+    private void updateFilme(ActionEvent event) throws IOException {
+      
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Atualizar/Deletar Filme");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeletePromocao.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        UpdateDeletePromocaoController UDFilmcontroller = fxmlLoader.<UpdateDeletePromocaoController>getController(); 
+        UDFilmcontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    
     @FXML
     private void cadastrarFuncionario(ActionEvent event) throws IOException {
         

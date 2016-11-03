@@ -7,6 +7,9 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Cinema;
+import cinetudoproject.model.domain.Filme;
+import cinetudoproject.model.domain.Genero;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

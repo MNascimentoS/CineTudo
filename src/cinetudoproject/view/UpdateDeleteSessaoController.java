@@ -5,14 +5,11 @@
  */
 package cinetudoproject.view;
 
-
-import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.dao.SessaoDAO;
-import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
@@ -32,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,45 +52,42 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import sun.java2d.loops.MaskFill;
 
 /**
- * FXML Controller class
  *
- * @author mateus
+ * @author Wellington
  */
-public class CadastroSessaoController implements Initializable {
-    
+public class UpdateDeleteSessaoController implements Initializable {
+
     @FXML
     private ImageView bigImage;
     @FXML
-    private JFXComboBox cinemaBox, filmeBox, salaBox, horarioBox;
+    private JFXComboBox cinemaBox, filmeBox, salaBox, horarioBox, buscaFilmeBox, buscaHorarioBox;
     @FXML
     private BorderPane paneHorario;
     @FXML
-    private TextField  fieldHorario;
+    private TextField fieldHorario;
     @FXML
     private JFXDatePicker dataInicial;
     @FXML
     private JFXDatePicker dataFinal;
-    
+
     private Funcionario func;
 
     private final String adicionarHorario = "Adicionar Horário";
-    
+
     private List<Filme> filme;
     private Filme chooseMovie;
     private List<Sala> sala;
     private Sala chooseSala;
     private Horario horario;
     private Cinema cinema;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
         MaskField.timeField((JFXTextField) fieldHorario, 5);
-        
+
         try {
             createFilmeBox();
             createSalaBox();
@@ -102,24 +95,24 @@ public class CadastroSessaoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
-    public void createFilmeBox() throws IOException{
+    }
+
+    public void createFilmeBox() throws IOException {
         FilmeDAO filmeDAO = new FilmeDAO();
         filme = filmeDAO.listar();
         filme.forEach((i) -> {
             filmeBox.getItems().addAll(i.getTitulo());
         });
-        
+
         filmeBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 filme.forEach((i) -> {
-                    if (i.getTitulo().equals(newValue)){
+                    if (i.getTitulo().equals(newValue)) {
                         chooseMovie = i;
                     }
                 });
-                
+
                 BufferedImage bufferedImage;
                 try {
                     bufferedImage = ImageIO.read(chooseMovie.getImageFile());
@@ -129,10 +122,10 @@ public class CadastroSessaoController implements Initializable {
                     Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         });
     }
-    
+
     public void createSalaBox() throws IOException {
         chooseSala = new Sala();
         SalaDAO salaDAO = new SalaDAO();
@@ -140,44 +133,58 @@ public class CadastroSessaoController implements Initializable {
         sala.forEach((i) -> {
             salaBox.getItems().addAll("Sala: " + i.getNumero() + ", do tipo: " + i.getTipo());
         });
-        
+
         salaBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 sala.forEach((i) -> {
-                    if (("Sala: " + i.getNumero() + ", do tipo: " + i.getTipo()).equals(newValue)){
+                    if (("Sala: " + i.getNumero() + ", do tipo: " + i.getTipo()).equals(newValue)) {
                         chooseSala = i;
                     }
                 });
             }
         });
     }
-    
+
     public void createHorarioBox() throws IOException {
         horarioBox.getItems().addAll(adicionarHorario);
         horarioBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.equals(adicionarHorario)){
+                /**
+                 * @TODO: checar se o horário não interfere em outra sessão
+                 */
+                /*if (chooseMovie == null){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Alerta");
+                    alert.setContentText("Adicione primeiramente um filme!");
+                    alert.showAndWait();
+                    horarioBox.getSelectionModel().clearSelection();
+                    return;
+                }*/
+                if (newValue.equals(adicionarHorario)) {
                     horarioBox.getSelectionModel().clearSelection();
                     paneHorario.setVisible(true);
                 }
             }
         });
     }
-    
+
     @FXML
     void salvarHorario(ActionEvent event) throws IOException {
-        /**@TODO: checar se o horário não interfere em outra sessão*/
+        /**
+         * @TODO: checar se o horário não interfere em outra sessão
+         */
         /*Horario novoHorario = new Horario();
         novoHorario.setHorario(fieldHorario.getText());*/
         horarioBox.getItems().addAll(fieldHorario.getText());
         fieldHorario.setText("");
         paneHorario.setVisible(false);
     }
-    
+
     //checar se as datas são válidas
-    boolean isValidDate(Date data) throws ParseException{
+    boolean isValidDate(Date data) throws ParseException {
         //formato da data para poder ser comparado
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.format(data);
@@ -193,33 +200,32 @@ public class CadastroSessaoController implements Initializable {
         //se as datas iniciais e finais são depois da data atual
         return (data.after(today) || data.equals(today));
     }
-    
-    
+
     @FXML
     void salvarSessao(ActionEvent event) throws IOException, ParseException {
         //data inicial
         LocalDate inicialDate = dataInicial.getValue();
         Instant instant = Instant.from(inicialDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        
+
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         //checar se as datas são válidas
-        if(!isValidDate(date)) {
+        if (!isValidDate(date)) {
             alert.setTitle("Erro");
             alert.setContentText("Data Inválida. Por favor, escolha outra.");
             alert.showAndWait();
             return;
         }
-        
+
         horario = new Horario();
         HorarioDAO horarioDAO = new HorarioDAO();
         Sessao sessao = new Sessao();
         SessaoDAO sessaoDAO = new SessaoDAO();
-        
+
         //irá adicionar uma sessão para cada horário
-        horarioBox.getItems().forEach((i)->{
-            if(!i.toString().equals(adicionarHorario)){
+        horarioBox.getItems().forEach((i) -> {
+            if (!i.toString().equals(adicionarHorario)) {
                 horario.setHorario(i.toString());
                 horarioDAO.insertHorario(horario);
                 horario = horarioDAO.buscaPorHora(horario.getHorario());
@@ -233,59 +239,44 @@ public class CadastroSessaoController implements Initializable {
                 sessao.setIngresso_disponivel(chooseSala.getCapacidade());
                 try {
                     sessaoDAO.insertSessao(sessao, horario);
-                    ArrayList<Sessao> sessoes = sessaoDAO.listar();
-                    if(sessoes != null || !sessoes.isEmpty())
-                    {
-                        sessoes.forEach((t) -> {
-                            if(t.getHorario_id() == sessao.getHorario_id() && t.getSala_id() == sessao.getSala_id()
-                            && t.getData().getDate() == sessao.getData().getDate() && t.getData().getMonth()== sessao.getData().getMonth()
-                             && t.getData().getYear() == sessao.getData().getYear())
-                            {
-                                  System.out.println("Achei a sessao!"); 
-                                  sessao.setId(t.getId());
-                            }
-                        }); 
-                        //se conseguiu achou a sessao
-                        if(sessao.getId() > 0)
-                        {
-                            AssentoDAO assentoDAO = new AssentoDAO();
-                            //cadastra os assentos na sessao
-                            for(Assento as : sessao.getAssentos())
-                            {
-                                System.out.println("Fila: "+ as.getFila()+" Número: "+as.getNumero());
-                                assentoDAO.insertAssento(as, sessao.getId());
-                            }
-                        }
-                    }         
                 } catch (ParseException ex) {
                     Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
-    
-    //recebe as informacoes de usuario
-    public void getUserInfo(Funcionario func)
-    {
-       this.func = func;
-       CinemaDAO cinemaDAO = new CinemaDAO();
-       cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
-       cinemaBox.setPromptText(cinema.getNome());
+
+    @FXML
+    void update(ActionEvent event) {
+
     }
-    
+
+    @FXML
+    void delete(ActionEvent event) {
+
+    }
+
+    //recebe as informacoes de usuario
+    public void getUserInfo(Funcionario func) {
+        this.func = func;
+        CinemaDAO cinemaDAO = new CinemaDAO();
+        cinema = cinemaDAO.buscarCinema(this.func.getCinema_id());
+        cinemaBox.setPromptText(cinema.getNome());
+    }
+
     @FXML
     void back2main(ActionEvent event) throws IOException {
-       System.out.println("Back Event!");
-       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-       stage.setTitle("Menu Gerente");
-       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
-       Parent root = (Parent) fxmlLoader.load();
-       MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController(); 
-       Gcontroller.getUserInfo(this.func);
-        
-       Scene scene = new Scene(root);
-       stage.setScene(scene);
-       stage.show();
+        System.out.println("Back Event!");
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Menu Gerente");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        MainGerenteController Gcontroller = fxmlLoader.<MainGerenteController>getController();
+        Gcontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-    
+
 }

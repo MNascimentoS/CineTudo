@@ -2,6 +2,7 @@ package cinetudoproject.model.domain;
 
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * Created by diogo on 20/08/16.
@@ -31,6 +32,10 @@ public class Filme {
     
     public static boolean jaExisteNaLista(ArrayList<Filme> filmes, Filme filme)
     {
+        if (/*filmes == null ||*/ filme == null) {
+            JOptionPane.showMessageDialog(null, "NULO");
+            return false;
+        }
         for(Filme i : filmes)
         {
             if(i.getId() == filme.getId()) return true;

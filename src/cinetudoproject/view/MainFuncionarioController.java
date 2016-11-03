@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
+import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.PromocaoDAO;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;
@@ -38,6 +40,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -88,6 +91,7 @@ public class MainFuncionarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         rootP = root;
+        bigImage.setBlendMode(BlendMode.SRC_OVER);
     } 
     
     public void nextClicked() {
@@ -118,6 +122,8 @@ public class MainFuncionarioController implements Initializable {
              SidePanelContentController drawercontroller = fxmlLoader.<SidePanelContentController>getController(); 
              drawercontroller.getPromocao(promocaoList);
              drawercontroller.getUserInfo(this.func);
+             //drawer.setBlendMode(BlendMode.SRC_ATOP);
+             //box.setBlendMode(BlendMode.SRC_ATOP);
              drawer.setSidePane(box);
         } catch (IOException ex) {
             Logger.getLogger(MainFuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,7 +180,9 @@ public class MainFuncionarioController implements Initializable {
     }
     
     public void preencherFilme(int choice) {
-        if (filmeList.isEmpty()) return;
+        //se a lista de filmes estiver vazia
+        if(filmeList.isEmpty()) return;
+        
         int listSize = filmeList.size();
         int next = 1; int back = -1;
         if (choice == 0) listPosition = 0;
@@ -228,9 +236,13 @@ public class MainFuncionarioController implements Initializable {
             Horario horario;
             if (i.getFilme_id() == filme.getId()) {
                 cSessaoList.add(i);
-                horario = horarioDAO.buscaPorId(i.getHorario_id());
-                horarioList.add(horario);
-                lb_horario.setText(lb_horario.getText() + " " + horario.getHorario());
+                Date date = new Date();
+                if(i.getData().getDate()== date.getDate() && i.getData().getMonth() == date.getMonth() && i.getData().getYear() == date.getYear())
+                {
+                    horario = horarioDAO.buscaPorId(i.getHorario_id());
+                    horarioList.add(horario);
+                    lb_horario.setText(lb_horario.getText() + " " + horario.getHorario());
+                }
             }
         });
     }
