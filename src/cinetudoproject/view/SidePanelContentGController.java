@@ -75,9 +75,9 @@ public class SidePanelContentGController implements Initializable {
       
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Atualizar/Deletar Filme");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeletePromocao.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteVenda.fxml"));
         Parent root = (Parent) fxmlLoader.load();
-        UpdateDeletePromocaoController UDFilmcontroller = fxmlLoader.<UpdateDeletePromocaoController>getController(); 
+        DeleteVendaController UDFilmcontroller = fxmlLoader.<DeleteVendaController>getController(); 
         UDFilmcontroller.getUserInfo(this.func);
 
         Scene scene = new Scene(root);

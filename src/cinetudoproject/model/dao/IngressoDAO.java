@@ -81,4 +81,52 @@ public class IngressoDAO {
         ingresso.setAssento(resultadoBusca.getString("assento"));
         return ingresso;
     }
+    
+    public void delete(int ingressoId) {
+        final String delete = "delete from ingresso where id = ?";
+        try {
+            Connection conn = database.connect();
+            PreparedStatement deletar = conn.prepareStatement(delete);
+            deletar.setInt(1, ingressoId);
+            deletar.executeUpdate();
+            deletar.close();
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Ingresso Cancelado com Sucesso");
+       } catch (SQLException ex) {
+            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            //return false;
+        }
+    }
+    
+    public Ingresso buscarIngressoId(int ingressoId) throws IOException, ParseException {
+        final String sql = "SELECT * FROM ingresso where id = ?";
+        Ingresso ingresso = new Ingresso();
+        
+        try {
+            Connection conn = database.connect();
+            PreparedStatement buscar = conn.prepareStatement(sql);
+            buscar.setInt(1, ingressoId);
+            ResultSet resultadoBusca = buscar.executeQuery();
+            resultadoBusca.next();
+            ingresso = buscarIngresso(resultadoBusca);
+            buscar.close();
+            conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ingresso;
+    }
+    
+    private Ingresso buscarIngresso(ResultSet resultadoBusca) throws SQLException, ParseException {
+        Ingresso ingresso = new Ingresso();
+        ingresso.setId(resultadoBusca.getInt("id"));
+        ingresso.setPreco(resultadoBusca.getFloat("preco"));
+        ingresso.setTipo(resultadoBusca.getInt("tipo"));
+        ingresso.setSessao_id(resultadoBusca.getInt("sessao_id"));
+        ingresso.setVenda_id(resultadoBusca.getInt("venda_id"));
+
+        return ingresso;
+    }
 }
