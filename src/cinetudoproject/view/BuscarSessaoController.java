@@ -286,7 +286,7 @@ public class BuscarSessaoController implements Initializable {
         }
     }
     
-    void goVenda(Filme filme, ArrayList<Sessao> sessoes, ArrayList<Horario> horarios, ArrayList<Promocao> promocoes, Event event) throws IOException
+    void goVenda(Filme filme, ArrayList<Sessao> sessoes, ArrayList<Horario> horarios, ArrayList<Promocao> promocoes, Event event) throws IOException, ParseException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Vendas");
