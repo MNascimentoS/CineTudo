@@ -28,7 +28,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lb_diretor1" alignment="CENTER_RIGHT" layoutX="545.0" layoutY="153.0" prefHeight="35.0" prefWidth="209.0" text="0,00 R$" textFill="#aeaeae" wrapText="true">
+      <Label fx:id="lb_total" alignment="CENTER_RIGHT" layoutX="545.0" layoutY="153.0" prefHeight="35.0" prefWidth="209.0" text="0,00 R$" textFill="#aeaeae" wrapText="true">
          <font>
             <Font size="28.0" />
          </font>
@@ -43,7 +43,7 @@
                   <Font size="19.0" />
                </font>
             </JFXButton>
-            <JFXButton id="updateButton" fx:id="can_clicked" buttonType="RAISED" cancelButton="true" disable="true" layoutX="111.0" layoutY="127.0" onAction="#canClicked" prefHeight="32.0" prefWidth="195.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0" visible="false">
+            <JFXButton id="updateButton" fx:id="can_button" buttonType="RAISED" cancelButton="true" layoutX="111.0" layoutY="127.0" onAction="#canClicked" prefHeight="32.0" prefWidth="195.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0" visible="false">
                <font>
                   <Font size="19.0" />
                </font>
@@ -51,19 +51,19 @@
             <ComboBox fx:id="cb_horario" disable="true" layoutX="71.0" layoutY="14.0" prefHeight="43.0" prefWidth="276.0" promptText="Horário" />
             <ComboBox fx:id="cb_promocao" disable="true" layoutX="71.0" layoutY="68.0" prefHeight="43.0" prefWidth="276.0" promptText="Promoção" />
             <ComboBox fx:id="cb_tipo" disable="true" layoutX="376.0" layoutY="14.0" prefHeight="43.0" prefWidth="276.0" promptText="Tipo" />
-            <JFXButton id="updateButton" fx:id="assento_clicked" buttonType="RAISED" disable="true" layoutX="376.0" layoutY="71.0" onAction="#assentoClicked" prefHeight="38.0" prefWidth="276.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Assento" textFill="#f5f5f0">
+            <JFXButton id="updateButton" fx:id="assento_button" buttonType="RAISED" disable="true" layoutX="376.0" layoutY="71.0" onAction="#assentoClicked" prefHeight="38.0" prefWidth="276.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Assento" textFill="#f5f5f0">
                <font>
                   <Font size="19.0" />
                </font>
             </JFXButton>
          </children>
       </Pane>
-      <JFXButton id="updateButton" fx:id="cancel_clicked" buttonType="RAISED" layoutX="158.0" layoutY="484.0" onAction="#cancelClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0">
+      <JFXButton id="updateButton" fx:id="cancel_button" buttonType="RAISED" layoutX="158.0" layoutY="484.0" onAction="#cancelClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Cancelar" textFill="#f5f5f0">
          <font>
             <Font size="19.0" />
          </font>
       </JFXButton>
-      <JFXButton id="updateButton" fx:id="buy_clicked" buttonType="RAISED" layoutX="426.0" layoutY="484.0" onAction="#buyClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Confirmar Compra" textFill="#f5f5f0">
+      <JFXButton id="updateButton" fx:id="buy_button" buttonType="RAISED" layoutX="426.0" layoutY="484.0" onAction="#buyClicked" prefHeight="38.0" prefWidth="209.0" ripplerFill="#cd1b1b" style="-fx-background-color: #9a9a9a;" text="Confirmar Compra" textFill="#f5f5f0">
          <font>
             <Font size="19.0" />
          </font>
