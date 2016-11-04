@@ -5,29 +5,31 @@
  */
 package cinetudoproject.view;
 
+import cinetudoproject.model.dao.FilmeDAO;
+import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
-import static cinetudoproject.view.MainFuncionarioController.rootP;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -36,6 +38,9 @@ import javax.swing.JOptionPane;
  */
 public class MainGerenteController implements Initializable {
    
+    @FXML
+    private ImageView bigImage;
+    
     @FXML
     private Text usernameLabel;
         
@@ -59,9 +64,27 @@ public class MainGerenteController implements Initializable {
        
     }    
     //recebe as informacoes de usuario
-    public void getUserInfo(Funcionario func)
+    public void getUserInfo(Funcionario func) throws IOException
     {
-         this.func = func;
+        this.func = func;
+        FilmeDAO filmeDAO = new FilmeDAO();
+        ArrayList<Filme> filmeList = filmeDAO.listar();
+        if (!filmeList.isEmpty()) {
+            int size = filmeList.size();
+            Random random = new Random();
+            int rn = random.nextInt(size);
+            Filme filme = filmeList.get(rn);
+            BufferedImage bufferedImage;
+            try {
+                bufferedImage = ImageIO.read(filme.getImageFile());
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                bigImage.setImage(image);
+            } catch (IOException ex) {
+                Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         
+         
          usernameLabel.setText("Ola, "+this.func.getNome());
          //carrega o drawer
          try {

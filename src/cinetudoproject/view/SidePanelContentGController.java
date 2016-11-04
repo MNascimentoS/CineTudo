@@ -6,12 +6,9 @@
 package cinetudoproject.view;
 
 import cinetudoproject.model.domain.Funcionario;
-import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -70,14 +65,14 @@ public class SidePanelContentGController implements Initializable {
         stage.show();
     }
     
-     @FXML
+    @FXML
     private void updateFilme(ActionEvent event) throws IOException {
       
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Atualizar/Deletar Filme");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteVenda.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeleteFilme.fxml"));
         Parent root = (Parent) fxmlLoader.load();
-        DeleteVendaController UDFilmcontroller = fxmlLoader.<DeleteVendaController>getController(); 
+        UpdateDeleteFilmeController UDFilmcontroller = fxmlLoader.<UpdateDeleteFilmeController>getController(); 
         UDFilmcontroller.getUserInfo(this.func);
 
         Scene scene = new Scene(root);
@@ -85,6 +80,50 @@ public class SidePanelContentGController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    private void updateSala(ActionEvent event) throws IOException {
+      
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Atualizar/Deletar Sala");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeleteSala.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        UpdateDeleteSalaController UDSalacontroller = fxmlLoader.<UpdateDeleteSalaController>getController(); 
+        UDSalacontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void updateFuncionario(ActionEvent event) throws IOException {
+      
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Atualizar/Deletar Funcionário");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeleteFuncionario.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        UpdateDeleteFuncionarioController UDFunccontroller = fxmlLoader.<UpdateDeleteFuncionarioController>getController(); 
+        UDFunccontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void updatePromocao(ActionEvent event) throws IOException {
+      
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Atualizar/Deletar Promocao");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateDeletePromocao.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        UpdateDeletePromocaoController UDPromcontroller = fxmlLoader.<UpdateDeletePromocaoController>getController(); 
+        UDPromcontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @FXML
     private void cadastrarFuncionario(ActionEvent event) throws IOException {

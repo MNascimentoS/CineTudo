@@ -32,8 +32,6 @@ public class Ingresso {
         this.preco = preco;
     }
     
-    
-
     public int getSessao_id() {
         return sessao_id;
     }
