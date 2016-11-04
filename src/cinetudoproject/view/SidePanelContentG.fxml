@@ -18,7 +18,7 @@
       <JFXButton fx:id="b22111" buttonType="RAISED" onAction="#updateSala" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Atualizar/Deletar Sala" />
       <JFXButton fx:id="cadastrar1" buttonType="RAISED" onAction="#cadastrarPromocao" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cadastrar Promoção" />
       <JFXButton fx:id="b22112" buttonType="RAISED" onAction="#updatePromocao" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Atualizar/Deletar Promocao" />
-      <JFXButton fx:id="cadastrar11" buttonType="RAISED" onAction="#cancelarVenda" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cancelar Venda" />
+      <JFXButton fx:id="cadastrar11" buttonType="RAISED" onAction="#cancelarVenda" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Cancelar Ingresso" />
       <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" prefHeight="55.0" prefWidth="223.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Sair" />
    </children>
 </VBox>

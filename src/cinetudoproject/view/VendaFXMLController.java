@@ -7,8 +7,10 @@ package cinetudoproject.view;
 
 import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
+import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.IngressoDAO;
 import cinetudoproject.model.dao.SalaDAO;
+import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.dao.VendaDAO;
 import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Cinema;
@@ -333,13 +335,47 @@ public class VendaFXMLController implements Initializable {
             vendaDAO.insert(venda);
             
             Venda searchVenda = vendaDAO.buscar(venda);
-            
+            int increment = 0;
             IngressoDAO ingressoDAO = new IngressoDAO();
             ingressoList = venda.getIngressos();
-            ingressoList.forEach((i)->{
-                i.setVenda_id(searchVenda.getId());
+            
+            for(Ingresso i : ingressoList)
+            {
+                 i.setVenda_id(searchVenda.getId());
                 ingressoDAO.insert(i);
-            });
+                ArrayList<Ingresso> ing = new ArrayList();
+                try {
+                    ing = ingressoDAO.listar();
+                } catch (IOException ex) {
+                    Logger.getLogger(VendaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(VendaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                if (!ing.isEmpty()){
+                    ing.forEach((j)->{
+                        if (j.getNumAssento().equals(i.getNumAssento()) &&
+                            j.getSessao_id() == i.getSessao_id()) {
+                            i.setId(j.getId());
+                        }
+                    });
+                }
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setTitle("Ingresso");
+                SessaoDAO sessaoDAO = new SessaoDAO();
+                Sessao sessao1 = sessaoDAO.buscaSessaoPorFilme(filme.getId());
+                HorarioDAO horarioDAO = new HorarioDAO();
+                //Horario hora = horarioDAO.buscaPorId(sessao1.getHorario_id());
+                Horario hora = horarioList.get(increment);
+                increment++;
+                alert.setContentText("Ingresso Id: " + i.getId() + "\nFilme: " + filme.getTitulo() + " "+ sala.getTipo() + "\nValor Ingresso: " + i.getPreco() + "R$" +
+                                     "\nData:" + sessao1.getData().getDate() + "/" + sessao1.getData().getMonth()+ "/" + sessao1.getData().getYear() + 
+                                     "\nHorario: " + hora.getHorario() + "\nAssento: " + i.getNumAssento());
+                alert.showAndWait();
+            
+            }
             
             back2main(event);
         } else {
