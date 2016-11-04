@@ -40,21 +40,17 @@ public class MainGerenteController implements Initializable {
    
     @FXML
     private ImageView bigImage;
-    
     @FXML
     private Text usernameLabel;
-        
     @FXML
     private JFXHamburger hamburguer;
-
     @FXML
     private JFXDrawer drawer;
-    
     @FXML
     private AnchorPane root;
 
     public static AnchorPane rootP;
-   
+    
     private Funcionario func = new Funcionario();
     
     @Override

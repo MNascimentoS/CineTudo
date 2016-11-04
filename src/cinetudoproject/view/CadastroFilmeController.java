@@ -7,8 +7,6 @@ package cinetudoproject.view;
 
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.GeneroDAO;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,10 +16,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
@@ -29,9 +25,6 @@ import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Genero;
 import cinetudoproject.util.MaskField;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,13 +45,10 @@ public class CadastroFilmeController implements Initializable {
 
     @FXML
     private JFXTextField tf_busca;
-
     @FXML
     private ImageView bigImage, classImage;
-
     @FXML
     private JFXComboBox comboBox, boxGenero;
-
     @FXML
     private JFXTextField tituloFilme, nomeDiretor, nomeAtor, duracaoFilme;
 
@@ -73,27 +63,6 @@ public class CadastroFilmeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configValidators();
-
-        /*tf_busca.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (!newValue) {
-                filmeGeral = new FilmeDAO().buscaFilme(tf_busca.getText());
-                tituloFilme.setText(filmeGeral.getTitulo());
-                duracaoFilme.setText(String.valueOf(filmeGeral.getDuracao()));
-                nomeAtor.setText(filmeGeral.getAtorPrincipal());
-                nomeDiretor.setText(filmeGeral.getDiretor());
-                comboBox.setPromptText(String.valueOf(filmeGeral.getClassEtaria()));
-                boxGenero.setPromptText(filmeGeral.getGenero().getNome());
-                BufferedImage bufferedImage;
-                try {
-                    imageFile = filmeGeral.getImageFile();
-                    bufferedImage = ImageIO.read(filmeGeral.getImageFile());
-                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                    bigImage.setImage(image);
-                } catch (IOException ex) {
-                    Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });*/
 
         MaskField.timeField(duracaoFilme);
         comboBox.getItems().addAll(
@@ -161,16 +130,6 @@ public class CadastroFilmeController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(CadastroFilmeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
-                    /*boxGenero.getSelectionModel().clearSelection();
-                    boxGenero.getItems().clear();
-                    boxGenero.getItems().addAll(novoGenero);
-                    List<Genero> newGeneros;
-                    GeneroDAO newgeneroDAO = new GeneroDAO();
-                    newGeneros = newgeneroDAO.listar();
-                    newGeneros.forEach((i) -> {
-                        boxGenero.getItems().addAll(i.getNome());
-                    });*/
                 } else {
                     generoMovie = newValue;
                 }

@@ -167,6 +167,7 @@ public class CadastroSessaoController implements Initializable {
         /**@TODO: checar se o horário não interfere em outra sessão*/
         /*Horario novoHorario = new Horario();
         novoHorario.setHorario(fieldHorario.getText());*/
+        
         horarioBox.getItems().addAll(fieldHorario.getText());
         fieldHorario.setText("");
         paneHorario.setVisible(false);

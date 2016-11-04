@@ -7,7 +7,6 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Assento;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
  */
 public class AssentoDAO {
     
-    private Connection connection;
     private final DatabaseMySQL database;
     
     public AssentoDAO()
@@ -30,7 +28,7 @@ public class AssentoDAO {
     
     public void insertAssento(Assento assento, int sessao_id)
     {
-        final String inserir = "INSERT INTO assento (ocupado, numero, fila, sessao_id) values(?,?,?,?)";
+        final String inserir = "INSERT INTO Assento (ocupado, numero, fila, sessao_id) values(?,?,?,?)";
         
         try {
              PreparedStatement salvar = database.connect().prepareStatement(inserir);
@@ -48,7 +46,7 @@ public class AssentoDAO {
     
     public ArrayList<Assento> listar(int sessao_id, boolean todosAssentos) throws ParseException
     {
-         final String busca = "SELECT * FROM assento where sessao_id = '"+sessao_id+"'";
+         final String busca = "SELECT * FROM Assento where sessao_id = '"+sessao_id+"'";
          ArrayList<Assento> assentos = new ArrayList<>();
          
          try {
@@ -74,12 +72,13 @@ public class AssentoDAO {
     }
     
     public void update (Assento assento, int sessao_id){
-        final String update = "UPDATE assento SET ocupado = '"+assento.getOcupado()+"' WHERE numero = '" + assento.getNumero() + "' and sessao_id = '" + sessao_id + "'";
+        final String update = "UPDATE Assento SET ocupado = '"+assento.getOcupado()+"' WHERE numero = '" + assento.getNumero() + "' and sessao_id = '" + sessao_id + "'";
         try {
              PreparedStatement salvar = database.connect().prepareStatement(update);
              salvar.executeUpdate();
              database.desconnect();
-        } catch (Exception e) {
+             System.out.println("Assento atualizado com sucesso!");
+        } catch (SQLException e) {
              System.out.println("ERRRRORRRR:> " +e.getMessage());
         }
     }

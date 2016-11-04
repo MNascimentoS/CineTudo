@@ -11,7 +11,6 @@ import cinetudoproject.util.CryptMD5;
 import cinetudoproject.util.MaskField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.net.URL;
@@ -39,25 +38,19 @@ public class LoginFXMLController implements Initializable {
     //main panel
     @FXML
     private BorderPane pane;
-
-    boolean logar = false;
-    
     @FXML
     private JFXPasswordField tv_password;
-
     @FXML
     private JFXTextField tv_name;
-
     @FXML
     private Label label;
-
     @FXML
     private JFXButton btn_login;
-
     @FXML
     private Text text_erro;
     
-    //MaskField mask = new MaskField();
+    private boolean logar = false;
+  
     
     
     @Override
@@ -114,17 +107,17 @@ public class LoginFXMLController implements Initializable {
             text_erro.setVisible(true);
         }
         
-        //CryptMD5 md5 = new CryptMD5();
+        CryptMD5 md5 = new CryptMD5();
          
-        //String pass;
-        /*if(funcionario.getCargo() == 0)
+        String pass;
+        if(funcionario.getCargo() == 0)
         {
             pass = md5.cryptWithMD5(tv_password.getText());
         }else{
             pass = tv_password.getText();
-        }*/
+        }
             
-        if (tv_name.getText().equals(funcionario.getUser()) &&  tv_password.getText().equals(funcionario.getSenha())) {
+        if (tv_name.getText().equals(funcionario.getUser()) &&  pass.equals(funcionario.getSenha())) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader fxmlLoader;
             Parent root;

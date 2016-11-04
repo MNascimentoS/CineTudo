@@ -50,13 +50,10 @@ public class UpdateDeleteFilmeController implements Initializable{
 
     @FXML
     private JFXTextField tf_buscaFilme;
-
     @FXML
     private ImageView bigImage, classImage;
-
     @FXML
     private JFXComboBox comboBox, boxGenero;
-
     @FXML
     private JFXTextField tituloFilme, nomeDiretor, nomeAtor, duracaoFilme;
 
@@ -213,10 +210,10 @@ public class UpdateDeleteFilmeController implements Initializable{
             Genero genero = generoDAO.buscaGenero(generoMovie);
             Filme filme = new Filme(tituloFilme.getText(), nomeDiretor.getText(), nomeAtor.getText(),
                     duracao, classificacao, genero, imageFile, func.getCinema_id());
+            filme.setId(filmeGeral.getId());
             //try save the movie
             FilmeDAO filmeDAO = new FilmeDAO();
-            filmeDAO.insert(filme);
-            //back2main(event);
+            filmeDAO.update(filme);
         }
     }
 

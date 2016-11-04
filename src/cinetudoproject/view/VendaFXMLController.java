@@ -55,6 +55,7 @@ import javafx.stage.Stage;
  * @author mateus
  */
 public class VendaFXMLController implements Initializable {
+   
     @FXML
     private JFXButton cancel_button,  buy_button, add_button, can_button;
     @FXML
@@ -330,18 +331,29 @@ public class VendaFXMLController implements Initializable {
     
     @FXML
     void buyClicked(ActionEvent event) throws IOException, ParseException {
-        if (!venda.getIngressos().isEmpty()) {
+        Venda searchVenda = new Venda();
+        if (!venda.getIngressos().isEmpty()) 
+        {
             VendaDAO vendaDAO = new VendaDAO();
             vendaDAO.insert(venda);
             
-            Venda searchVenda = vendaDAO.buscar(venda);
+            ArrayList<Venda> myVenda = vendaDAO.listar();
+            if (myVenda.isEmpty()) System.out.println("ERRO");
+            for(Venda i : myVenda) {
+                if (i.getCinema_id() == venda.getCinema_id() && i.getData().equals(venda.getData()) &&
+                    i.getHorario().equals(venda.getHorario())) {
+                    searchVenda = i;
+                    System.out.print("Valor atual: "+i.getValor_total()+"Valor Banco: "+venda.getValor_total());
+                    venda.setId(searchVenda.getId());
+                }
+            }
             int increment = 0;
             IngressoDAO ingressoDAO = new IngressoDAO();
             ingressoList = venda.getIngressos();
             
             for(Ingresso i : ingressoList)
             {
-                 i.setVenda_id(searchVenda.getId());
+                i.setVenda_id(searchVenda.getId());
                 ingressoDAO.insert(i);
                 ArrayList<Ingresso> ing = new ArrayList();
                 try {

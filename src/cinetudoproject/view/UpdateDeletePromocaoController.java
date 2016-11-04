@@ -55,16 +55,16 @@ public class UpdateDeletePromocaoController implements Initializable {
     private BorderPane borderDesconto;
     @FXML
     private JFXTextArea ta_descricao;
+    
     private Funcionario func;
     private Promocao promocao;
-    private String addDesconto;
-    private String dia;
+    private String addDesconto, dia;
     private float desconto;
     private File imageFile;
     private boolean entrou;
 
-    Promocao promocaoDados = new Promocao();
-    PromocaoDAO promocaoDAO = new PromocaoDAO();
+    private Promocao promocaoDados = new Promocao();
+    private PromocaoDAO promocaoDAO = new PromocaoDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

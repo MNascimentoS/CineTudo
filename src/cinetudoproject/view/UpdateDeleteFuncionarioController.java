@@ -35,30 +35,27 @@ import javafx.stage.Stage;
  */
 public class UpdateDeleteFuncionarioController implements Initializable {
 
-    FuncionarioDAO insereFun = new FuncionarioDAO();
-    private Funcionario func;
-
-    MaskField cpfMaskField, passMask;
-
     @FXML
     private Text nameLabel;
-
     @FXML
     private JFXComboBox cinemaBox;
-
     @FXML
     private JFXTextField tf_name, tf_cpf, tf_email, tf_user, tf_userBusca;
-
     @FXML
     private JFXPasswordField tf_pass;
 
     private List<Cinema> cinema;
     private String cinemaNome;
-    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    Funcionario funcionarioDados = new Funcionario();
+    private FuncionarioDAO funcionarioDAO, insereFun;
+    private Funcionario funcionarioDados, func;
+    private MaskField cpfMaskField, passMask;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        funcionarioDados = new Funcionario();
+        funcionarioDAO = new FuncionarioDAO();
+        insereFun = new FuncionarioDAO();
         cpfMaskField = new MaskField();
         cpfMaskField.cpfCnpjField(tf_cpf);
         passMask = new MaskField();

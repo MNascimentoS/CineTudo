@@ -7,10 +7,6 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Cinema;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
-import java.io.File;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,19 +22,17 @@ import java.util.logging.Logger;
  */
 public class CinemaDAO {
 
-    Connection connection;
-    DatabaseMySQL database;
+    private final DatabaseMySQL database;
 
     public CinemaDAO() {
         database = new DatabaseMySQL();
     }
 
     public List<Cinema> listar() {
-        final String sql = "SELECT * FROM cinema";
+        final String sql = "SELECT * FROM Cinema";
         List<Cinema> retorno = new ArrayList<>();
         try {
-            connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Cinema cinema = new Cinema();
@@ -50,6 +44,7 @@ public class CinemaDAO {
                 cinema.setValorFDS(resultado.getFloat("valor_fimsemana"));
                 retorno.add(cinema);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,10 +53,9 @@ public class CinemaDAO {
 
     public Cinema buscarCinema(String nomeCinema) {
         Cinema cinema = new Cinema();
-        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE nome = "+nomeCinema+"";
+        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM Cinema WHERE nome = "+nomeCinema+"";
         try {
-            connection = database.connect();
-            PreparedStatement buscar = connection.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             ResultSet resultadoBusca = buscar.executeQuery();
             
             if(resultadoBusca.next())
@@ -69,7 +63,7 @@ public class CinemaDAO {
                //TODO  
             }
             
-            connection.close();
+           database.desconnect();
         } catch (SQLException e) {
         }
         return cinema;
@@ -77,10 +71,9 @@ public class CinemaDAO {
     
      public Cinema buscarCinema(int idCinema) {
         Cinema cinema = new Cinema();
-        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM cinema WHERE id = "+idCinema+"";
+        final String busca = "SELECT id, nome, endereco, cnpj, valor_semana, valor_fimsemana FROM Cinema WHERE id = "+idCinema+"";
         try {
-            connection = database.connect();
-            PreparedStatement buscar = connection.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             ResultSet resultadoBusca = buscar.executeQuery();
             
             if(resultadoBusca.next())
@@ -95,7 +88,7 @@ public class CinemaDAO {
             
             }
             
-            connection.close();
+           database.desconnect();
         } catch (SQLException e) {
         }
         return cinema;

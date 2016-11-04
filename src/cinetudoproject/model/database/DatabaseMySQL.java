@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
 /**
  *
  * @author José Júnior
@@ -25,10 +24,6 @@ public class DatabaseMySQL implements Database{
     {
         this.url = "jdbc:mysql://localhost:3306/cinetudo";
         this.user = "root";
-	//Continuarei mudando a senha até vc desistir :D - Cade a segurança ? kkkkk
-	//Ótimo chegar na sala e vai mostrar essa parte do código, e é uma senha beeem conhecida (deixando no ar)
-        /*Mas que viadagem vocês dois! kkkkkkkk | Parem de da commit nesse arquivo e tudo se resolve,
-        a menos que seja algo importante.*/
         this.password = "";
     }
    
@@ -46,7 +41,6 @@ public class DatabaseMySQL implements Database{
                  alert.setTitle("Erro");
                  alert.setContentText("Contate o suporte tecnico - Driver nao encontrado!");
                  alert.showAndWait();
-                //JOptionPane.showMessageDialog(null, "Contate o suporte tecnico - erro no drive");
             } else {
                 alert.setTitle("Erro");
                 alert.setContentText("Contate o suporte tecnico - Erro ao conectar com o DB!");
@@ -61,7 +55,6 @@ public class DatabaseMySQL implements Database{
     public void desconnect() {
         try {
             connection.close();
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }

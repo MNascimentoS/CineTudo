@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="800.0" style="-fx-background-color: #f5f5f0;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinetudoproject.view.DeleteVendaController">
    <children>
@@ -31,7 +30,7 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="tf_buscaIngresso" layoutX="218.0" layoutY="104.0" maxWidth="365.0" minWidth="365.0" prefHeight="63.0" prefWidth="365.0" promptText="Busca Ingresso">
+      <JFXTextField fx:id="tf_buscaIngresso" focusColor="#a85240" labelFloat="true" layoutX="218.0" layoutY="120.0" maxWidth="365.0" minWidth="365.0" prefHeight="47.0" prefWidth="365.0" promptText="Busca Ingresso" unFocusColor="#1b1a1a">
          <font>
             <Font size="15.0" />
          </font>

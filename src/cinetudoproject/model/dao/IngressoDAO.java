@@ -8,16 +8,14 @@ package cinetudoproject.model.dao;
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Ingresso;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
+import java.util.logging.Logger;import javafx.scene.control.Alert;
+;
 
 /**
  *
@@ -25,21 +23,18 @@ import javax.swing.JOptionPane;
  */
 public class IngressoDAO {
 
-    Connection connection;
-    DatabaseMySQL database;
+    private final DatabaseMySQL database;
 
     public IngressoDAO() {
         database = new DatabaseMySQL();
     }
 
     public void insert(Ingresso ingresso) {
-        final String inserir = "INSERT INTO ingresso (preco, tipo, sessao_id, venda_id, assento) values(?,?,?,?,?)";
+        final String inserir = "INSERT INTO Ingresso (preco, tipo, sessao_id, venda_id, assento) values(?,?,?,?,?)";
         try {
             //get the connection
-
-            connection = database.connect();
-            try (PreparedStatement salvar = connection.prepareStatement(inserir)) {
-                salvar.setFloat(1, ingresso.getPreco());
+            try (PreparedStatement salvar = database.connect().prepareStatement(inserir)) {
+                salvar.setFloat(1, ingresso.getPreco()); System.out.println(ingresso.getVenda_id());
                 salvar.setInt(2, ingresso.getTipo());
                 salvar.setInt(3, ingresso.getSessao_id());
                 salvar.setInt(4, ingresso.getVenda_id());
@@ -47,25 +42,30 @@ public class IngressoDAO {
                 
                 salvar.executeUpdate();
             }
-            connection.close();
+            database.desconnect();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro  ao cadastrar ingresso!");
+            alert.showAndWait();
         }
     }
 
     public ArrayList<Ingresso> listar() throws IOException, ParseException {
-        final String sql = "SELECT * FROM ingresso";
+        
+        final String sql = "SELECT * FROM Ingresso";
         ArrayList<Ingresso> retorno = new ArrayList();
         
         try {
-            connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Ingresso ingresso;
                 ingresso = buscaIngresso(resultado);
                 retorno.add(ingresso);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(IngressoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,37 +84,37 @@ public class IngressoDAO {
     }
     
     public void delete(int ingressoId) {
-        final String delete = "delete from ingresso where id = ?";
+        final String delete = "delete from Ingresso where id = ?";
         try {
-            Connection conn = database.connect();
-            PreparedStatement deletar = conn.prepareStatement(delete);
+            PreparedStatement deletar = database.connect().prepareStatement(delete);
             deletar.setInt(1, ingressoId);
             deletar.executeUpdate();
             deletar.close();
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Ingresso Cancelado com Sucesso");
+            database.desconnect();
        } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro ao remover ingresso!");
+            alert.showAndWait();
             //return false;
         }
     }
     
     public Ingresso buscarIngressoId(int ingressoId) throws IOException, ParseException {
-        final String sql = "SELECT * FROM ingresso where id = ?";
+        final String sql = "SELECT * FROM Ingresso where id = ?";
         Ingresso ingresso = new Ingresso();
         
         try {
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(sql);
+            PreparedStatement buscar = database.connect().prepareStatement(sql);
             buscar.setInt(1, ingressoId);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             ingresso = buscarIngresso(resultadoBusca);
             buscar.close();
-            conn.close();
+            database.desconnect();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ingresso;
@@ -127,6 +127,7 @@ public class IngressoDAO {
         ingresso.setTipo(resultadoBusca.getInt("tipo"));
         ingresso.setSessao_id(resultadoBusca.getInt("sessao_id"));
         ingresso.setVenda_id(resultadoBusca.getInt("venda_id"));
+        ingresso.setAssento(resultadoBusca.getString("assento"));
 
         return ingresso;
     }

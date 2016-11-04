@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -30,29 +30,26 @@ import javax.swing.JOptionPane;
  */
 public class PromocaoDAO {
 
-    Connection connection;
-    DatabaseMySQL database;
+    private final DatabaseMySQL database;
 
     public PromocaoDAO() {
         database = new DatabaseMySQL();
     }
 
     public void insertPromocao(Promocao promocao) {
-        final String inserir = "INSERT INTO promocao (nome,data,desconto,dia_semana,descricao,cinema_id) values(?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO Promocao (nome,data,desconto,dia_semana,descricao,cinema_id) values(?,?,?,?,?,?)";
         try {
             //get the connection
-
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
+            PreparedStatement salvar = database.connect().prepareStatement(inserir);
             salvar.setString(1, promocao.getNome());
             salvar.setString(2, promocao.getData());
             salvar.setFloat(3, promocao.getDesconto());
             salvar.setInt(4, promocao.getDiaDaSemana());
             salvar.setString(5, promocao.getDescricao());
-            salvar.setFloat(6, promocao.getCinema_id());
+            salvar.setInt(6, promocao.getCinema_id());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -71,7 +68,7 @@ public class PromocaoDAO {
     }
 
     public void insertPromocao(Promocao promocao, File imageFile) throws FileNotFoundException {
-        final String inserir = "INSERT INTO promocao (nome,data,desconto,dia_semana,descricao,cinema_id,image) values(?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO Promocao (nome,data,desconto,dia_semana,descricao,cinema_id,image) values(?,?,?,?,?,?,?)";
         try {
             //get the connection
             FileInputStream fis = new FileInputStream(imageFile);
@@ -82,11 +79,11 @@ public class PromocaoDAO {
             salvar.setFloat(3, promocao.getDesconto());
             salvar.setInt(4, promocao.getDiaDaSemana());
             salvar.setString(5, promocao.getDescricao());
-            salvar.setFloat(6, promocao.getCinema_id());
+            salvar.setInt(6, promocao.getCinema_id());
             salvar.setBinaryStream(7, fis, (int) imageFile.length());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -105,12 +102,11 @@ public class PromocaoDAO {
     }
 
     public ArrayList<Promocao> listar() throws FileNotFoundException, IOException {
-        final String sql = "SELECT * FROM promocao";
+        final String sql = "SELECT * FROM Promocao";
         ArrayList<Promocao> retorno = new ArrayList<>();
 
         try {
-            connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Promocao promocao = new Promocao();
@@ -134,6 +130,7 @@ public class PromocaoDAO {
                 promocao.setDiaDaSemana(resultado.getInt("dia_semana"));
                 retorno.add(promocao);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(PromocaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,19 +139,16 @@ public class PromocaoDAO {
 
     public Promocao buscaPromocao(String nome) {
         Promocao promocao = null;
-        final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto, image FROM promocao WHERE nome = ?";
+        final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto, image FROM Promocao WHERE nome = ?";
         try {
-            //DBConect db = new DBConect();
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             buscar.setString(1, nome);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             promocao = buscaPromocao(resultadoBusca);
             buscar.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.desconnect();
+        } catch (IOException | SQLException | ParseException e) {
             System.err.println("ERRO AO BUSCAR CONTA COM NOME: " + nome);
             //System.exit(0);
         }
@@ -186,12 +180,10 @@ public class PromocaoDAO {
     }
 
     public void update(Promocao promocao, File imageFile) throws FileNotFoundException {
-        final String update = "update promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ?,image = ? where id = ?";
+        final String update = "update Promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ?,image = ? where id = ?";
         FileInputStream fis = new FileInputStream(imageFile);
         try {
-
-            Connection conn = database.connect();
-            PreparedStatement atualizar = conn.prepareStatement(update);
+            PreparedStatement atualizar = database.connect().prepareStatement(update);
             atualizar.setString(1, promocao.getNome());
             atualizar.setString(2, promocao.getData());
             atualizar.setFloat(3, promocao.getDesconto());
@@ -202,7 +194,7 @@ public class PromocaoDAO {
             atualizar.setInt(8, promocao.getId());
             atualizar.executeUpdate();
             atualizar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -220,7 +212,7 @@ public class PromocaoDAO {
     }
 
     public void update(Promocao promocao) throws FileNotFoundException {
-        final String update = "update promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ? where id = ?";
+        final String update = "update Promocao set nome = ?,data = ?,desconto = ?,dia_semana = ?,descricao = ?,cinema_id = ? where id = ?";
         
         try {
 
@@ -236,7 +228,7 @@ public class PromocaoDAO {
             atualizar.setInt(7, promocao.getId());
             atualizar.executeUpdate();
             atualizar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -254,14 +246,13 @@ public class PromocaoDAO {
     }
     
     public void delete(int promocaoId) {
-        final String delete = "delete from promocao where id = ?";
+        final String delete = "delete from Promocao where id = ?";
         try {
-            Connection conn = database.connect();
-            PreparedStatement deletar = conn.prepareStatement(delete);
+            PreparedStatement deletar = database.connect().prepareStatement(delete);
             deletar.setInt(1, promocaoId);
             deletar.executeUpdate();
             deletar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -269,13 +260,11 @@ public class PromocaoDAO {
             alert.showAndWait();
 
         } catch (SQLException ex) {
-            // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Erro");
             alert.setContentText("Erro na remocção!");
             alert.showAndWait();
-            //return false;
         }
     }
 }

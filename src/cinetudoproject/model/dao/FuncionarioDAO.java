@@ -7,7 +7,6 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Funcionario;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,16 +14,14 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author José EXAMPLE
  */
 public class FuncionarioDAO {
-
-    Connection connection;
-    DatabaseMySQL database;
+    
+    private final DatabaseMySQL database;
 
     public FuncionarioDAO() {
         database = new DatabaseMySQL();
@@ -32,12 +29,10 @@ public class FuncionarioDAO {
 
     //insert method
     public void insertFuncionario(Funcionario funcionario) {
-        final String inserir = "INSERT INTO funcionario(nome, cpf, email, cargo, usuario, senha, cinema_id) values(?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO Funcionario(nome, cpf, email, cargo, usuario, senha, cinema_id) values(?,?,?,?,?,?,?)";
         try {
             //get the connection
-
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
+            PreparedStatement salvar = database.connect().prepareStatement(inserir);
             salvar.setString(1, funcionario.getNome());
             salvar.setString(2, funcionario.getCpf());
             salvar.setString(3, funcionario.getEmail());
@@ -47,7 +42,7 @@ public class FuncionarioDAO {
             salvar.setInt(7, funcionario.getCinema_id());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -66,11 +61,10 @@ public class FuncionarioDAO {
     }
 
     public void update(Funcionario funcionario) {
-        final String update = "update funcionario set nome = ?, cpf = ?, email = ?, usuario = ?, senha = ?, cinema_id = ? where usuario = ?";
+        final String update = "update Funcionario set nome = ?, cpf = ?, email = ?, usuario = ?, senha = ?, cinema_id = ? where usuario = ?";
         try {
             //get the connection
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(update);
+            PreparedStatement salvar = database.connect().prepareStatement(update);
             salvar.setString(1, funcionario.getNome());
             salvar.setString(2, funcionario.getCpf());
             salvar.setString(3, funcionario.getEmail());
@@ -80,7 +74,7 @@ public class FuncionarioDAO {
             salvar.setString(7, funcionario.getUser());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -89,9 +83,9 @@ public class FuncionarioDAO {
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setTitle("Sucesso");
+            alert.setTitle("Erro");
             alert.setContentText("Erro na alteração!");
             alert.showAndWait();
             //return false;
@@ -99,14 +93,13 @@ public class FuncionarioDAO {
     }
     
     public void delete(int funcionarioId) {
-        final String delete = "delete from funcionario where id = ?";
+        final String delete = "delete from Funcionario where id = ?";
         try {
-            Connection conn = database.connect();
-            PreparedStatement deletar = conn.prepareStatement(delete);
+            PreparedStatement deletar = database.connect().prepareStatement(delete);
             deletar.setInt(1, funcionarioId);
             deletar.executeUpdate();
             deletar.close();
-            conn.close();
+            database.desconnect();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
@@ -125,18 +118,16 @@ public class FuncionarioDAO {
 
     public Funcionario buscaPorUser(String user) {
         Funcionario func = null;
-        final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM funcionario WHERE usuario = ?";
+        final String busca = "SELECT id, nome, cpf, email, cargo, usuario, senha, cinema_id FROM Funcionario WHERE usuario = ?";
         try {
-            //DBConect db = new DBConect();
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             buscar.setString(1, user);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             func = buscaFuncionario(resultadoBusca);
             buscar.close();
-            conn.close();
-        } catch (Exception e) {
+            database.desconnect();
+        } catch (SQLException | ParseException e) {
             //e.printStackTrace();
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ user);
             //System.exit(0);

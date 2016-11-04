@@ -7,7 +7,6 @@ package cinetudoproject.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
 
 /**
  *
@@ -23,7 +22,7 @@ public class CryptMD5 {
         byte[] passBytes = pass.getBytes();
         md.reset();
         byte[] digested = md.digest(passBytes);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         
         for(int i=0;i<digested.length;i++){
             sb.append(Integer.toHexString(0xff & digested[i]));

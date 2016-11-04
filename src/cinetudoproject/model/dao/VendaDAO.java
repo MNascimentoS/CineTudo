@@ -6,10 +6,10 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
+import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Ingresso;
 import cinetudoproject.model.domain.Venda;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,33 +25,30 @@ import javax.swing.JOptionPane;
  */
 public class VendaDAO {
 
-    Connection connection;
-    DatabaseMySQL database;
+    private final DatabaseMySQL database;
 
     public VendaDAO() {
         database = new DatabaseMySQL();
     }
 
     public void insert(Venda venda) {
-        final String inserir = "INSERT INTO venda (data, horario, cinema_id, valor_total) values(?,?,?,?)";
+        final String inserir = "INSERT INTO Venda (data, horario, cinema_id, valor_total) values(?,?,?,?)";
         try {
-            //get the connection
-            connection = database.connect();
-            try (PreparedStatement salvar = connection.prepareStatement(inserir)) {
+            try (PreparedStatement salvar = database.connect().prepareStatement(inserir)) {
                 salvar.setString(1, venda.getData());
                 salvar.setString(2, venda.getHorario());
                 salvar.setInt(3, venda.getCinema_id());
                 salvar.setFloat(4, venda.getValor_total());
                 salvar.executeUpdate();
+                database.desconnect();
             }
-            connection.close();
+           
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Sucesso");
             alert.setContentText("Compra das " + venda.getHorario() + " horas realizada!");
             alert.showAndWait();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Erro");
@@ -62,18 +58,18 @@ public class VendaDAO {
     }
 
     public ArrayList<Venda> listar() throws IOException, ParseException {
-        final String sql = "SELECT * FROM ingresso";
+        final String sql = "SELECT * FROM Venda";
         ArrayList<Venda> retorno = new ArrayList();
         
         try {
-            connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Venda venda;
                 venda = buscarVenda(resultado);
                 retorno.add(venda);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,12 +77,11 @@ public class VendaDAO {
     }
     
     public Venda buscar(Venda searchVenda) throws IOException, ParseException {
-        final String sql = "SELECT * FROM venda where horario = ? and data = ? and cinema_id = ? and valor_total = ?";
+        final String sql = "SELECT * FROM Venda where horario = ? and data = ? and cinema_id = ? and valor_total = ?";
         Venda venda = new Venda();
         
         try {
-            connection = database.connect();
-            PreparedStatement buscar = connection.prepareStatement(sql);
+            PreparedStatement buscar = database.connect().prepareStatement(sql);
             buscar.setString(1, searchVenda.getHorario());
             buscar.setString(2, searchVenda.getData());
             buscar.setInt(3, searchVenda.getCinema_id());
@@ -94,8 +89,8 @@ public class VendaDAO {
             ResultSet resultado = buscar.executeQuery();
             resultado.next();
             venda = buscarVenda(resultado);
+            database.desconnect();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return venda;
@@ -103,20 +98,20 @@ public class VendaDAO {
     
     
     public void update(Venda venda) {
-        final String update = "update venda set valor_total = ? where id = ?";
+        final String update = "update Venda set valor_total = ? where id = ?";
         try {
             //get the connection
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(update);
+            PreparedStatement salvar = database.connect().prepareStatement(update);
             salvar.setFloat(1, venda.getValor_total());
             salvar.setInt(2, venda.getId());
             salvar.executeUpdate();
-            salvar.close();
-            conn.close();
-            //JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
-            //return true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Ingresso cancelado com sucesso!");
+            alert.showAndWait();
+            database.desconnect();
         } catch (SQLException ex) {
-            Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Erro");
@@ -128,20 +123,19 @@ public class VendaDAO {
     
     
     public Venda buscarVendaId(int vendaId) throws IOException, ParseException {
-        final String sql = "SELECT * FROM venda where id = ?";
+        
+        final String sql = "SELECT * FROM Venda where id = ?";
         Venda venda = new Venda();
         
         try {
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(sql);
+            PreparedStatement buscar = database.connect().prepareStatement(sql);
             buscar.setInt(1, vendaId);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             venda = buscarVenda(resultadoBusca);
             buscar.close();
-            conn.close();
+            database.desconnect();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return venda;
@@ -162,21 +156,47 @@ public class VendaDAO {
     
     
     public void cancelaVenda(int ingressoID) throws IOException, ParseException{
-       VendaDAO vendaDAO = new VendaDAO();
-       Ingresso ingresso = new Ingresso();
-       IngressoDAO ingressoDAO = new IngressoDAO();
-       Venda venda = new Venda();
-       
-       ingresso = ingressoDAO.buscarIngressoId(ingressoID);
-       if(ingresso != null){
-       venda = vendaDAO.buscarVendaId(ingresso.getId());
-       //Subtração
-       venda.setValor_total(venda.getValor_total()-ingresso.getPreco());
-       ingressoDAO.delete(ingressoID);
-       vendaDAO.update(venda);
-       }else{
-           JOptionPane.showMessageDialog(null, "Ingresso não vendido!");
-       }
+       //declaracoes
+        System.out.println("Ingresso: "+ ingressoID);
+        VendaDAO vendadao = new VendaDAO();
+        Ingresso ingresso = new Ingresso();
+        IngressoDAO ingressodao = new IngressoDAO();
+        Venda venda  = new Venda();
+        //busca o ingresso 
+        ingresso = ingressodao.buscarIngressoId(ingressoID);
+        
+        //caso o ingresso exista
+        if(ingresso != null && ingresso.getNumAssento() != null)
+        {           
+            System.out.println("Ingresso Retornado: "+ ingresso.getId());
+            //busca a venda especifica para fazer alteracao do valor
+            venda = vendadao.buscarVendaId(ingresso.getVenda_id());
+            System.out.println("Id da venda: " + venda.getId());
+            //subtraia o valor da venda
+            venda.setValor_total(venda.getValor_total() - ingresso.getPreco());
+            //deixa o assento disponivel 
+            AssentoDAO assentodao = new AssentoDAO();
+            ArrayList<Assento> assentos = assentodao.listar(ingresso.getSessao_id(), true);
+            //para cada assento verifique se encontrou o assento pertencente a este ingresso
+            for (Assento i : assentos) {
+                String numeroDoAssento = ingresso.getNumAssento().replaceAll("\\D+", "");
+                //se encontrou o assento deste ingresso
+                if (Integer.parseInt(numeroDoAssento) == i.getNumero()) {
+                    i.setOcupado(0);
+                    assentodao.update(i, ingresso.getSessao_id());
+                    break;
+                }
+            }
+           //delete o ingresso 
+           ingressodao.delete(ingressoID);
+           //atualize o valor da venda
+           vendadao.update(venda);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Aviso");
+            alert.setContentText("Ingresso não encontrado!");
+            alert.showAndWait();
+        }
     }
-
 }

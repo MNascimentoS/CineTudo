@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.util.CryptMD5;
 import cinetudoproject.util.MaskField;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +28,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -39,32 +37,31 @@ import javafx.stage.Stage;
  * @author mateus
  */
 public class CadastroFuncionarioController implements Initializable {
-
-    FuncionarioDAO insereFun = new FuncionarioDAO();
-    private Funcionario func;
-
-    MaskField cpfMaskField, passMask;
-
+    
     @FXML
     private Text nameLabel;
-
     @FXML
     private JFXComboBox cinemaBox;
-
     @FXML
     private JFXTextField tf_name, tf_cpf, tf_email, tf_user;
-
-
     @FXML
     private JFXPasswordField tf_pass;
 
     private List<Cinema> cinema;
     private String cinemaNome;
-    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    Funcionario funcionarioDados = new Funcionario();
+    private FuncionarioDAO insereFun;
+    private Funcionario func;
+    private MaskField cpfMaskField, passMask;
+    private FuncionarioDAO funcionarioDAO;
+    private Funcionario funcionarioDados;
+     
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        funcionarioDados = new Funcionario();
+        funcionarioDAO = new FuncionarioDAO();
+        insereFun = new FuncionarioDAO();
         cpfMaskField = new MaskField();
         cpfMaskField.cpfCnpjField(tf_cpf);
         passMask = new MaskField();

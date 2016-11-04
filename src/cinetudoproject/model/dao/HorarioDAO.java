@@ -12,56 +12,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Wellington
  */
 public class HorarioDAO {
-    Connection connection;
-    DatabaseMySQL database;
+    
+    
+    private final DatabaseMySQL database;
 
     public HorarioDAO() {
         database = new DatabaseMySQL();
     }
     
     public void insertHorario(Horario horario) {
-        final String inserir = "INSERT INTO horario (hora) values(?)";
+        final String inserir = "INSERT INTO Horario (hora) values(?)";
         try {
-            //get the connection
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
+            PreparedStatement salvar = database.connect().prepareStatement(inserir);
             salvar.setString(1, horario.getHorario());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
-            //JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
-            //return true;
+            database.desconnect();
+         
         } catch (SQLException ex) {
-            //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
-            //return false;
         }
     }
 
     public Horario buscaPorHora(String horario) {
         Horario hora = null;
-        final String busca = "SELECT id, hora FROM horario WHERE hora = ?";
+        final String busca = "SELECT id, hora FROM Horario WHERE hora = ?";
         try {
-            //DBConect db = new DBConect();
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
             buscar.setString(1, horario);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             hora = buscaHorario(resultadoBusca);
-            buscar.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.desconnect();
+        } catch (SQLException | ParseException e) {
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ hora);
             //System.exit(0);
         }
@@ -70,19 +59,16 @@ public class HorarioDAO {
     
     public Horario buscaPorId(int id) {
         Horario hora = null;
-        final String busca = "SELECT id, hora FROM horario WHERE id = ?";
+        final String busca = "SELECT id, hora FROM Horario WHERE id = ?";
         try {
-            //DBConect db = new DBConect();
-            Connection conn = database.connect();
-            PreparedStatement buscar = conn.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             buscar.setInt(1, id);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             hora = buscaHorario(resultadoBusca);
             buscar.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.desconnect();
+        } catch (SQLException | ParseException e) {
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO "+ hora);
             //System.exit(0);
         }

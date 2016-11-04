@@ -151,18 +151,7 @@ public class UpdateDeleteSessaoController implements Initializable {
         horarioBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                /**
-                 * @TODO: checar se o horário não interfere em outra sessão
-                 */
-                /*if (chooseMovie == null){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setTitle("Alerta");
-                    alert.setContentText("Adicione primeiramente um filme!");
-                    alert.showAndWait();
-                    horarioBox.getSelectionModel().clearSelection();
-                    return;
-                }*/
+           
                 if (newValue.equals(adicionarHorario)) {
                     horarioBox.getSelectionModel().clearSelection();
                     paneHorario.setVisible(true);

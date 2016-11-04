@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package cinetudoproject.view;
-import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.FilmeDAO;
 import cinetudoproject.model.dao.SessaoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.HorarioDAO;
 import cinetudoproject.model.dao.PromocaoDAO;
-import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sessao;
@@ -56,26 +54,22 @@ import javax.imageio.ImageIO;
  * @author mateus
  */
 public class MainFuncionarioController implements Initializable {
+   
     @FXML
     private Text usernameLabel;
-    
     @FXML
     private JFXHamburger hamburguer;
-
     @FXML
     private JFXDrawer drawer;
-    
     @FXML
     private AnchorPane root;
-
+    
     public static AnchorPane rootP;
     
     @FXML
     private Label lb_nome, lb_diretor, lb_ator, lb_duracao, lb_classificacao, lb_genero, lb_horario;
-
     @FXML
     private ImageView bt_next, bt_back;
-
     @FXML
     private ImageView bigImage;
 
@@ -139,13 +133,8 @@ public class MainFuncionarioController implements Initializable {
             if(drawer.isShown())
             {
                 drawer.close();
-                //moviesListView.setMaxWidth(637);
-                //moviesListView.setTranslateX(-80);
             }else{
                 drawer.open();
-                //moviesListView.setMaxWidth(637);
-                //moviesListView.setTranslateX(5);
-                //moviesListView.widthProperty().
             }
         });
     }

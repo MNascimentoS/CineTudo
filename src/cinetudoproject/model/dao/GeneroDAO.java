@@ -7,7 +7,6 @@ package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
 import cinetudoproject.model.domain.Genero;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,15 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javafx.scene.control.Alert;
 
 /**
  *
  * @author mateus
  */
 public class GeneroDAO {
-    Connection connection;
-    DatabaseMySQL database;
+   
+    private final DatabaseMySQL database;
 
     public GeneroDAO() {
         database = new DatabaseMySQL();
@@ -32,53 +31,58 @@ public class GeneroDAO {
     
     //insert method
     public void insertGenero(Genero genero) {
-        final String inserir = "INSERT INTO genero(nome) values(?)";
+        final String inserir = "INSERT INTO Genero(nome) values(?)";
         try {
-            Connection conn = database.connect();
-            PreparedStatement salvar = conn.prepareStatement(inserir);
+            PreparedStatement salvar = database.connect().prepareStatement(inserir);
             salvar.setString(1, genero.getNome());
             salvar.executeUpdate();
             salvar.close();
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            database.desconnect();
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("erro");
+            alert.setContentText("Erro ao cadastrar!");
+            alert.showAndWait();
         }
     }
     
     public Genero buscaGenero(int idGenero) {
         Genero genero = null;
         
-        final String busca = "SELECT id, nome FROM genero WHERE id = ? order by nome";
+        final String busca = "SELECT id, nome FROM Genero WHERE id = ? order by nome";
         try {
-            connection = database.connect();
-            PreparedStatement buscar = connection.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             buscar.setInt(1, idGenero);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             genero = buscaGenero(resultadoBusca);
             buscar.close();
-            connection.close();
-        } catch (Exception ex) {
+            database.desconnect();
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger("Error na busca: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
         return genero;
     }
     
     public List<Genero> listar() {
-        final String sql = "SELECT * FROM genero";
+        final String sql = "SELECT * FROM Genero";
         List<Genero> retorno = new ArrayList<>();
         try {
-            connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = database.connect().prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Genero genero = new Genero(resultado.getInt("id"), 
                                            resultado.getString("nome"));
                 retorno.add(genero);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,19 +91,17 @@ public class GeneroDAO {
     
     public Genero buscaGenero(String nomeGenero) {
         Genero genero = null;
-        final String busca = "SELECT id, nome FROM genero WHERE nome = ?";
+        final String busca = "SELECT id, nome FROM Genero WHERE nome = ?";
         try {
-            connection = database.connect();
-            PreparedStatement buscar = connection.prepareStatement(busca);
+            PreparedStatement buscar = database.connect().prepareStatement(busca);
             buscar.setString(1, nomeGenero);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             genero = buscaGenero(resultadoBusca);
             buscar.close();
-            connection.close();
-        } catch (Exception e) {
-            //Logger.getLogger("Error na busca: " + GeneroDAO.class.getName()).log(Level.SEVERE, null, e);
-            //e.printStackTrace();
+            database.desconnect();
+        } catch (SQLException | ParseException e) {
+          
         }
         return genero;
     }

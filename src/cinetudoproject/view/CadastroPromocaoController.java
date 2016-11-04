@@ -10,7 +10,6 @@ import cinetudoproject.model.dao.PromocaoDAO;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Promocao;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -31,7 +30,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -56,10 +54,10 @@ public class CadastroPromocaoController implements Initializable {
     private BorderPane borderDesconto;
     @FXML
     private JFXTextArea ta_descricao;
+    
     private Funcionario func;
     private Promocao promocao;
-    private String addDesconto;
-    private String dia;
+    private String addDesconto, dia;
     private float desconto;
     private File imageFile;
     private boolean entrou;

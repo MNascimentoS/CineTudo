@@ -25,15 +25,14 @@ import javafx.scene.control.Alert;
  */
 public class SessaoDAO {
 
-    private Connection connection;
-    private DatabaseMySQL database;
+    private final DatabaseMySQL database;
 
     public SessaoDAO() {
         database = new DatabaseMySQL();
     }
 
     public void insertSessao(Sessao sessao, Horario horario) throws ParseException {
-        final String inserir = "INSERT INTO sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,cinema_id) values(?,?,?,?,?,?,?)";
+        final String inserir = "INSERT INTO Sessao (sala_id,filme_id,horario_id,ingresso_disponivel,data,assentos,cinema_id) values(?,?,?,?,?,?,?)";
         
         if(eValida(sessao))
         {
@@ -73,27 +72,23 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorHora(int hora_id) {
         Sessao sessao = null;
-        final String busca = "SELECT * FROM sessao WHERE hora_id = ?";
+        final String busca = "SELECT * FROM Sessao WHERE hora_id = ?";
         try {
-            //DBConect db = new DBConect();
             Connection conn = database.connect();
             PreparedStatement buscar = conn.prepareStatement(busca);
             buscar.setInt(1, hora_id);
             ResultSet resultadoBusca = buscar.executeQuery();
             resultadoBusca.next();
             sessao = buscaSessao(resultadoBusca);
-            buscar.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.desconnect();
+        } catch (SQLException | ParseException e) {
             System.err.println("ERRO AO BUSCAR CONTA COM USUARIO ");
-            //System.exit(0);
         }
         return sessao;
     }
     
     public ArrayList<Sessao> listar() throws ParseException {
-        final String sql = "SELECT * from sessao";
+        final String sql = "SELECT * from Sessao";
         ArrayList<Sessao> retorno = new ArrayList<>();
         
         try {
@@ -104,6 +99,7 @@ public class SessaoDAO {
                 Sessao s = buscaSessao(resultado);
                 retorno.add(s);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,7 +108,7 @@ public class SessaoDAO {
     
     
     public ArrayList<Sessao> listarPorSalaEData(int sala_id, java.util.Date data) throws ParseException {
-        final String sql = "SELECT * from sessao where sala_id";
+        final String sql = "SELECT * from Sessao where sala_id";
         ArrayList<Sessao> retorno = new ArrayList<>();
         
         try {
@@ -125,6 +121,7 @@ public class SessaoDAO {
                 if(s.getData().getDate() == data.getDate() && s.getData().getMonth() == data.getMonth() && s.getData().getYear() == data.getYear())
                     retorno.add(s);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,7 +130,7 @@ public class SessaoDAO {
      
     public ArrayList<Sessao> buscaSessoesFilme(int filme_id) throws ParseException {
        
-        final String sql = "SELECT * from sessao where '"+filme_id+"'";
+        final String sql = "SELECT * from Sessao where '"+filme_id+"'";
         ArrayList<Sessao> retorno = new ArrayList<>();
         
         try {
@@ -144,6 +141,7 @@ public class SessaoDAO {
                 Sessao s = buscaSessao(resultado);
                 retorno.add(s);
             }
+            database.desconnect();
         } catch (SQLException ex) {
             Logger.getLogger(GeneroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -171,8 +169,8 @@ public class SessaoDAO {
     
     public ArrayList<Sessao> buscarSessoesFilmeEData(int filme_id, java.util.Date data) throws ParseException
     {
-        ArrayList<Sessao> sessoes = new ArrayList<Sessao>();
-        final String busca = "SELECT * FROM sessao WHERE filme_id = '"+filme_id+"'";
+        ArrayList<Sessao> sessoes = new ArrayList<>();
+        final String busca = "SELECT * FROM Sessao WHERE filme_id = '"+filme_id+"'";
          
         try {
             PreparedStatement stmt = database.connect().prepareStatement(busca);
@@ -206,7 +204,7 @@ public class SessaoDAO {
     
     public Sessao buscaSessaoPorFilme(int filme_id) {
         Sessao sessao = null;
-        final String busca = "SELECT * FROM sessao WHERE filme_id = ?";
+        final String busca = "SELECT * FROM Sessao WHERE filme_id = ?";
         try {
             PreparedStatement buscar =  database.connect().prepareStatement(busca);
             buscar.setInt(1, filme_id);
@@ -214,7 +212,7 @@ public class SessaoDAO {
             resultadoBusca.next();
             sessao = buscaSessao(resultadoBusca);
             database.desconnect();
-        } catch (Exception e) {
+        } catch (SQLException | ParseException e) {
             System.err.println("ERRO AO BUSCAR");
         }
         return sessao;
@@ -222,7 +220,7 @@ public class SessaoDAO {
     
     public Sessao buscarSessaoAtual(int filme_id, int horario_id, int sala_id) throws ParseException
     {
-        final String busca = "SELECT * FROM sessao WHERE filme_id = '"+filme_id+"'";
+        final String busca = "SELECT * FROM Sessao WHERE filme_id = '"+filme_id+"'";
         Sessao s = null;
         
         try {
@@ -242,14 +240,6 @@ public class SessaoDAO {
                    {
                        return ss;
                    }
-                  //se a sessao for valida retorne-a  
-                  /*if(ss.getData().getDate()== data.getDate()&& ss.getData().getMonth() == data.getMonth() && 
-                     ss.getData().getYear() == data.getYear() && ss.getHorario_id() == horario_id && ss.getSala_id() == sala_id)
-                    {
-                        s = new Sessao();
-                        s = ss;
-                        return s;
-                    }*/
                 }else{
                     System.out.print("NULO!");
                 }

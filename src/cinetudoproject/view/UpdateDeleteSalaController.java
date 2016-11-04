@@ -8,8 +8,6 @@ package cinetudoproject.view;
 import cinetudoproject.model.dao.SalaDAO;
 import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sala;
-import cinetudoproject.model.domain.Sala2D;
-import cinetudoproject.model.domain.Sala3D;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
@@ -37,25 +35,18 @@ public class UpdateDeleteSalaController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private Funcionario func;
-    SalaDAO saladao = new SalaDAO();
-
     @FXML
     private JFXComboBox tipoComboBox;
-
     @FXML
-    private JFXTextField tfNumSala;
+    private JFXTextField tfNumSala, tfBuscaSala, tfCapaMax;
 
-    @FXML
-    private JFXTextField tfBuscaSala;
-
-    @FXML
-    private JFXTextField tfCapaMax;
-
-    Sala sala;
-
+    private Sala sala;
+    private Funcionario func;
+    private SalaDAO saladao;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        saladao = new SalaDAO();
         configValidators();
         initTipo();
 

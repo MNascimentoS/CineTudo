@@ -19,7 +19,6 @@ import cinetudoproject.model.domain.Funcionario;
 import cinetudoproject.model.domain.Sala;
 import cinetudoproject.model.domain.Sala2D;
 import cinetudoproject.model.domain.Sala3D;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.validation.NumberValidator;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
 /**
@@ -41,19 +39,15 @@ public class CadastroSalaController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private Funcionario func;
-    SalaDAO saladao = new SalaDAO();
-
     @FXML
     private JFXComboBox tipoComboBox;
-
     @FXML
-    private JFXTextField tfNumSala;
+    private JFXTextField tfNumSala, tfCapaMax;
 
-    @FXML
-    private JFXTextField tfCapaMax;
+    private Sala sala;
+    private Funcionario func;
+    private SalaDAO saladao = new SalaDAO();
 
-    Sala sala;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,10 +103,10 @@ public class CadastroSalaController implements Initializable {
         if (validateFields()) {
             if (tipoComboBox.getValue().equals("2D")) {
                 Sala sala2d = new Sala2D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-                saladao.insertSala(sala2d);
+                saladao.insertSala(sala2d, this.func.getCinema_id());
             } else {
                 Sala sala3d = new Sala3D(Integer.parseInt(tfNumSala.getText()), Integer.parseInt(tfCapaMax.getText()), (String) tipoComboBox.getValue(), (float) 20.00);
-                saladao.insertSala(sala3d);
+                saladao.insertSala(sala3d, this.func.getCinema_id());
             }
         }
     }

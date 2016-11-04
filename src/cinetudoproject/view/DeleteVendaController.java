@@ -5,10 +5,8 @@
  */
 package cinetudoproject.view;
 
-import cinetudoproject.model.dao.AssentoDAO;
 import cinetudoproject.model.dao.CinemaDAO;
 import cinetudoproject.model.dao.VendaDAO;
-import cinetudoproject.model.domain.Assento;
 import cinetudoproject.model.domain.Cinema;
 import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Funcionario;
@@ -43,11 +41,7 @@ import javafx.stage.Stage;
 public class DeleteVendaController implements Initializable {
     
     @FXML
-    private JFXButton cancelarIngresso;
-
-    @FXML
-    private JFXButton cancelaButton;
-
+    private JFXButton cancelarIngresso, cancelaButton;
     @FXML
     private JFXTextField tf_buscaIngresso;
 
@@ -129,31 +123,22 @@ public class DeleteVendaController implements Initializable {
         }
 
     }
+    
     @FXML
     void cancelaIngresso(ActionEvent event) throws IOException, ParseException {
         VendaDAO vendaDAO = new VendaDAO();
         vendaDAO.cancelaVenda(Integer.parseInt(tf_buscaIngresso.getText()));
-        ArrayList<Assento> assento;
-        AssentoDAO assentoDAO = new AssentoDAO();
-        assento = assentoDAO.listar(sessaoId, false);
-        ingressoList.forEach((i)->{
-            String numeroDoAssento = i.getNumAssento().replaceAll("\\D+","");
-            assento.forEach((j)->{
-                if (Integer.parseInt(numeroDoAssento) == j.getNumero()) {
-                    j.setOcupado(0);
-                    assentoDAO.update(j,sessaoId);
-                }
-            });
-        });
     }
+    
     @FXML
     void back2main(ActionEvent event) throws IOException, ParseException {
+        
         System.out.println("Back Event!");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Menu Gerente");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainGerente.fxml"));
         Parent root = (Parent) fxmlLoader.load();
-        MainFuncionarioController Fcontroller = fxmlLoader.<MainFuncionarioController>getController();
+        MainGerenteController Fcontroller = fxmlLoader.<MainGerenteController>getController();
         Fcontroller.getUserInfo(this.func);
 
         Scene scene = new Scene(root);
