@@ -88,7 +88,7 @@ public class UpdateDeletePromocaoController implements Initializable {
                         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                         bigImage.setImage(image);
                     } catch (IOException ex) {
-                        Logger.getLogger(CadastroSessaoController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(UpdateDeletePromocaoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

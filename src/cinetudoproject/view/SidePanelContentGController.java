@@ -170,6 +170,20 @@ public class SidePanelContentGController implements Initializable {
     }
     
     @FXML
+    private void cancelarVenda(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Cancelar Venda");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteVenda.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        DeleteVendaController DVcontroller = fxmlLoader.<DeleteVendaController>getController(); 
+        DVcontroller.getUserInfo(this.func);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
     private void exit(ActionEvent event) {
         System.exit(0);
     }

@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,11 +53,19 @@ public class PromocaoDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
             //return true;
         } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro no cadastro!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -78,11 +87,19 @@ public class PromocaoDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
             //return true;
         } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro no cadastro!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -125,7 +142,7 @@ public class PromocaoDAO {
 
     public Promocao buscaPromocao(String nome) {
         Promocao promocao = null;
-        final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto FROM promocao WHERE nome = ?";
+        final String busca = "SELECT id, nome, data, descricao, cinema_id, desconto, image FROM promocao WHERE nome = ?";
         try {
             //DBConect db = new DBConect();
             Connection conn = database.connect();
@@ -144,14 +161,26 @@ public class PromocaoDAO {
         return promocao;
     }
 
-    private Promocao buscaPromocao(ResultSet resultadoBusca) throws SQLException, ParseException {
+    private Promocao buscaPromocao(ResultSet resultadoBusca) throws SQLException, ParseException, IOException, FileNotFoundException {
         Promocao promocao = new Promocao();
         promocao.setId(resultadoBusca.getInt(1));
         promocao.setNome(resultadoBusca.getString(2));
+        
+        File imageFile = new File("src/img/" + promocao.getNome() + ".png");
+        FileOutputStream fos = new FileOutputStream(imageFile);
+        Blob blob = resultadoBusca.getBlob(7);
+        if (blob != null) {
+            byte b[] = blob.getBytes(1, (int) blob.length());
+            fos.write(b);
+            fos.close();
+            promocao.setImageFile(imageFile);
+        }
+        
         promocao.setData(resultadoBusca.getString(3));
         promocao.setDescricao(resultadoBusca.getString(4));
         promocao.setCinema_id(resultadoBusca.getInt(5));
         promocao.setDesconto(resultadoBusca.getFloat(6));
+        
 
         return promocao;
     }
@@ -174,10 +203,18 @@ public class PromocaoDAO {
             atualizar.executeUpdate();
             atualizar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Atualizado com sucesso!");
+            alert.showAndWait();
         } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro na atualização!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -200,10 +237,18 @@ public class PromocaoDAO {
             atualizar.executeUpdate();
             atualizar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Atualizado com sucesso!");
+            alert.showAndWait();
         } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro na atualização!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -217,11 +262,19 @@ public class PromocaoDAO {
             deletar.executeUpdate();
             deletar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Deletado Com Sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Deletado com sucesso!");
+            alert.showAndWait();
 
         } catch (SQLException ex) {
             // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro na remocção!");
+            alert.showAndWait();
             //return false;
         }
     }

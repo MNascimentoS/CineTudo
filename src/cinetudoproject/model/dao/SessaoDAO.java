@@ -6,8 +6,6 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Assento;
-import cinetudoproject.model.domain.Filme;
 import cinetudoproject.model.domain.Horario;
 import cinetudoproject.model.domain.Sessao;
 import java.sql.Connection;

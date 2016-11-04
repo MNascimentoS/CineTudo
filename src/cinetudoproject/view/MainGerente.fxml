@@ -18,7 +18,7 @@
    <children>
       <ImageView fx:id="bigImage" fitHeight="1511.0" fitWidth="1000.0" layoutY="-265.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../img/angrybirds.jpg" />
+            <Image url="@../../img/não_cadastrado.png" />
          </image>
       </ImageView>
       <JFXToolbar prefHeight="77.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;">
@@ -30,7 +30,7 @@
             </ImageView>
          </center>
          <right>
-            <Text fx:id="usernameLabel" fill="#171717" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="91.2734375" BorderPane.alignment="CENTER">
+            <Text fx:id="usernameLabel" fill="#171717" strokeType="OUTSIDE" strokeWidth="0.0" text="username" translateX="-50.0" wrappingWidth="126.2734375" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>

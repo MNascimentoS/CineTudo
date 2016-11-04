@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,11 +48,19 @@ public class FuncionarioDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro no cadastro!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -72,11 +81,19 @@ public class FuncionarioDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Alterado com sucesso!");
+            alert.showAndWait();
             //return true;
         } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na alteração" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Erro na alteração!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -90,10 +107,18 @@ public class FuncionarioDAO {
             deletar.executeUpdate();
             deletar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Deletado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Deletado com sucesso!");
+            alert.showAndWait();
        } catch (SQLException ex) {
             Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro na remoção!");
+            alert.showAndWait();
             //return false;
         }
     }

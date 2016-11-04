@@ -56,8 +56,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import sun.java2d.loops.MaskFill;
 
 /**
  * FXML Controller class
@@ -260,6 +258,7 @@ public class CadastroSessaoController implements Initializable {
                 }
             }
         });
+        back2main(event);
     }
     
     //recebe as informacoes de usuario

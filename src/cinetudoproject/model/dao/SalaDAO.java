@@ -6,14 +6,9 @@
 package cinetudoproject.model.dao;
 
 import cinetudoproject.model.database.DatabaseMySQL;
-import cinetudoproject.model.domain.Filme;
-import cinetudoproject.model.domain.Genero;
 import cinetudoproject.model.domain.Sala;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,10 +48,18 @@ public class SalaDAO {
             salvar.executeUpdate();
             salvar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Cadastrado com sucesso!");
+            alert.showAndWait();
         } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + SalaDAO.class.getNumero()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro no cadastro" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro no cadastro!");
+            alert.showAndWait();
         }
     }
 
@@ -141,11 +145,19 @@ public class SalaDAO {
             deletar.executeUpdate();
             deletar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Deletado Com Sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Deletado com sucesso!");
+            alert.showAndWait();
 
         } catch (SQLException ex) {
             // Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Errp");
+            alert.setContentText("Erro na remoção!");
+            alert.showAndWait();
             //return false;
         }
     }
@@ -162,10 +174,18 @@ public class SalaDAO {
             atualizar.executeUpdate();
             atualizar.close();
             conn.close();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Sucesso");
+            alert.setContentText("Atualizado com sucesso!");
+            alert.showAndWait();
        } catch (SQLException ex) {
             //Logger.getLogger("Error on: " + FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro na remoção" + "\n" + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Erro");
+            alert.setContentText("Erro na atualização!");
+            alert.showAndWait();
             //return false;
         }
     }
