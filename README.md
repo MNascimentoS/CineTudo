@@ -15,12 +15,12 @@ Passos para rodar o Programa:<br>
  
 O Programa:<br>
  - Sistema de Login:<br>
-  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_1.png" alt="hi" class="inline"/>
+  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_1.png"/>
  - Cadastro de Filmes:<br>
-  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_3.png" alt="hi" class="inline"/>
+  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_3.png"/>
  - Cadastro de Sessões:<br>
-  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_4.png" alt="hi" class="inline"/>
+  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_4.png"/>
  - Interface do Vendedor:<br>
-  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_5.png" alt="hi" class="inline"/>
+  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_5.png"/>
  - Compra de Ingressos:<br>
-  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_6.png" alt="hi" class="inline"/>
+  <img src="https://github.com/MNascimentoS/CineTudo/blob/master/src/img/site_6.png"/>
