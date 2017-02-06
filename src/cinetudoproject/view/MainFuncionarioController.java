@@ -145,7 +145,7 @@ public class MainFuncionarioController implements Initializable {
         PromocaoDAO promocaoDAO = new PromocaoDAO();
         todaPromocao = promocaoDAO.listar();
         
-        if(todaPromocao != null)
+        if(todaPromocao != null && todaPromocao.size() > 0)
         {
             todaPromocao.forEach((i)->{
                 if (cinema.getId() == i.getCinema_id()) {
